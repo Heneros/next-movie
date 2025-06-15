@@ -1,10 +1,7 @@
-import { Metadata } from "next";
+"use client";
 import React from "react";
 
-export const metadata: Metadata = {
-  title: "Blog",
-};
-
-export default function Blog() {
-  return <div>Blog</div>;
+export default function About() {
+  console.log("Hellooooooo");
+  return <div>About 123</div>;
 }
