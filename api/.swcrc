@@ -1,0 +1,74 @@
+{
+    "sourceMaps": false,
+    "module": {
+        "type": "commonjs"
+    },
+    "jsc": {
+        "target": "es2022",
+        "parser": {
+            "syntax": "typescript",
+            "decorators": true,
+            "dynamicImport": true
+        },
+        "transform": {
+            "legacyDecorator": true,
+            "decoratorMetadata": true
+        },
+        "keepClassNames": true,
+        "baseUrl": "./",
+        "paths": {
+            "@/users/*": [
+                "./src/users/*"
+            ],
+            "@/analytics/*": [
+                "./src/analytics/*"
+            ],
+            "@/data/*": [
+                "./src/data/*"
+            ],
+            "@/data": [
+                "./src/data"
+            ],
+            "@/cloudinary/*": [
+                "./src/cloudinary/*"
+            ],
+            "@/auth/*": [
+                "./src/auth/*"
+            ],
+            "@/auth/": [
+                "./src/auth/"
+            ],
+            "@/prisma/*": [
+                "./src/prisma/*"
+            ],
+            "@/mail/*": [
+                "./src/mail/*"
+            ],
+            "@/interfaces/*": [
+                "./src/interfaces/*"
+            ],
+            "@/decorators/*": [
+                "./src/decorators/*"
+            ],
+            "@/interfaces": [
+                "./src/interfaces"
+            ],
+            "@/movies/*": [
+                "./src/movies/*"
+            ],
+            "@/guards/*": [
+                "./src/guards/*"
+            ],
+            "@/redis/*": [
+                "./src/redis/*"
+            ],
+            "@/*": [
+                "./src"
+            ]
+        },
+        "experimental": {
+            "keepImportAttributes": true
+        }
+    },
+    "minify": false
+}

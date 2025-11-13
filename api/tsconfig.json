@@ -1,0 +1,93 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "incremental": true,
+
+    "declaration": false,
+    "sourceMap": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@/users/*": [
+        "./src/users/*"
+      ],
+      "@/analytics/*": [
+        "./src/analytics/*"
+      ],
+      "@/data/*": [
+        "./src/data/*"
+      ],
+      "@/data": [
+        "./src/data"
+      ],
+      "@/cloudinary/*": [
+        "./src/cloudinary/*"
+      ],
+      "@/auth/*": [
+        "./src/auth/*"
+      ],
+      "@/auth/": [
+        "./src/auth/"
+      ],
+      "@/prisma/*": [
+        "./src/prisma/*"
+      ],
+      "@/mail/*": [
+        "./src/mail/*"
+      ],
+      "@/interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@/decorators/*": [
+        "./src/decorators/*"
+      ],
+      "@/interfaces": [
+        "./src/interfaces"
+      ],
+      "@/movies/*": [
+        "./src/movies/*"
+      ],
+      "@/guards/*": [
+        "./src/guards/*"
+      ],
+      "@/redis/*": [
+        "./src/redis/*"
+      ],
+      "@/*": [
+        "./src"
+      ]
+    },
+    "types": [
+      "jest",
+      "express",
+      "express-session",
+      "multer",
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/interfaces",
+    ],
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist"
+  ]
+}

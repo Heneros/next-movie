@@ -1,0 +1,25 @@
+{
+    "Homepage": {
+        "welcome": "Welcome to our movie site!",
+        "trends": "Trends",
+        "seeMore": "See More"
+    },
+    "Trends": {
+        "trends": "Trends",
+        "seeMore": "See More"
+    },
+    "PopularMovies": {
+        "popularmovies": "Popular Movies",
+        "seeMore": "See More"
+    },
+    "Navbar": {
+        "home": "Home",
+        "contactUs": "Contact Us",
+        "faq": "Faq",
+        "movies": "Movies",
+        "profile": "Profile",
+        "admin": "Admin",
+        "logout": "Logout",
+        "registration": "Registration"
+    }
+}
