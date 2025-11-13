@@ -12,7 +12,8 @@ export class UpdateMovieHandler implements ICommandHandler<UpdateMovieCommand> {
     const { movieId, updateMovieDto } = command;
 
     try {
-        
+      const movie = await this.movieRepository.update(movieId, updateMovieDto);
+      return movie;
     } catch (error) {
       throw new BadRequestException('Invalid data format');
     }

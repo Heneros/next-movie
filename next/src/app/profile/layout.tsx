@@ -15,6 +15,7 @@ import Wrapper from '@/components/global/wrapper/Wrapper';
 import SidebarProfile from '@/components/profile/sidebar/SidebarProfile';
 
 
+
 ChartJS.register(
     CategoryScale,
     LinearScale,

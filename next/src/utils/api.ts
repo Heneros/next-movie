@@ -4,9 +4,7 @@ export type Movie = {
     id: string | number;
     title: string;
     description?: string;
-    posterUrl?: string;
-    backdropUrl?: string;
-    imdb?: number;
+    avgRating: number;
     categories?: string[];
     provider?: string;
 };

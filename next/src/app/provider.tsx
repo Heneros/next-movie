@@ -2,7 +2,7 @@
 
 import ThemeSync from "@/components/global/themeToggle/ThemeSync";
 import { ADMIN_ROUTES, EDITOR_ROUTES, PROTECTED_ROUTES } from "@/_data/sites";
-import { AuthGuard } from "@/hooks/authGuard";
+
 import store from "@/redux/store";
 // import { ThemeProvider } from "next-themes";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "lib/graphql/apolloClient";
 
 import { Provider } from "react-redux";
+import { AuthGuard } from "@/hooks/authGuard";
 
 
 export default function Providers({ children }: { children: React.ReactNode }) {
