@@ -18,7 +18,7 @@ export class AvatarRepository extends AbstractRepositoryPrisma<Avatar> {
     return await this.findUnique(userId);
   }
 
-  async createPreview(url: string, publicId: string) {
+  async createPreview(url: string, publicId: string, movieId: number) {
     return await this.create({
       url,
       publicId,

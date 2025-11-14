@@ -5,7 +5,8 @@ export type Movie = {
     title: string;
     description?: string;
     avgRating: number;
-    categories?: string[];
+    year: number;
+    category?: string[];
     provider?: string;
 };
 

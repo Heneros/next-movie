@@ -1,5 +1,6 @@
 import { DOMAIN_BACKEND } from '@/_data/constants'
 import React from 'react'
+import UploadPreviewForm from './UploadPreviewForm'
 
 export default async function MovieEdit({ params }) {
     const { id } = await params
@@ -8,6 +9,9 @@ export default async function MovieEdit({ params }) {
 
     // console.log(data)
     return (
-        <div>{data.title}</div>
+        <div>
+            {data.title}
+            <UploadPreviewForm id={id} />
+        </div>
     )
 }

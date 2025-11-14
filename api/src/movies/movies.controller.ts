@@ -213,7 +213,9 @@ export class MoviesController {
   ) {
     try {
       if (!file) {
-        throw new BadRequestException(`Error during upload file ${file}`);
+        throw new BadRequestException(
+          `Error during upload file ${file} and ${movieId}`,
+        );
       }
 
       const res = this.cloudinaryService.uploadPreview(movieId, file);
@@ -223,7 +225,7 @@ export class MoviesController {
       if (error instanceof BadRequestException) {
         throw error;
       }
-      // console.log('FILE:', error);
+      console.log('FILE:', error);
     }
   }
 

@@ -136,6 +136,8 @@ export class CloudinaryService {
   }
 
   async uploadPreview(movieId: number, file: Express.Multer.File) {
+    if (!file) throw new BadRequestException('No file provided');
+
     const originalName = file.originalname;
     const fileName = path.parse(originalName).name;
     const uniqueFileName = `${fileName}_${Date.now()}`;
@@ -165,35 +167,25 @@ export class CloudinaryService {
       );
       streamifier.createReadStream(file.buffer).pipe(uploadStream);
     });
-
-    const previewId = await this.avatarRepository.createPreview(
-      uploaded.url,
-      uploaded.publicId,
-    );
-
-    if (!previewId) {
-      return `Not found ${movieId}`;
-    }
-    const preview = await this.avatarRepository.createPreview(
-      uploaded.url,
-      uploaded.publicId,
-    );
-
-    const existing = await this.avatarRepository.findFirst({
-      movieId,
+    const findImage = await this.avatarRepository.findFirst({
+      movieId: movieId,
     });
 
-    if (existing) {
-      await this.avatarRepository.update({ id: existing.id }, { movieId });
-      return `Changed ${existing.id}`;
+    if (findImage) {
+      await cloudinary.uploader.destroy(findImage.publicId);
+
+      const res = await this.avatarRepository.update(
+        { movieId: findImage.movieId },
+        { url: uploaded.url, publicId: uploaded.publicId },
+      );
+      return res;
+    } else {
+      return await this.avatarRepository.createPreview(
+        uploaded.url,
+        uploaded.publicId,
+        movieId,
+      );
     }
-    await this.avatarRepository.update({ id: preview.id }, { movieId });
-    // return preview.id;
-    return `Uploaded ${preview.id}`;
-    // await this.avatarRepository.update(
-    //   { id: previewId.id },
-    //   { posterId: movieId },
-    // );
   }
 
   async getImagePreview(movieId: number) {
