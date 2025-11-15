@@ -5,7 +5,7 @@ import ProjectsTable from '@/components/Admin/ProjectsTable/ProjectsTable';
 import RightColumn from '@/components/Admin/RightColumn/RightColumn';
 import TopLocations from '@/components/Admin/TopLocations/TopLocations';
 import TopStats from '@/components/Admin/TopStats/TopStats';
-import TotalUsersChart from '@/components/Admin/TotalUsersChart/TotalUsersChart';
+import TotalUsersChart from '@/components/admin/totalUsersChart/TotalUsersChart';
 import React from 'react';
 
 

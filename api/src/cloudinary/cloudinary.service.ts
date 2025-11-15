@@ -168,17 +168,20 @@ export class CloudinaryService {
       streamifier.createReadStream(file.buffer).pipe(uploadStream);
     });
     const findImage = await this.avatarRepository.findFirst({
-      movieId: movieId,
+      movieId,
     });
 
     if (findImage) {
       await cloudinary.uploader.destroy(findImage.publicId);
 
-      const res = await this.avatarRepository.update(
-        { movieId: findImage.movieId },
-        { url: uploaded.url, publicId: uploaded.publicId },
+      return await this.avatarRepository.update(
+        { id: findImage.id },
+        {
+          url: uploaded.url,
+          publicId: uploaded.publicId,
+        },
       );
-      return res;
+      // return res;
     } else {
       return await this.avatarRepository.createPreview(
         uploaded.url,

@@ -12,6 +12,7 @@ export default function CreateMovie() {
 
         <h1 className="text-2xl text-center flex justify-center m-auto pb-3">        Create Movie</h1>
 
+
         <CreateMovieForm />
 
     </Wrapper>)

@@ -1,10 +1,9 @@
 import { initialValues } from "@/_data/initialValues";
 import { validationSchema } from "@/_data/validationSchema";
 import SmallLoader from "@/components/global/smallLoader/SmallLoader";
-import useImageUpload from "@/hooks/uploadFile";
 import { useCreateMovieMutation, } from "@/redux/movie/moviesApiSlice";
 import { Formik } from "formik";
-import Image from "next/image";
+
 
 
 export default function CreateMovieForm() {

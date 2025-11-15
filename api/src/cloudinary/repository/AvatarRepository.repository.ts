@@ -22,6 +22,7 @@ export class AvatarRepository extends AbstractRepositoryPrisma<Avatar> {
     return await this.create({
       url,
       publicId,
+      movieId,
     });
   }
   async updatePreview(movieId, previewId) {

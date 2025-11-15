@@ -218,7 +218,7 @@ export class MoviesController {
         );
       }
 
-      const res = this.cloudinaryService.uploadPreview(movieId, file);
+      const res = await this.cloudinaryService.uploadPreview(movieId, file);
       // console.log('res', res);
       return res;
     } catch (error) {

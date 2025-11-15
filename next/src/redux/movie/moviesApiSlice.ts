@@ -1,7 +1,6 @@
 import { MovieItem } from '@/interfaces';
 import baseApiSlice from '../api/baseApi';
 
-
 export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAllMovies: builder.query<MovieItem[], number>({
@@ -36,9 +35,9 @@ export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
 
         getPreview: builder.query({
             query: (id) => {
-                console.log('Preview ID received:', id);
+                // console.log('Preview ID received:', id);
                 const url = `/movie/preview/${id}`;
-                console.log('Full URL being requested:', url);
+                // console.log('Full URL being requested:', url);
                 return url;
             },
             keepUnusedDataFor: 60,
@@ -51,10 +50,11 @@ export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
             query: ({ movieId, file }) => {
                 const fm = new FormData();
                 fm.append('file', file);
+                // console.log(fm);
                 return {
-                    url: `preview/${movieId}`,
+                    url: `/movie/preview/${movieId}`,
                     method: 'POST',
-                    body: file,
+                    body: fm,
                 };
             },
         }),

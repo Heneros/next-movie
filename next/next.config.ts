@@ -48,6 +48,12 @@ const nextConfig: NextConfig = {
     },
     transpilePackages: ['lib'],
     // swcMinify: true,
+    logging: {
+        fetches: {
+            hmrRefreshes: true,
+            fullUrl: true,
+        },
+    },
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
