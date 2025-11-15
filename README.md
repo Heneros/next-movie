@@ -69,6 +69,7 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 - UTM tags
 - Parser custom 
 - Video player
+- Create Custom Webhook
 - Share btns in social media(Facebook, Telegram, Viber)
 - Notification module for users(updates, subscribtion to movie news)
 - Temp link for 20 minutes and after expire link deleted himself

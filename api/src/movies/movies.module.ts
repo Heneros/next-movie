@@ -11,6 +11,7 @@ import { CloudinaryService } from '@/cloudinary/cloudinary.service';
 import { AvatarRepository } from '@/cloudinary/repository/AvatarRepository.repository';
 import { RedisService } from '@/redis/redis.service';
 import { RedisModule } from '@/redis/redis.module';
+import { AgentService } from './Agent.service';
 
 @Module({
   imports: [PrismaModule, CqrsModule, RedisModule],
@@ -22,6 +23,7 @@ import { RedisModule } from '@/redis/redis.module';
     CloudinaryService,
     RedisService,
     JwtService,
+    AgentService,
     PrismaService,
   ],
 })

@@ -248,4 +248,7 @@ export class MoviesController {
       }
     }
   }
+
+  @Get('agent-ai')
+  async analyticsAI() {}
 }
