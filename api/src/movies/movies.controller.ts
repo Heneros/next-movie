@@ -14,7 +14,7 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
-import { MOVIE_CONTROLLER, MOVIE_ROUTES } from '../data';
+import { AI_ROUTES, MOVIE_CONTROLLER, MOVIE_ROUTES } from '../data';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   ApiBearerAuth,
@@ -41,6 +41,9 @@ import { Role } from '@/decorators/role.decorator';
 import { CloudinaryService } from '@/cloudinary/cloudinary.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
+import { AgentService } from './agent.service';
+import { Throttle } from '@nestjs/throttler';
+import { ChatRequestDto } from './dto-input/chat-request.dto';
 
 @Controller(MOVIE_CONTROLLER)
 @ApiTags('Movie')
@@ -49,6 +52,7 @@ export class MoviesController {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
     private readonly cloudinaryService: CloudinaryService,
+    private readonly agentService: AgentService,
   ) {}
 
   @Get(MOVIE_ROUTES.GET_ALL)
@@ -249,6 +253,26 @@ export class MoviesController {
     }
   }
 
-  @Get('agent-ai')
-  async analyticsAI() {}
+  @Throttle({ default: { limit: 15, ttl: 60000 } })
+  @Post(AI_ROUTES.SEND_MESSAGE)
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({
+    summary: 'Send chat messages to the AI agent and get assistant reply',
+  })
+  @ApiBody({ type: ChatRequestDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Assistant reply',
+    type: ChatRequestDto,
+  })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async chat(
+    @Body()
+    body: ChatRequestDto,
+  ) {
+    const { messages, model } = body;
+    const text = await this.agentService.chat(messages, model);
+    return text;
+  }
 }

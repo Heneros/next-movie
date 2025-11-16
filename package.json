@@ -1,25 +1,25 @@
 {
-    "dependencies": {
-        "@prisma/client": "^6.16.2"
-    },
-    "scripts": {
-        "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
-        "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
-        "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
-        "next": "npm run dev --prefix next",
-        "server": "npm run start:dev --prefix api",
-        "prisma:migrate": "prisma migrate deploy --schema=api/libs/prisma/schema.prisma",
-        "dev": "concurrently \"npm run server\" \"npm run next\" ",
-        "prisma:build:reset": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate reset --schema=api/libs/prisma/schema.prisma ",
-        "prisma:build": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate dev --schema=api/libs/prisma/schema.prisma ",
-        "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"
-    },
-    "devDependencies": {
-        "@types/node": "^24.10.0",
-        "concurrently": "^9.2.1",
-        "cross-env": "^10.1.0",
-        "prisma": "^6.16.2",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.9.3"
-    }
+  "dependencies": {
+    "@prisma/client": "^6.16.2"
+  },
+  "scripts": {
+    "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
+    "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
+    "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
+    "next": "npm run dev --prefix next",
+    "server": "npm run start:dev --prefix api",
+    "prisma:migrate": "prisma migrate deploy --schema=api/libs/prisma/schema.prisma",
+    "dev": "concurrently \"npm run server\" \"npm run next\" ",
+    "prisma:build:reset": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate reset --schema=api/libs/prisma/schema.prisma ",
+    "prisma:build": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate dev --schema=api/libs/prisma/schema.prisma ",
+    "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "prisma": "^6.16.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
 }

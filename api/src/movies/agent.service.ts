@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InferenceClient } from '@huggingface/inference';
 import { ConfigService } from '@nestjs/config';
+import { Ai_INSTRUCTIONS } from '../data';
 
-const client = new InferenceClient(process.env.HF_TOKEN);
+// const client = new InferenceClient(process.env.HF_TOKEN);
 
 @Injectable()
 export class AgentService {
@@ -22,9 +23,10 @@ export class AgentService {
     this.defaultModel =
       this.config.get<string>('HF_MODEL') || 'google/flan-t5-small';
   }
+
   async chat(
     messages: {
-      role: 'user' | 'editor';
+      role: string;
       content: string;
     }[],
     model?: string,
@@ -38,24 +40,31 @@ export class AgentService {
     try {
       const resp = await this.client.chatCompletion({
         model: usedModel,
-        messages: messages.map((m) => ({
-          role: m.role as any,
-          content: m.content,
-        })),
-      });
+        max_tokens: 105,
+        top_p: 0.6,
+        temperature: 0.9,
+
+        messages: [{ role: 'system', content: Ai_INSTRUCTIONS }],
+
+        // messages: messages.map((m) => ({
+        //   role: m.role as any,
+        //   content: `Create short anwser for post ${m.content}`,
+        // })),
+        repetition_penalty: 1.1,
+        top_k: 50,
+        stream: false,
+      } as any);
+      const choices = resp.choices;
+
+      // console.log(choices);
+      if (choices.length > 0) {
+        const first = choices[0];
+        if (first.message?.content) return first.message.content;
+        if (typeof first.text === 'string') return first.text;
+      }
+      return JSON.stringify(resp);
     } catch (err) {
       throw err;
     }
-
-    // const chatCompletionAnw = await client.chatCompletion({
-    //   model: process.env.HF_MODEL,
-    //   messages: [
-    //     {
-    //       role: 'user',
-    //       content: 'Whats is the capital of France',
-    //     },
-    //   ],
-    // });
-    // return chatCompletionAnw.choices[0].message;
   }
 }

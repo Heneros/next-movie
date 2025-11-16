@@ -77,3 +77,7 @@ export const ANALYTICS_ROUTES = {
   GET_STATS: ':userId/stats',
   GET_TOTAL: ':userId/total',
 } as const;
+
+export const AI_ROUTES = {
+  SEND_MESSAGE: 'ai-assistant',
+} as const;

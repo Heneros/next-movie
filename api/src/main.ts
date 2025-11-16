@@ -11,12 +11,10 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-  
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-
-  
   // console.log(process.env.SECRET_SESSION);
   app.enableCors({
     origin: [domainClient],
@@ -103,8 +101,3 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
-   
-
-
-
-
