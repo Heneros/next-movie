@@ -19,3 +19,9 @@ export interface MovieItem {
     avgRating: number;
     year: number;
 }
+
+
+export interface UpdateMovieArgs {
+    movieId: string;
+    data: Partial<MovieItem>; 
+}

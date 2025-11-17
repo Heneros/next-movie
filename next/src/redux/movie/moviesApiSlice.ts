@@ -1,4 +1,4 @@
-import { MovieItem } from '@/interfaces';
+import { MovieItem, UpdateMovieArgs } from '@/interfaces';
 import baseApiSlice from '../api/baseApi';
 
 export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
@@ -58,6 +58,13 @@ export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
                 };
             },
         }),
+        updateMovie: builder.mutation<MovieItem, UpdateMovieArgs>({
+            query: ({ data, movieId }) => ({
+                url: `/movie/${movieId}`,
+                body: data,
+                method: 'PATCH',
+            }),
+        }),
     }),
 });
 
@@ -67,4 +74,5 @@ export const {
     useGetMovieQuery,
     useCreateMovieMutation,
     useUploadPreviewMutation,
+    useUpdateMovieMutation,
 } = thirdMoviesApiSlice;

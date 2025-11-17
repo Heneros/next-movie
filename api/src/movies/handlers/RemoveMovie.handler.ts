@@ -9,14 +9,6 @@ export class RemoveMovieHandler implements ICommandHandler<RemoveMovieCommand> {
   async execute(command: RemoveMovieCommand) {
     const { movieId } = command;
 
-    // const checkMovie = await this.movieRepository.findByIdUnique(
-    //   Number(movieId),
-    // );
-
-    // if (!checkMovie) {
-    //   throw new NotFoundException(`Not found ${movieId}`);
-    // }
-
     await this.movieRepository.delete({ id: movieId });
 
     return { message: `Movie was deleted`, movieId };

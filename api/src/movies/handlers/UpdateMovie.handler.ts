@@ -9,13 +9,18 @@ export class UpdateMovieHandler implements ICommandHandler<UpdateMovieCommand> {
   constructor(private readonly movieRepository: MovieRepository) {}
 
   async execute(command: UpdateMovieCommand): Promise<Movie> {
-    const { movieId, updateMovieDto } = command;
+    const { movieId: id, updateMovieDto } = command;
 
     try {
-      const movie = await this.movieRepository.update(movieId, updateMovieDto);
+      const movie = await this.movieRepository.update(
+        { id },
+
+        updateMovieDto,
+      );
       return movie;
-    } catch (error) {
-      throw new BadRequestException('Invalid data format');
+    } catch (err) {
+      console.log(err);
+      throw new BadRequestException('Invalid data format', err);
     }
   }
 }

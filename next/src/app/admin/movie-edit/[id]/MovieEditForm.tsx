@@ -7,6 +7,10 @@ export default function MovieEditForm({ movieItem }: { movieItem: MovieItem }) {
     //    const 
 
     return (
-        <div>MovieEditForm</div>
+        <div>
+
+            {movieItem.title}
+            
+        </div>
     )
 }

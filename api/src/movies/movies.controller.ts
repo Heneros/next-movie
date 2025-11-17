@@ -30,7 +30,11 @@ import {
 import { MovieEntity } from './entities/movie.entity';
 import { FindAllMovieQuery, GetIdMovieQuery } from './queries';
 import { Movie } from '@prisma/client';
-import { CreateMovieCommand, RemoveMovieCommand } from './commands';
+import {
+  CreateMovieCommand,
+  RemoveMovieCommand,
+  UpdateMovieCommand,
+} from './commands';
 import { CreateMovieDto } from './dto-input/create-movie.dto';
 import { User } from '@/decorators/user.decorator';
 import type { User as UseType } from '../interfaces';
@@ -44,6 +48,7 @@ import { memoryStorage } from 'multer';
 import { AgentService } from './agent.service';
 import { Throttle } from '@nestjs/throttler';
 import { ChatRequestDto } from './dto-input/chat-request.dto';
+import { UpdateMovieDto } from './dto-input/update-movie.dto';
 
 @Controller(MOVIE_CONTROLLER)
 @ApiTags('Movie')
@@ -102,6 +107,31 @@ export class MoviesController {
       new RemoveMovieCommand(movieId),
     );
     return movie;
+    // return plainToInstance(MovieEntity, movie);
+  }
+
+  @Patch(MOVIE_ROUTES.UPDATE_MOVIE)
+  @ApiOperation({
+    summary: 'Update movie by id.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: `Movie updated successfully!`,
+  })
+  @ApiResponse({
+    status: 400,
+    description: `Invalid data!`,
+  })
+  @ApiOkResponse({ type: MovieEntity })
+  async updateMovie(
+    @Param('movieId', ParseIntPipe, CheckMovieExistPipe) movieId: number,
+    @Body() updateMovieDto: UpdateMovieDto,
+  ) {
+    const movie = await this.commandBus.execute(
+      new UpdateMovieCommand(movieId, updateMovieDto),
+    );
+    return movie;
+
     // return plainToInstance(MovieEntity, movie);
   }
 
