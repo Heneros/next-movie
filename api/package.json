@@ -9,7 +9,7 @@
     "build:swc": "npx swc --out-dir dist -w src",
     "start:swc": "nodemon dist/src/main",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start:dev": "concurrently \"npm run build:swc\" \"npm run start:swc\"",
+    "start:dev": "concurrently \"pnpm run build:swc\" \"pnpm run start:swc\"",
     "build": "nest build",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",

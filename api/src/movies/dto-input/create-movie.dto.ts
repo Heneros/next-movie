@@ -54,12 +54,12 @@ export class CreateMovieDto {
   @ApiProperty({ required: false })
   year?: number;
 
-  @Field(() => Int, { nullable: true, description: 'id' })
-  @IsNumber()
-  @IsOptional()
-  @Type(() => Number)
-  @ApiProperty({ required: false })
-  id?: number;
+  // @Field(() => Int, { nullable: true, description: 'id' })
+  // @IsNumber()
+  // @IsOptional()
+  // @Type(() => Number)
+  // @ApiProperty({ required: false })
+  // id?: number;
 
   @Field(() => String, { nullable: false, description: 'slug' })
   @IsString()

@@ -1,4 +1,4 @@
-import { MovieItem, UpdateMovieArgs } from '@/interfaces';
+import { MovieItem, MovieItemUpdate, UpdateMovieArgs } from '@/interfaces';
 import baseApiSlice from '../api/baseApi';
 
 export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
@@ -27,7 +27,7 @@ export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
         }),
         getMovie: builder.query<MovieItem, number>({
             query: (id: number) => `/movie/${id}`,
-            keepUnusedDataFor: 60,
+            // keepUnusedDataFor: 60,
             providesTags: (result, error, id) => [
                 { type: 'Movie' as const, id },
             ],
@@ -58,12 +58,16 @@ export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
                 };
             },
         }),
-        updateMovie: builder.mutation<MovieItem, UpdateMovieArgs>({
-            query: ({ data, movieId }) => ({
+        updateMovie: builder.mutation({
+            query: ({ movieId, data }) => ({
                 url: `/movie/${movieId}`,
                 body: data,
                 method: 'PATCH',
             }),
+            invalidatesTags: (result, error, { movieId }) => [
+                { type: 'Movie', id: movieId },
+                { type: 'Movie', id: 'LIST' },
+            ],
         }),
     }),
 });

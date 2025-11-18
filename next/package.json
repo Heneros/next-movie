@@ -11,7 +11,7 @@
         "start": "next start -p 3001",
         "next": "next",
         "build": "next build",
-        "build-full": "npm run prisma:build  && next build",
+        "build-full": "pnpm run prisma:build  && next build",
         "lint": "next lint",
         "lint:fix": "next lint --fix",
         "format": "prettier --write .",

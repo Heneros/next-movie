@@ -8,5 +8,6 @@ export const validationSchema = Yup.object().shape({
         .of(Yup.string())
         .min(1, 'Select at least one category'),
     year: Yup.number(),
+
     // publish: Yup.boolean(),
 });

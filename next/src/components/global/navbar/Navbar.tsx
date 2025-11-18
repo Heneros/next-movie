@@ -3,7 +3,7 @@
 import { useAuthMeQuery, useLogoutMutation } from "@/redux/auth/authApiSlice";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { AuthModal } from "../../auth/AuthModal/AuthModalAndNavBar";
+import { AuthModal } from "../../auth/authModal/AuthModalAndNavBar";
 import { useAppDispatch } from "@/redux/hooks";
 import { logOut } from "@/redux/auth/authSlice";
 import { AbstractIntlMessages, useTranslations } from "next-intl";

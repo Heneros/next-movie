@@ -3,23 +3,28 @@ import { UpdateMovieCommand } from '../commands';
 import { BadRequestException, Inject } from '@nestjs/common';
 import { MovieRepository } from '../repository/Movie.repository';
 import { Movie } from '@prisma/client';
+import { RedisService } from '@/redis/redis.service';
 
 @CommandHandler(UpdateMovieCommand)
 export class UpdateMovieHandler implements ICommandHandler<UpdateMovieCommand> {
-  constructor(private readonly movieRepository: MovieRepository) {}
+  constructor(
+    private readonly redisService: RedisService,
+    private readonly movieRepository: MovieRepository,
+  ) {}
 
   async execute(command: UpdateMovieCommand): Promise<Movie> {
-    const { movieId: id, updateMovieDto } = command;
+    const { movieId, updateMovieDto } = command;
 
     try {
       const movie = await this.movieRepository.update(
-        { id },
-
+        { id: movieId },
         updateMovieDto,
       );
+      await this.redisService.deleteMovieCache(movieId);
+
       return movie;
     } catch (err) {
-      console.log(err);
+      console.error(err);
       throw new BadRequestException('Invalid data format', err);
     }
   }

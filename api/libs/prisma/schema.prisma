@@ -82,7 +82,7 @@ model ProfileVisit {
 
 model Movie {
   id            Int       @id @default(autoincrement())
-   title     String @unique
+   title     String 
   description   String?
   slug          String    @unique
   year          Int?

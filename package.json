@@ -6,10 +6,10 @@
     "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
     "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
     "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
-    "next": "npm run dev --prefix next",
-    "server": "npm run start:dev --prefix api",
     "prisma:migrate": "prisma migrate deploy --schema=api/libs/prisma/schema.prisma",
-    "dev": "concurrently \"npm run server\" \"npm run next\" ",
+    "server": "pnpm --prefix ./api run start:dev",
+    "next": "pnpm --prefix ./next run dev",
+    "dev": "concurrently \"pnpm --prefix ./api run start:dev\" \"pnpm --prefix ./next run dev\"",
     "prisma:build:reset": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate reset --schema=api/libs/prisma/schema.prisma ",
     "prisma:build": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate dev --schema=api/libs/prisma/schema.prisma ",
     "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"

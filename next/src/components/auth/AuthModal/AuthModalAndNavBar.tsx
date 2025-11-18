@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import LoginForm from "../LoginForm/LoginForm";
-import RegisterForm from "../RegisterForm/RegisterForm";
-import ResetPasswordForm from "../ResetPassword/ResetPassword";
+import LoginForm from "../loginForm/LoginForm";
+import RegisterForm from "../registerForm/RegisterForm";
+import ResetPasswordForm from "../resetPassword/ResetPassword";
 
 
 type AuthMode = "login" | "reset" | "register";

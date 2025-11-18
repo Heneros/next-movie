@@ -59,18 +59,21 @@
     },
     "include": [
         "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
+        "src/**/*",
         ".next/types/**/*.ts",
         "jest.config.js",
         "babel.config.js"
     ],
     "exclude": [
         "node_modules",
+        ".next",
         "dist",
         "build",
-        ".next",
         "out",
+        ".git",
+        "tmp",
+        "public",
+        "coverage",
         "ignore"
     ]
 }

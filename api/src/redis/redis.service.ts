@@ -20,11 +20,15 @@ export class RedisService {
     return `${prefix}:${page}`;
   }
 
-  async saveMovies(page: string, data: any): Promise<void> {
+  async saveMovies(
+    page: string,
+    data: any,
+    ttl: number = CACHE_TTL.ONE_MINUTE,
+  ): Promise<void> {
     const key = this.makeKey(RedisPrefixEnum.MOVIE_LIST, page);
     const value = JSON.stringify(data);
     await this.redis.set(key, value);
-    await this.redis.expire(key, CACHE_TTL.ONE_MINUTE);
+    await this.redis.expire(key, ttl);
   }
 
   async deleteMovies(page: string): Promise<void> {
@@ -65,11 +69,12 @@ export class RedisService {
     return null;
   }
 
-  async saveMovie(id: number, data) {
+  async saveMovie(id: number, data, ttl: number = CACHE_TTL.FIVE_MINUTE) {
     const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
     const value = JSON.stringify(data);
 
     const result = await this.redis.set(key, value);
+    await this.redis.expire(key, ttl);
     if (result) {
       return result;
     }
@@ -77,5 +82,8 @@ export class RedisService {
     return null;
   }
 
-  
+  async deleteMovieCache(id: number): Promise<void> {
+    const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
+    await this.redis.del(key);
+  }
 }

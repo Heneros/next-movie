@@ -3,25 +3,31 @@ export interface Actor {
     name: string;
     role?: string;
 }
+export interface MovieItemUpdate {
+    title: string;
+    description: string;
+    category: string[];
+    year: number;
+    published: boolean;
+}
 
 export interface MovieItem {
-    id: number;
+    id?: number;
     title: string;
     description: string;
     category: string[];
     published: boolean;
-    createdAt: string;
-    updatedAt: string;
-    authorId: number;
+    createdAt?: string;
+    updatedAt?: string;
+    authorId?: number;
     previewId: number | null;
     actorsList: Actor[];
-    galleryId: number | null;
+    galleryId?: number | null;
     avgRating: number;
     year: number;
 }
 
-
 export interface UpdateMovieArgs {
-    movieId: string;
-    data: Partial<MovieItem>; 
+    movieId: number;
+    data: Partial<MovieItem>;
 }
