@@ -60,10 +60,10 @@ export class MovieRepository extends AbstractRepositoryPrisma<Movie> {
     });
   }
 
-  async findAllMovie(skip: number) {
+  async findAllMovie(skip: number, take: number) {
     return await this.model.findMany({
       skip,
-      take: PAGINATION_LIMIT,
+      take,
       orderBy: {
         id: 'asc',
       },

@@ -3,7 +3,7 @@ export const initialValues = {
     description: '',
     category: [],
     slug: '',
-    preview: '',
+    // preview: '',
     // publish: '',
     year: 0,
 };

@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
@@ -51,26 +52,38 @@ async function main() {
     },
   ];
 
-  for (const m of moviesData) {
-    const created = await prisma.movie.upsert({
-      where: { slug: m.slug },
-      update: {},
-      create: {
-        title: m.title,
-        description: m.description,
-        slug: m.slug,
-        year: m.year,
-        category: m.category,
-        published: m.published,
-        rating: m.rating,
-        avgRating: m.avgRating,
-        author: {
-          connect: { id: user.id },
+  const moviePromises = [];
+
+  for (let i = 0; i < 12; i++) {
+    const title = faker.lorem.words({ min: 2, max: 4 });
+    const slug = faker.helpers.slugify(title).toLowerCase();
+
+    const categories = faker.helpers.arrayElements(
+      ['Action', 'Drama', 'Comedy', 'Horror', 'Sci-Fi', 'Fantasy', 'Thriller'],
+      faker.number.int({ min: 1, max: 3 }), 
+    );
+
+    moviePromises.push(
+      prisma.movie.create({
+        data: {
+          title: title,
+          description: faker.lorem.sentence(),
+          slug: slug,
+          year: faker.number.int({ min: 1950, max: 2025 }),
+          category: categories, 
+          author: {
+            connect: { id: user.id },
+          },
         },
-      },
-    });
-    console.log('Movie ready:', created.title, 'id:', created.id);
+      }),
+    );
   }
+
+  const movies = await Promise.all(moviePromises);
+
+  movies.forEach((movie) => {
+    console.log('Movie ready:', movie.title, 'id:', movie.id);
+  });
   console.log('Seeding finished.');
 }
 

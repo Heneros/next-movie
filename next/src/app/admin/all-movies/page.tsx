@@ -1,10 +1,24 @@
-import { getTrends } from "@/utils/api"
+import { MovieItem } from "@/interfaces";
+import { getTrends, } from "@/utils/api"
 import Link from "next/link"
 import { Suspense } from "react"
 
-export default async function AllMovies() {
-    const movies = await getTrends()
+interface Props {
+    searchParams?: { page?: string; limit?: string; q?: string };
 
+}
+
+export default async function AllMovies({ searchParams }: Props) {
+    const page = Math.max(1, Number(searchParams?.page ?? 1))
+    const limit = Math.max(1, Number(searchParams?.limit ?? 20));
+    const q = searchParams?.q ?? "";
+    const { movies, total } = await getTrends({ page, limit, q })
+
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+    const start = (page - 1) * limit + 1;
+    const end = Math.min(total, page * limit);
+
+    console.log(movies)
     return (
         <>
             <Suspense fallback={'Loading...'}>
@@ -29,7 +43,7 @@ export default async function AllMovies() {
                         </tr>
                     </thead>
                     <tbody>
-                        {movies.map((movie) => (
+                        {movies?.map((movie: MovieItem) => (
                             <tr key={movie.id}>
                                 <td className="text-center text-lg border border-gray-300 dark:border-gray-700 py-4">
                                     {movie.id}

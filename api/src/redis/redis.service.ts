@@ -81,7 +81,9 @@ export class RedisService {
 
     return null;
   }
+  
 
+  
   async deleteMovieCache(id: number): Promise<void> {
     const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
     await this.redis.del(key);

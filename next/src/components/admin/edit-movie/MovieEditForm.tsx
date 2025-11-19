@@ -11,9 +11,23 @@ const getInitialValues = (movie: MovieItem) => {
         title: movie.title || '',
         description: movie.description || '',
         year: movie.year,
-        category: movie.category
-
+        // category: movie.category || ['']
+        category: Array.isArray(movie.category)
+            ? movie.category.join(', ')
+            : movie.category || '',
+        published: movie.published || false
     }
+}
+
+
+const formCategories = (categoryInput: string | string[]) => {
+    if (Array.isArray(categoryInput)) {
+        return categoryInput
+    }
+    return categoryInput
+        .split(",")
+        .map(cat => cat.trim())
+        .filter(cat => cat.length > 0)
 }
 
 export default function MovieEditForm({ movieItem }: { movieItem: MovieItem }) {
@@ -35,9 +49,13 @@ export default function MovieEditForm({ movieItem }: { movieItem: MovieItem }) {
                 onSubmit={async (values,
                     { setSubmitting, setStatus, resetForm },) => {
                     try {
+                        const formData = {
+                            ...values,
+                            category: formCategories(values.category)
+                        }
                         await updateMovie({
                             movieId: movieItem.id,
-                            data: values
+                            data: formData
                         }).unwrap()
                         setStatus({ success: true });
                     } catch (error) {
@@ -119,7 +137,21 @@ export default function MovieEditForm({ movieItem }: { movieItem: MovieItem }) {
                             />
 
                         </div>
+                        <div className="flex flex-row justify-between">
+                            <label htmlFor='published' className=" font-extrabold text-2xl mb-1">
+                                Published?
+                            </label>
+                            <input
+                                type="checkbox"
+                                id="published"
+                                name="published"
+                                checked={values.published || false}
 
+                                onChange={handleChange}
+                                className=" dark:text-white  border rounded-md p-2  focus:outline-none focus:ring-2 focus:ring-indigo-400 border-gray-400"
+                            />
+
+                        </div>
                         <div className="flex items-center flex-col gap-3 my-5 ">
                             <button
                                 type="submit"

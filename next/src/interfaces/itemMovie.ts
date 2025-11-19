@@ -12,7 +12,7 @@ export interface MovieItemUpdate {
 }
 
 export interface MovieItem {
-    id?: number;
+    id: number;
     title: string;
     description: string;
     category: string[];
@@ -26,7 +26,15 @@ export interface MovieItem {
     avgRating: number;
     year: number;
 }
-
+export type Movie = {
+    id: string | number;
+    title: string;
+    description?: string;
+    avgRating: number;
+    year: number;
+    category?: string[];
+    provider?: string;
+};
 export interface UpdateMovieArgs {
     movieId: number;
     data: Partial<MovieItem>;

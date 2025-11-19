@@ -13,6 +13,7 @@ import {
   BadRequestException,
   UploadedFile,
   UseInterceptors,
+  DefaultValuePipe,
 } from '@nestjs/common';
 import { AI_ROUTES, MOVIE_CONTROLLER, MOVIE_ROUTES } from '../data';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -69,8 +70,10 @@ export class MoviesController {
     type: Number,
   })
   @ApiOkResponse({ type: MovieEntity, isArray: true })
-  async getAllMovies(@Query('page') skip?: number) {
-    const movies = await this.queryBus.execute(new FindAllMovieQuery(skip));
+  async getAllMovies(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+  ) {
+    const movies = await this.queryBus.execute(new FindAllMovieQuery(page));
 
     return movies.map((movie: Movie) => new MovieEntity(movie));
   }

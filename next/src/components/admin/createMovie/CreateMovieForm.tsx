@@ -2,13 +2,13 @@ import { initialValues } from "@/_data/initialValues";
 import { validationSchema } from "@/_data/validationSchema";
 import SmallLoader from "@/components/global/smallLoader/SmallLoader";
 import { useCreateMovieMutation, } from "@/redux/movie/moviesApiSlice";
+import getErrorMessage from "@/utils/getErrorMessage";
 import { Formik } from "formik";
 
 
 
 export default function CreateMovieForm() {
-    const [createMovie, { isLoading, isSuccess, isError, }] = useCreateMovieMutation()
-    let error;
+    const [createMovie, { isLoading, isSuccess, isError, error }] = useCreateMovieMutation()
 
     return (<>
 
@@ -16,10 +16,8 @@ export default function CreateMovieForm() {
         {isLoading ? (<SmallLoader />) :
             isError ? (<>
                 <p>
-                    {'Failed to load form '}
-                    {error}
+                    {getErrorMessage(error)}
                 </p>
-
             </>) : (<>
                 <Formik
                     enableReinitialize
@@ -33,7 +31,7 @@ export default function CreateMovieForm() {
 
                         } catch (err: any) {
                             const error =
-                                err.data?.message || 'Error updating profile';
+                                err.data?.message || 'Error creating movie';
                             console.log(error)
 
                         }
@@ -140,10 +138,6 @@ export default function CreateMovieForm() {
                                             <p id="category-error" className="mt-1 text-sm text-red-600">{errors.category}</p>
                                         )}
                                     </div>
-
-                                    ``
-
-
 
                                     <button type="submit"
                                         disabled={isLoading || isSubmitting}

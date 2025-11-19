@@ -9,6 +9,8 @@ import {
 import { FindAllMovieQuery } from '../queries';
 import { RedisRepository } from '@/redis/redis.repository';
 import { RedisService } from '@/redis/redis.service';
+import { CACHE_TTL } from '@/data/ttl';
+import { PAGINATION_LIMIT } from '@/data/defaultVariables';
 
 @QueryHandler(FindAllMovieQuery)
 export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
@@ -18,20 +20,27 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
   ) {}
 
   async execute(query: FindAllMovieQuery) {
-    const { skip } = query;
-
+    const { page } = query;
+    const skip = (page - 1) * PAGINATION_LIMIT;
     try {
       const movieCached = await this.redisService.getMovies(String(skip));
       if (movieCached) {
         return JSON.parse(movieCached);
       }
 
-      const allMovies = await this.movieRepository.findAllMovie(Number(skip));
+      const allMovies = await this.movieRepository.findAllMovie(
+        Number(skip),
+        PAGINATION_LIMIT,
+      );
 
       if (allMovies.length === 0) {
         throw new NotFoundException('No movies Exist');
       }
-      await this.redisService.saveMovies(String(skip), allMovies);
+      await this.redisService.saveMovies(
+        String(page),
+        allMovies,
+        CACHE_TTL.ONE_MINUTE,
+      );
 
       return allMovies;
     } catch (error: unknown) {

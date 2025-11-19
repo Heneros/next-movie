@@ -58,7 +58,7 @@ export const thirdMoviesApiSlice = baseApiSlice.injectEndpoints({
                 };
             },
         }),
-        updateMovie: builder.mutation({
+        updateMovie: builder.mutation<MovieItem, UpdateMovieArgs>({
             query: ({ movieId, data }) => ({
                 url: `/movie/${movieId}`,
                 body: data,
