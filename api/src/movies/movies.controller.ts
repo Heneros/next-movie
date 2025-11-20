@@ -15,7 +15,12 @@ import {
   UseInterceptors,
   DefaultValuePipe,
 } from '@nestjs/common';
-import { AI_ROUTES, MOVIE_CONTROLLER, MOVIE_ROUTES } from '../data';
+import {
+  AI_ROUTES,
+  MOVIE_CONTROLLER,
+  MOVIE_ROUTES,
+  PAGINATION_LIMIT,
+} from '../data';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   ApiBearerAuth,
@@ -72,10 +77,18 @@ export class MoviesController {
   @ApiOkResponse({ type: MovieEntity, isArray: true })
   async getAllMovies(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(PAGINATION_LIMIT), ParseIntPipe)
+    limit: number,
   ) {
-    const movies = await this.queryBus.execute(new FindAllMovieQuery(page));
-
-    return movies.map((movie: Movie) => new MovieEntity(movie));
+    page = Math.max(1, page);
+    limit = Math.max(1, Math.min(limit, 100));
+    const offset = (page - 1) * limit;
+    const movies = await this.queryBus.execute(
+      new FindAllMovieQuery(offset, limit, page),
+    );
+  return movies;
+    // console.log(movies);
+    // return movies.map((movie: Movie) => new MovieEntity(movie));
   }
 
   @Get(MOVIE_ROUTES.GET_ID_MOVIE)

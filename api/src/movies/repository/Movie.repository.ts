@@ -60,14 +60,24 @@ export class MovieRepository extends AbstractRepositoryPrisma<Movie> {
     });
   }
 
-  async findAllMovie(skip: number, take: number) {
-    return await this.model.findMany({
-      skip,
-      take,
-      orderBy: {
-        id: 'asc',
-      },
-    });
+  async findAllMovie(offset: number, limit: number) {
+    const [data, total] = await this.prisma.$transaction([
+      this.model.findMany({
+        skip: offset,
+        take: limit,
+        orderBy: { id: 'asc' },
+      }),
+      this.model.count(),
+    ]);
+    return [data, total] as const;
+
+    // return await this.model.findMany({
+    //   skip,
+    //   take,
+    //   orderBy: {
+    //     id: 'asc',
+    //   },
+    // });
   }
   //   async removeMovie(id: number) {
   //     const movie = Promise.all([

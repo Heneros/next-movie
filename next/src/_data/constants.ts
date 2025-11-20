@@ -4,7 +4,7 @@ export const isDev = process.env.NODE_ENV === 'production' ? false : BASE_URL;
 
 export const NEST_API = process.env.NEXT_PUBLIC_NEST_API;
 
-export const DOMAIN_BACKEND = process.env.DOMAIN_BACKEND;
+export const DOMAIN_BACKEND = process.env.NEXT_PUBLIC_DOMAIN_BACKEND;
 
 export const MAX_SIZE_IMG = parseInt(
     process.env.NEXT_PUBLIC_MAX_SIZE_IMAGE!,
