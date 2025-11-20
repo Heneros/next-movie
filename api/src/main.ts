@@ -20,7 +20,8 @@ async function bootstrap() {
     origin: [domainClient],
     credentials: true,
   });
-
+ 
+  
   app.enableShutdownHooks();
 
   app.use(cookieParser());

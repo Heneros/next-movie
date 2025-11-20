@@ -1,0 +1,7 @@
+packages:
+  - "api"
+  - "next"
+ignoredBuiltDependencies:
+  - '@prisma/client'
+  - '@prisma/engines'
+  - prisma

@@ -2,6 +2,8 @@
   "dependencies": {
     "@prisma/client": "^6.16.2"
   },
+  "name": "next-movie",
+  "private": true,
   "scripts": {
     "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
     "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
