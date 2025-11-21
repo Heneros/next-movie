@@ -18,7 +18,7 @@ import { plainToInstance } from 'class-transformer';
 import { UserEntity } from './entity/User.entity';
 import { GetAllUsersQuery } from './queries/GetAllUsers.query';
 import { Role } from '@/decorators/role.decorator';
-import { RolesGuard } from '@/guards/roles.guard';
+// import { RolesGuard } from '@/guards/roles.guard';
 import {
   ApiBearerAuth,
   ApiCookieAuth,
@@ -29,10 +29,11 @@ import {
 } from '@nestjs/swagger';
 import { ProfileOwnerGuard } from '@/guards/profile-owner.guard';
 import { CheckUserExistPipe } from 'src/pipe/CheckUserExistPipe.pipe';
-import { UpdateUserDto } from './dto/update-profile';
+// import { UpdateUserDto } from './dto/update-profile';
 import { UpdateProfileCommand } from './commands/UpdateProfile.command';
 import { UserInterceptor } from 'src/interceptors/User.interceptor';
 import { GetProfileQuery } from './queries/GetProfile.query';
+import { UpdateUserRole } from './dto/update-user-role.dto';
 
 @Controller(USERS_CONTROLLER)
 export class UsersController {
@@ -44,7 +45,7 @@ export class UsersController {
 
   @UseInterceptors(UserInterceptor)
   @Get(USERS_ROUTES.GET_ALL)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Role('ADMIN')
   @ApiCookieAuth('cookie-auth')
   @ApiOperation({ summary: 'For admin. Get All User' })
@@ -69,7 +70,7 @@ export class UsersController {
   @ApiCreatedResponse({ type: UserEntity })
   async update(
     @Param('userId', CheckUserExistPipe) userId: number,
-    @Body() updateUserDto: UpdateUserDto,
+    @Body() updateUserDto: UpdateUserRole,
   ) {
     const result = await this.commandBus.execute(
       new UpdateProfileCommand(userId, updateUserDto),
