@@ -1,79 +1,80 @@
 {
-    "compilerOptions": {
-        "target": "ES2017",
-        "module": "esnext",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ],
-        "baseUrl": ".",
-        "ignoreDeprecations": "6.0",
-        "tsBuildInfoFile": "./.tsbuildinfo",
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "moduleResolution": "bundler",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "incremental": true,
-        "noEmit": false,
-        "sourceMap": false,
-        "noImplicitAny": false,
-        "experimentalDecorators": true,
-        "strictPropertyInitialization": false,
-        "emitDecoratorMetadata": true,
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ],
-        "paths": {
-            "@/*": [
-                "./src/*"
-            ],
-            "lib/*": [
-                "./lib/*"
-            ],
-            "redux/*": [
-                "./redux/"
-            ],
-            "assets/*": [
-                "./assets/"
-            ],
-            "app/*": [
-                "./app/"
-            ],
-            "interfaces/*": [
-                "./interfaces/"
-            ],
-            "data/*": [
-                "./data/"
-            ],
-            "components/*": [
-                "./components/"
-            ]
-        }
-    },
-    "include": [
-        "next-env.d.ts",
-        "src/**/*",
-        ".next/types/**/*.ts",
-        "jest.config.js",
-        "babel.config.js"
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "exclude": [
-        "node_modules",
-        ".next",
-        "dist",
-        "build",
-        "out",
-        ".git",
-        "tmp",
-        "public",
-        "coverage",
-        "ignore"
-    ]
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "tsBuildInfoFile": "./.tsbuildinfo",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "noEmit": false,
+    "sourceMap": false,
+    "noImplicitAny": false,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "lib/*": [
+        "./lib/*"
+      ],
+      "redux/*": [
+        "./redux/"
+      ],
+      "assets/*": [
+        "./assets/"
+      ],
+      "app/*": [
+        "./app/"
+      ],
+      "interfaces/*": [
+        "./interfaces/"
+      ],
+      "data/*": [
+        "./data/"
+      ],
+      "components/*": [
+        "./components/"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "src/**/*",
+    ".next/types/**/*.ts",
+    "jest.config.js",
+    "babel.config.js",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    "build",
+    "out",
+    ".git",
+    "tmp",
+    "public",
+    "coverage",
+    "ignore"
+  ]
 }

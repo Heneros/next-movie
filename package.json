@@ -1,9 +1,22 @@
 {
   "dependencies": {
-    "@prisma/client": "^6.16.2"
+    "@prisma/client": "^6.16.2",
+    "next": "16.0.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "name": "next-movie",
   "private": true,
+  "workspaces": [
+    "api",
+    "next",
+    "my-app"
+  ],
+  "pnpm": {
+    "overrides": {
+      "next": "16.0.3"
+    }
+  },
   "scripts": {
     "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
     "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
@@ -17,7 +30,7 @@
     "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"
   },
   "devDependencies": {
-    "@types/node": "^24.10.0",
+    "@types/node": "^24.10.1",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "prisma": "^6.16.2",

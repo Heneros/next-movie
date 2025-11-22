@@ -1,11 +1,12 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import path from 'path';
 
 const nextConfig: NextConfig = {
-    // i18n: {
-    //     locales: ['en-US', 'de'],
-    //     defaultLocale: 'en-US',
-    // },
+    turbopack: {
+        root: path.resolve(__dirname, '..'),
+    },
+
     reactStrictMode: true,
     images: {
         remotePatterns: [
@@ -47,7 +48,6 @@ const nextConfig: NextConfig = {
         return config;
     },
     transpilePackages: ['lib'],
-    // swcMinify: true,
     logging: {
         fetches: {
             hmrRefreshes: true,
@@ -57,13 +57,8 @@ const nextConfig: NextConfig = {
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-    typescript: { ignoreBuildErrors: true },
-    experimental: {
-        // forceSwcTransforms: true,
 
+    experimental: {
         externalDir: true,
     },
 };
