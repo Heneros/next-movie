@@ -14,6 +14,8 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
 
+
+
     const messages = await getMessages();
     const locale = await getLocale();
     return (

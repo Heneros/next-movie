@@ -2,11 +2,11 @@ import { DOMAIN_BACKEND } from '@/_data/constants';
 import { Movie } from '@/interfaces';
 export type MoviesResponse = {
     data: Movie[];
-
+    movies?: Movie[];
     total: number;
 };
 
-export async function getTrends({
+export async function getMovies({
     page = 1,
     limit = 10,
     q = '',

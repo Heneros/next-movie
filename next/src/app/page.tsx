@@ -10,7 +10,7 @@ import CookieConsent from "@/components/global/cookieConsent/CookieConsent";
 import { Metadata } from "next";
 import PopularMovies from "@/components/homepage/popularMovies/PopularMovies";
 
-import { getTrends } from "@/utils/api";
+import { getMovies } from "@/utils/api";
 import PopularMoviesClient from "@/components/homepage/popularMovies/PopularMoviesClient";
 
 
@@ -52,18 +52,26 @@ const metadata: Metadata = {
 export default async function Home() {
 
     let movies;
+    let total
+    let moviesResp
     try {
-        movies = await getTrends();
+        // moviesResp = await getMovies();
+        // const { movies, total } = moviesResp;
+        // return movies, total
+        moviesResp = await getMovies();
+        movies = moviesResp.movies || [];
+        total = moviesResp.total || 0;
+        console.log(moviesResp)
     } catch (err) {
-        console.error('getTrends error', err);
-        movies = [];
+        console.error('getMovies error', err);
+        moviesResp = [];
     }
 
     return (
         <>
             <MovieCarousel movies={demoMovies} />
             <div className="trends ">
-                <Trends trends={movies} />
+                <Trends movies={movies} />
             </div>
 
             <section className="popular-movies ">

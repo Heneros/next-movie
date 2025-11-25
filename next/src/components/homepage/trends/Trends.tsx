@@ -13,8 +13,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 
 
-export default function Trends({ trends }: { trends: MovieItem[] }) {
+export default function Trends({ movies }: { movies: MovieItem[] }) {
     const t = useTranslations("Homepage")
+
+
 
     return (
         <section className='w-full '>
@@ -47,8 +49,8 @@ export default function Trends({ trends }: { trends: MovieItem[] }) {
                     1280: { slidesPerView: 5.2 },
                 }}
             >
-                {trends.map((info) => (
-                    <SwiperSlide key={info.id} className="!w-auto relative">
+                {movies.map((info) => (
+                    <SwiperSlide key={info.id} className="w-auto relative">
                         <MovieCard info={info} />
                     </SwiperSlide>
 

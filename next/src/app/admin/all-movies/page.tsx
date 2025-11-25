@@ -1,5 +1,5 @@
 
-import { getTrends } from '@/utils/api';
+import { getMovies } from '@/utils/api';
 import Link from 'next/link';
 import type { Movie } from '@/interfaces';
 
@@ -10,13 +10,13 @@ interface Props {
 export default async function AllMovies({ searchParams }: Props) {
     const page = Math.max(1, Number(searchParams?.page ?? 1));
     const limit = Math.max(1, Number(searchParams?.limit ?? 10));
-    const q = searchParams?.q ?? '';
+    const q = await searchParams?.q ?? '';
 
     let moviesResp;
     try {
-        moviesResp = await getTrends({ page, limit, q });
+        moviesResp = await getMovies({ page, limit, q });
     } catch (err) {
-        console.error('getTrends error', err);
+        console.error('getMovies error', err);
         return <div className="p-6 text-red-600">Error loading movie: {(err as Error).message}</div>;
     }
 
