@@ -59,9 +59,9 @@ export default async function Home() {
         // const { movies, total } = moviesResp;
         // return movies, total
         moviesResp = await getMovies();
-        movies = moviesResp.movies || [];
+        movies = moviesResp.data || [];
         total = moviesResp.total || 0;
-        console.log(moviesResp)
+        // console.log(moviesResp)
     } catch (err) {
         console.error('getMovies error', err);
         moviesResp = [];

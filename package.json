@@ -24,12 +24,13 @@
     "prisma:migrate": "prisma migrate deploy --schema=api/libs/prisma/schema.prisma",
     "server": "pnpm --prefix ./api run start:dev",
     "next": "pnpm --prefix ./next run dev",
-    "dev": "pnpm -w exec concurrently \"pnpm --prefix ./api run start:dev\" \"pnpm --prefix ./next run dev\"",
+    "dev": "pnpm -w exec concurrently \"pnpm --prefix ./api run start:dev & timeout 5\"  \"pnpm --prefix ./next run dev\"",
     "prisma:build:reset": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate reset --schema=api/libs/prisma/schema.prisma ",
     "prisma:build": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate dev --schema=api/libs/prisma/schema.prisma ",
     "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"
   },
   "devDependencies": {
+    "@swc/jest": "^0.2.39",
     "@types/node": "^24.10.1",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",

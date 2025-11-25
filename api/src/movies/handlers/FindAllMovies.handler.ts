@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { MovieRepository } from '../repository/Movie.repository';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Logger, NotFoundException } from '@nestjs/common';
 import { FindAllMovieQuery } from '../queries';
 import { RedisService } from '@/redis/redis.service';
 import { CACHE_TTL } from '@/data/ttl';
@@ -9,6 +9,7 @@ import { PAGINATION_LIMIT } from '@/data/defaultVariables';
 
 @QueryHandler(FindAllMovieQuery)
 export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
+  ///  private readonly logger = new Logger(FindAllMoviesHandler.name);
   constructor(
     private readonly redisService: RedisService,
     private readonly movieRepository: MovieRepository,
@@ -17,11 +18,15 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
   async execute(query: FindAllMovieQuery) {
     const { offset = 0, limit = PAGINATION_LIMIT, page = 1 } = query;
     ///  const skip = (page - 1) * PAGINATION_LIMIT;
+    // console.log('test');
+    // this.logger.debug('qwerty');
+
     try {
       const cacheKey = `${page}:limit:${limit}`;
       const movieCached = await this.redisService.getMovies(cacheKey);
       if (movieCached) {
-        return JSON.parse(movieCached);
+        // console.log(movieCached);
+        return movieCached;
       }
 
       const [data, total] = await this.movieRepository.findAllMovie(
@@ -32,9 +37,16 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
       if (data.length === 0) {
         throw new NotFoundException('No movies Exist');
       }
-      await this.redisService.saveMovies(cacheKey, data, CACHE_TTL.ONE_MINUTE);
+      const res = { data, total };
 
-      return { data, total };
+      // console.log(res);
+      await this.redisService.saveMovies(
+        cacheKey,
+        JSON.stringify(res),
+        CACHE_TTL.ONE_MINUTE,
+      );
+
+      return res;
     } catch (error: unknown) {
       console.error(error);
       throw new BadRequestException('Invalid data format', { cause: error });

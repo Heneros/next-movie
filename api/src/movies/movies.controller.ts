@@ -86,9 +86,9 @@ export class MoviesController {
     const movies = await this.queryBus.execute(
       new FindAllMovieQuery(offset, limit, page),
     );
-  return movies;
+    return movies;
     // console.log(movies);
-    // return movies.map((movie: Movie) => new MovieEntity(movie));
+    //  return movies.map((movie: Movie) => new MovieEntity(movie));
   }
 
   @Get(MOVIE_ROUTES.GET_ID_MOVIE)
