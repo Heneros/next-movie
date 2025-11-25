@@ -3,7 +3,7 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { PrismaClient, User } from '@prisma/client';
 import { PAGINATION_LIMIT } from '@/data/defaultVariables';
-import { UpdateUserDto } from '../dto/update-profile';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Injectable()
 export class UsersRepository extends AbstractRepositoryPrisma<User> {

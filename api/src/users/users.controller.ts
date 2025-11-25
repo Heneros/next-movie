@@ -34,6 +34,7 @@ import { UpdateProfileCommand } from './commands/UpdateProfile.command';
 import { UserInterceptor } from 'src/interceptors/User.interceptor';
 import { GetProfileQuery } from './queries/GetProfile.query';
 import { UpdateUserRole } from './dto/update-user-role.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller(USERS_CONTROLLER)
 export class UsersController {
@@ -63,6 +64,8 @@ export class UsersController {
     return plainToInstance(UserEntity, newUsers);
   }
 
+
+  
   @Patch(USERS_ROUTES.UPDATE_USER)
   @UseGuards(JwtAuthGuard, ProfileOwnerGuard)
   @ApiOperation({ summary: 'Update my profile. Only for authorized user' })
@@ -70,7 +73,7 @@ export class UsersController {
   @ApiCreatedResponse({ type: UserEntity })
   async update(
     @Param('userId', CheckUserExistPipe) userId: number,
-    @Body() updateUserDto: UpdateUserRole,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
     const result = await this.commandBus.execute(
       new UpdateProfileCommand(userId, updateUserDto),

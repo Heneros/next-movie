@@ -5,6 +5,10 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "type": "commonjs",
+  "_moduleAliases": {
+    "@": "dist"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -12,8 +16,9 @@
     "build:swc:watch": "swc src -d dist/src --source-maps --watch",
     "start:swc": "nodemon --watch dist/src --ext js,json --delay 250ms --exec \"node dist/src/main.js\"",
     "dev:swc": "concurrently --names \"SWC,NODE\" --raw \"pnpm run build:swc:watch\" \"pnpm run start:swc\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
+    "build:watch": "tsc -p tsconfig.json --watch",
+    "start:watch": "nodemon --watch dist --exec \"node -r module-alias/register dist/main.js\"",
+    "start:dev": "concurrently \"pnpm run build:watch\" \"pnpm run start:watch\"",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -95,6 +100,7 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^15.14.0",
     "jest": "^29.7.0",
+    "module-alias": "^2.2.3",
     "nodemon": "^3.1.11",
     "prettier": "^3.4.2",
     "prisma": "^7.0.0",

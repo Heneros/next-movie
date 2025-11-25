@@ -18,9 +18,11 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
   async execute(query: FindAllMovieQuery) {
     const { offset = 0, limit = PAGINATION_LIMIT, page = 1 } = query;
     ///  const skip = (page - 1) * PAGINATION_LIMIT;
-    // console.log('test');
+    console.log('test');
     // this.logger.debug('qwerty');
 
+
+    
     try {
       const cacheKey = `${page}:limit:${limit}`;
       const movieCached = await this.redisService.getMovies(cacheKey);
@@ -40,11 +42,7 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
       const res = { data, total };
 
       // console.log(res);
-      await this.redisService.saveMovies(
-        cacheKey,
-        JSON.stringify(res),
-        CACHE_TTL.ONE_MINUTE,
-      );
+      await this.redisService.saveMovies(cacheKey, res, CACHE_TTL.ONE_MINUTE);
 
       return res;
     } catch (error: unknown) {

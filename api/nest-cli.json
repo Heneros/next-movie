@@ -4,14 +4,14 @@
   "sourceRoot": "src",
   "entryFile": "main",
   "compilerOptions": {
-    "deleteOutDir": true,
+    "deleteOutDir": false,
     "assets": [
       {
         "include": "mail/templates/**/*.hbs",
-        "watchAssets": true,
+        "watchAssets": false,
         "outDir": "dist/src"
       }
     ],
-    "watchAssets": true
+    "watchAssets": false
   }
 }

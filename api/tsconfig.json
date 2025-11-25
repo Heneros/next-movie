@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "incremental": true,
-
+    "noEmitOnError": false,
     "declaration": false,
     "sourceMap": false,
     "noImplicitAny": false,

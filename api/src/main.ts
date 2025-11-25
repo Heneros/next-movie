@@ -14,7 +14,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  console.log('>>> BOOTSTRAP STARTED');
+  console.log(' BOOTSTRAP STARTED');
   // console.log(process.env.SECRET_SESSION);
   app.enableCors({
     origin: [domainClient],

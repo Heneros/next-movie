@@ -58,8 +58,8 @@ export class RedisService {
 
   //   }
 
-  async getMovie(id: number) {
-    const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
+  async getId(key: string) {
+    // const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
     const result = await this.redis.get(key);
     if (result) {
       return result;

@@ -27,7 +27,7 @@ describe('FindAllMovies', () => {
     const foundMovie = { id: 1, ...movieDataTest };
     movieRepository.findAllMovie.mockResolvedValue(foundMovie);
 
-    const result = await handler.execute(new FindAllMovieQuery(1));
+    const result = await handler.execute(new FindAllMovieQuery(1, 1 , 1));
 
     expect(movieRepository.findAllMovie).toHaveBeenCalledTimes(1);
     // expect(movieRepository.findByIdUnique.mock.calls[0][0]).toBe(1);
