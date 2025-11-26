@@ -18,8 +18,8 @@ export async function getMovies({
     const params = new URLSearchParams();
     params.set('page', String(page));
     params.set('limit', String(limit));
-    const res = await fetch(`${DOMAIN_BACKEND}/movie`, {
-        next: { revalidate: 60 },
+    const res = await fetch(`${DOMAIN_BACKEND}/movie?${params.toString()}`, {
+        cache: 'no-store',
     });
     if (!res.ok) throw new Error('Failed to fetch trends: ' + res.status);
     const json = await res.json();

@@ -1,4 +1,3 @@
-"use client"
 
 import Wrapper from "@/components/global/wrapper/Wrapper";
 
