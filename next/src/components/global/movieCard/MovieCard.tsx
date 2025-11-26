@@ -25,9 +25,14 @@ export default function MovieCard({ info }: { info: MovieItem }) {
 
             {isLoading ? (<Skeleton height={250} />) : previewData ? (
                 <>
-                    <div className='inverted-radius  w-full  h-[300px] sm:h-[320px] md:h-[340px] lg:h-[360px] cursor-pointer '>
+                    <div className='inverted-radius  w-full  h-[300px] sm:h-80 md:h-[340px] lg:h-[360px] cursor-pointer relative '>
                         <Image
                             fill
+                            loading="lazy"
+                            decoding="async"
+                            quality={75}
+
+             
                             className="object-cover       
                                     duration-500
                                     ease-in-out
