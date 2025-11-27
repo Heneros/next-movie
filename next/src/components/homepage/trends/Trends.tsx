@@ -16,7 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 export default function Trends({ movies }: { movies: MovieItem[] }) {
     const t = useTranslations("Homepage")
 
-    console.log(movies)
+    // console.log(movies)
 
     return (
         <section className='w-full '>

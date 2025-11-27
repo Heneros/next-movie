@@ -45,16 +45,19 @@ import { CreateMovieDto } from './dto-input/create-movie.dto';
 import { User } from '@/decorators/user.decorator';
 import type { User as UseType } from '../interfaces';
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
-import { CheckMovieExistPipe } from 'src/pipe/CheckMovieExist.pipe';
 import { plainToInstance } from 'class-transformer';
 import { Role } from '@/decorators/role.decorator';
 import { CloudinaryService } from '@/cloudinary/cloudinary.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
-import { AgentService } from './agent.service';
+
 import { Throttle } from '@nestjs/throttler';
 import { ChatRequestDto } from './dto-input/chat-request.dto';
 import { UpdateMovieDto } from './dto-input/update-movie.dto';
+
+import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
+import { AiAgentService } from '@/ai-agent/ai-agent.service';
+
 
 @Controller(MOVIE_CONTROLLER)
 @ApiTags('Movie')
@@ -63,7 +66,7 @@ export class MoviesController {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
     private readonly cloudinaryService: CloudinaryService,
-    private readonly agentService: AgentService,
+    private readonly aiagentService: AiAgentService,
   ) {}
 
   @Get(MOVIE_ROUTES.GET_ALL)
@@ -318,7 +321,7 @@ export class MoviesController {
     body: ChatRequestDto,
   ) {
     const { messages, model } = body;
-    const text = await this.agentService.chat(messages, model);
+    const text = await this.aiagentService.chat(messages, model);
     return text;
   }
 }

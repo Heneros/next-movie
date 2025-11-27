@@ -66,6 +66,12 @@
       "@/redis/*": [
         "./src/redis/*"
       ],
+      "@/pipe/*": [
+        "./src/pipe/*"
+      ],
+      "@/ai-agent/*": [
+        "./src/ai-agent/*"
+      ],
       "@/*": [
         "./src"
       ]

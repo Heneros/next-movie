@@ -8,6 +8,7 @@ import { BadRequestException, ConflictException } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 import { MailService } from '@/mail/mail.service';
 import { RedisRepository } from '@/redis/redis.repository';
+import { AiAgentService } from '@/ai-agent/ai-agent.service';
 
 @CommandHandler(RegisterUserCommand)
 export class RegisterUserHandler
@@ -16,6 +17,7 @@ export class RegisterUserHandler
   constructor(
     private readonly authRepository: AuthRepository,
     private readonly mailService: MailService,
+        private readonly aiAgentService: AiAgentService,
     private readonly redisRepository: RedisRepository,
     private readonly verifyResetToken: VerifyResetTokenRepository,
   ) {}
@@ -66,10 +68,24 @@ export class RegisterUserHandler
         email: createdUser.email,
         id: createdUser.id,
       };
+ 
+
+
+
+
+   const responseAI =   await this.aiAgentService.sendMessageWelcome(createdUser.username)
+   console.log(responseAI)
+
+
+  //  const test =   await this.aiAgentService.chat([{    
+  //     role: 'USER',
+  //     content: 'test'
+  //   }])
+  //  console.log(test)
 
       await this.mailService.sendEmailVerify(
         user,
-        'Welcome to Movie App! Confirm your Email ',
+       responseAI,
         './confirmation',
         token,
       );

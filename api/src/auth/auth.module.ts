@@ -17,6 +17,7 @@ import { GithubStrategy } from './passport/GithubStrategy';
 import { GoogleStrategy } from './passport/GoogleStrategy';
 import { PassportService } from './services/Passport.service';
 import { RedisModule } from '@/redis/redis.module';
+import { AiAgentService } from '@/ai-agent/ai-agent.service';
 
 @Module({
   imports: [
@@ -40,13 +41,14 @@ import { RedisModule } from '@/redis/redis.module';
     MailService,
     AuthRepository,
     UsersController,
-    // JwtService,
+
     PassportService,
     HandleIOAuth,
     VerifyResetTokenRepository,
     PrismaService,
     GoogleStrategy,
     GithubStrategy,
+    AiAgentService,
     ...Object.values(Handlers),
   ],
 })

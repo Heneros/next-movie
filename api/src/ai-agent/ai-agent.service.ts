@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InferenceClient } from '@huggingface/inference';
 import { ConfigService } from '@nestjs/config';
-import { Ai_INSTRUCTIONS } from '../data';
+import { Ai_INSTRUCTIONS, Ai_INSTRUCTIONS_MAIL } from '../data';
 
 // const client = new InferenceClient(process.env.HF_TOKEN);
 
 @Injectable()
-export class AgentService {
+export class AiAgentService {
   private client: InferenceClient;
   private readonly defaultModel: string;
   constructor(private readonly config: ConfigService) {
@@ -44,7 +44,7 @@ export class AgentService {
         top_p: 0.6,
         temperature: 0.9,
 
-        messages: [{ role: 'system', content: Ai_INSTRUCTIONS }],
+        messages: [{ role: 'system', content: `${Ai_INSTRUCTIONS}` }],
 
         // messages: messages.map((m) => ({
         //   role: m.role as any,
@@ -65,6 +65,35 @@ export class AgentService {
       return JSON.stringify(resp);
     } catch (err) {
       throw err;
+    }
+  }
+
+  async sendMessageWelcome(username: string){
+    const userModel = this.defaultModel
+  
+    try {
+      const resp = await this.client.chatCompletion({
+        model: userModel,
+             max_tokens: 95,
+        top_p: 0.6,
+        temperature: 0.9,
+        messages: [
+          {role: 'system', content: `${username} ${Ai_INSTRUCTIONS_MAIL}`},     { 
+          role: 'user', 
+          content: `Username: ${username}. Please write a welcome message for this user.`
+        }]
+      }as any)
+
+            const choices = resp.choices;
+            // console.log(choices)
+       if (choices.length > 0) {
+        const first = choices[0];
+        if (first.message?.content) return first.message.content;
+        if (typeof first.text === 'string') return first.text;
+      }
+      return JSON.stringify(resp);
+    } catch (err) {
+        throw err
     }
   }
 }

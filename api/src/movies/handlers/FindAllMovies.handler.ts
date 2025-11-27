@@ -18,7 +18,7 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
   async execute(query: FindAllMovieQuery) {
     const { offset = 0, limit = PAGINATION_LIMIT, page = 1 } = query;
     ///  const skip = (page - 1) * PAGINATION_LIMIT;
-    console.log('test');
+
     // this.logger.debug('qwerty');
 
 

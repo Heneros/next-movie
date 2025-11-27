@@ -15,6 +15,7 @@ import { HealthModule } from './health/health.module';
 
 import { RedisModule } from './redis/redis.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { AiAgentModule } from './ai-agent/ai-agent.module';
 
 
 
@@ -38,6 +39,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     UsersModule,
     RedisModule,
     AnalyticsModule,
+    AiAgentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
