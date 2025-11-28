@@ -6,12 +6,15 @@ import { randomBytes } from 'crypto';
 import { MailService } from '@/mail/mail.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { tempRegisterDate } from '@/data';
+import { AiAgentService } from '@/ai-agent/ai-agent.service';
 
 @CommandHandler(ResendEmailCommand)
 export class ResendEmailHandler implements ICommandHandler<ResendEmailCommand> {
   constructor(
     private readonly mailService: MailService,
     private readonly authRepository: AuthRepository,
+    private readonly aiAgentService: AiAgentService,
+
     private readonly verifyResetToken: VerifyResetTokenRepository,
   ) {}
 
@@ -44,9 +47,14 @@ export class ResendEmailHandler implements ICommandHandler<ResendEmailCommand> {
       tempDate: new Date(Date.now() + tempRegisterDate),
     });
 
+    const responseAI = await this.aiAgentService.sendMessageWelcome(
+      user.username,
+    );
+
     await this.mailService.sendEmailVerify(
       user,
       'Welcome to Movie App! Confirm your Email ',
+      '',
       './confirmation',
       emailVerificationToken.token,
     );

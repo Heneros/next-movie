@@ -16,6 +16,7 @@ export class MailService {
   async sendEmailVerify(
     user: User,
     subject: string,
+    message: string,
     template: string,
     emailVerificationToken: string,
   ) {
@@ -27,9 +28,11 @@ export class MailService {
       to: user.email,
       subject: subject,
       template: template,
+
       context: {
         username: user.username,
         link,
+        message: message,
       },
     });
   }

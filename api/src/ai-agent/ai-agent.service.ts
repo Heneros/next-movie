@@ -74,11 +74,11 @@ export class AiAgentService {
     try {
       const resp = await this.client.chatCompletion({
         model: userModel,
-             max_tokens: 95,
+             max_tokens: 50,
         top_p: 0.6,
         temperature: 0.9,
         messages: [
-          {role: 'system', content: `${username} ${Ai_INSTRUCTIONS_MAIL}`},     { 
+          {role: 'system', content: `${Ai_INSTRUCTIONS_MAIL}`},     { 
           role: 'user', 
           content: `Username: ${username}. Please write a welcome message for this user.`
         }]

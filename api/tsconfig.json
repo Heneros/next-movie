@@ -72,6 +72,9 @@
       "@/ai-agent/*": [
         "./src/ai-agent/*"
       ],
+      "@/reviews/*": [
+        "./src/reviews/*"
+      ],
       "@/*": [
         "./src"
       ]

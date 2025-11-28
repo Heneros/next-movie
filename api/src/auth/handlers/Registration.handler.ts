@@ -17,7 +17,7 @@ export class RegisterUserHandler
   constructor(
     private readonly authRepository: AuthRepository,
     private readonly mailService: MailService,
-        private readonly aiAgentService: AiAgentService,
+    private readonly aiAgentService: AiAgentService,
     private readonly redisRepository: RedisRepository,
     private readonly verifyResetToken: VerifyResetTokenRepository,
   ) {}
@@ -68,24 +68,22 @@ export class RegisterUserHandler
         email: createdUser.email,
         id: createdUser.id,
       };
- 
 
+      const responseAI = await this.aiAgentService.sendMessageWelcome(
+        createdUser.username,
+      );
+      //  console.log(responseAI)
 
-
-
-   const responseAI =   await this.aiAgentService.sendMessageWelcome(createdUser.username)
-   console.log(responseAI)
-
-
-  //  const test =   await this.aiAgentService.chat([{    
-  //     role: 'USER',
-  //     content: 'test'
-  //   }])
-  //  console.log(test)
+      //  const test =   await this.aiAgentService.chat([{
+      //     role: 'USER',
+      //     content: 'test'
+      //   }])
+      //  console.log(test)
 
       await this.mailService.sendEmailVerify(
         user,
-       responseAI,
+        'Welcome to Movie App! Confirm your Email ',
+        responseAI,
         './confirmation',
         token,
       );

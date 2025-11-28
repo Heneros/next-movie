@@ -31,8 +31,6 @@ export default function MovieCard({ info }: { info: MovieItem }) {
                             loading="lazy"
                             decoding="async"
                             quality={75}
-
-             
                             className="object-cover       
                                     duration-500
                                     ease-in-out
