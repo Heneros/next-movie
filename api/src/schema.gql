@@ -1,0 +1,65 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateReviewDto {
+  """Feedback recommendation"""
+  feedback: Recommended!
+
+  """Text of review"""
+  text: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Movie"""
+type MovieEntity {
+  actorsList: [String!]!
+  authorId: Int
+  avgRating: Float
+  category: [String!]!
+  createdAt: DateTime
+  description: String!
+  galleryId: Int
+  id: Int!
+  movieId: Int
+  posterId: Int
+  posterUrl: String!
+  previewId: Int
+  published: Boolean
+  rating: Int
+  slug: Int
+  title: String!
+  updatedAt: DateTime
+  userId: Int
+  year: Int
+}
+
+type Mutation {
+  """Create review to movie"""
+  createReview(input: CreateReviewDto!, movieId: Float!, userId: Float!): ReviewEntity!
+}
+
+type Query {
+  """Get all reviews"""
+  getReview: [ReviewEntity!]!
+}
+
+enum Recommended {
+  GOOD
+  NEGATIVE
+  NEUTRALITY
+}
+
+type ReviewEntity {
+  createdAt: DateTime
+  feedback: String!
+  id: ID!
+  movieId: Int!
+  text: String!
+  updatedAt: DateTime!
+  userId: Int!
+}

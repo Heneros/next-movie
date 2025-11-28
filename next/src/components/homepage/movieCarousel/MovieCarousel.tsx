@@ -3,14 +3,14 @@
 import React, { useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, EffectFade } from "swiper/modules";
-// import Star from "@/assets/icons/star.svg";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { PlayIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 type Movie = {
     id: string | number;
@@ -167,7 +167,8 @@ export default function MovieCarousel({
                                                 href={`/movies/${m.id}`}
                                                 className="flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg transition font-medium dark:text-white text-black"
                                             >
-                                                <PlayIcon className="h-5 w-5 dark:text-white text-black" />
+                                                <FontAwesomeIcon icon={faPlay} className="h-5 w-5 dark:text-white text-black" />
+                                                {/* <PlayIcon className="h-5 w-5 dark:text-white text-black" /> */}
                                                 Watch Movie
                                             </Link>
 
@@ -177,7 +178,8 @@ export default function MovieCarousel({
                                 transition
                                 dark:text-white text-black"
                                             >
-                                                <ArrowRightIcon className="h-5 w-5 dark:text-white text-black" />
+                                                <FontAwesomeIcon icon={faArrowRight} className="h-5 w-5 dark:text-white text-black" />
+                                                {/* <ArrowRightIcon className="h-5 w-5 dark:text-white text-black" /> */}
                                                 More Info
                                             </Link>
                                         </div>

@@ -18,16 +18,13 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { AiAgentModule } from './ai-agent/ai-agent.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { GraphQLModule } from '@nestjs/graphql';
-  import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { isDevelopment } from './data';
 import path, { join } from 'path';
 
-
 @Module({
   imports: [
-
-
-  ConfigModule.forRoot({
+    ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
         JWT_SECRET: Joi.string().required(),
@@ -35,10 +32,10 @@ import path, { join } from 'path';
       }),
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-driver: ApolloDriver,
-    graphiql:isDevelopment ? true : false, 
-    sortSchema: true,
-    autoSchemaFile: join(process.cwd(), 'src/schema.gql')
+      driver: ApolloDriver,
+      graphiql: isDevelopment ? true : false,
+      sortSchema: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
 
     AuthModule,
