@@ -21,12 +21,14 @@
     "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
     "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
     "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
-    "prisma:migrate": "prisma migrate deploy --schema=api/libs/prisma/schema.prisma",
+
     "server": "pnpm --prefix ./api run start:dev",
     "next": "pnpm --prefix ./next run dev",
     "dev": "pnpm -w exec concurrently \"pnpm --prefix ./api run start:dev & timeout 5\"  \"pnpm --prefix ./next run dev\"",
-    "prisma:build:reset": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate reset --schema=api/libs/prisma/schema.prisma ",
-    "prisma:build": "npx prisma generate --schema=api/libs/prisma/schema.prisma && npx prisma migrate dev --schema=api/libs/prisma/schema.prisma ",
+    "prisma:build:reset": "pnpm --filter  ./api exec prisma generate &&  pnpm --filter  ./api exec migrate reset ",
+    "prisma:generate": "pnpm --filter api exec prisma generate",
+    "prisma:migrate": "pnpm --filter api exec prisma migrate dev",
+    "prisma:build": "pnpm --filter api exec prisma generate && pnpm --filter api exec prisma migrate dev",
     "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"
   },
   "devDependencies": {
