@@ -1,12 +1,12 @@
 generator client {
   provider = "prisma-client-js"
   // output   = "../generated"
+
   
 }
 
 datasource db {
   provider = "postgresql"
-
 }
 
 enum UserRole {
@@ -103,7 +103,7 @@ model Movie {
 
   // posterId    Int?  @unique
   // poster      Avatar?  @relation(fields: [posterId], references: [id])
-
+ galleryImages GalleryImage[]
 
   comments      Comment[]
   likes         Like[]
@@ -239,6 +239,16 @@ model Avatar{
   createdAt DateTime @default(now())
 }
 
-model Gallery{
+model GalleryImage{
     id       Int    @id @default(autoincrement())
+    url String 
+    publicId String 
+    altText String? 
+      order     Int      @default(0)
+   movie Movie @relation(fields: [movieId], references: [id])
+   movieId Int 
+
+   createdAt DateTime @default(now())
+
+   @@index([movieId, order])
 }

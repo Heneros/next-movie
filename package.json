@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@prisma/client": "^6.16.2",
+    "@prisma/client": "^7.0.1",
     "next": "16.0.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
@@ -21,14 +21,13 @@
     "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
     "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
     "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
-
     "server": "pnpm --prefix ./api run start:dev",
     "next": "pnpm --prefix ./next run dev",
     "dev": "pnpm -w exec concurrently \"pnpm --prefix ./api run start:dev & timeout 5\"  \"pnpm --prefix ./next run dev\"",
     "prisma:build:reset": "pnpm --filter  ./api exec prisma generate &&  pnpm --filter  ./api exec migrate reset ",
     "prisma:generate": "pnpm --filter api exec prisma generate",
     "prisma:migrate": "pnpm --filter api exec prisma migrate dev",
-    "prisma:build": "pnpm --filter api exec prisma generate && pnpm --filter api exec prisma migrate dev",
+    "prisma:build": "pnpm --filter api exec npx prisma generate && pnpm --filter api exec npx prisma migrate dev",
     "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"
   },
   "devDependencies": {
@@ -36,8 +35,9 @@
     "@types/node": "^24.10.1",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
-    "prisma": "^6.16.2",
+    "prisma": "^7.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "zeptomatch": "1.1.0"
   }
 }
