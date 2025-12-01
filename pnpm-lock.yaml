@@ -11,9 +11,6 @@ importers:
 
   .:
     dependencies:
-      '@prisma/client':
-        specifier: ^7.0.1
-        version: 7.0.1(prisma@7.0.1(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(typescript@5.9.3)
       next:
         specifier: 16.0.3
         version: 16.0.3(@babel/core@7.28.5)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -36,18 +33,12 @@ importers:
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
-      prisma:
-        specifier: ^7.0.1
-        version: 7.0.1(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@swc/core@1.15.3)(@types/node@24.10.1)(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
-      zeptomatch:
-        specifier: 1.1.0
-        version: 1.1.0
 
   api:
     dependencies:
@@ -108,9 +99,6 @@ importers:
       '@nestjs/throttler':
         specifier: ^6.4.0
         version: 6.4.0(@nestjs/common@11.1.9(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.9)(reflect-metadata@0.2.2)
-      '@prisma/client':
-        specifier: ^7.0.1
-        version: 7.0.1(prisma@7.0.1(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(typescript@5.9.3)
       axios:
         specifier: ^1.12.2
         version: 1.13.2
@@ -171,6 +159,9 @@ importers:
       passport-jwt:
         specifier: ^4.0.1
         version: 4.0.1
+      prisma:
+        specifier: ^7.0.1
+        version: 7.0.1(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       redis:
         specifier: ^5.8.2
         version: 5.10.0
@@ -211,6 +202,9 @@ importers:
       '@nestjs/testing':
         specifier: ^11.0.1
         version: 11.1.9(@nestjs/common@11.1.9(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.9)(@nestjs/platform-express@11.1.9)
+      '@prisma/client':
+        specifier: ^7.0.1
+        version: 7.0.1(prisma@7.0.1(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(typescript@5.9.3)
       '@swc/cli':
         specifier: ^0.6.0
         version: 0.6.0(@swc/core@1.15.3)(chokidar@4.0.3)
@@ -280,9 +274,6 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.7.3
-      prisma:
-        specifier: ^7.0.1
-        version: 7.0.1(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.1.2
@@ -6635,9 +6626,6 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  grammex@1.2.1:
-    resolution: {integrity: sha512-NMUZUMX5CAhV+QlMnC6uDR1Jq6byyAB/Pvf3+nKPJ4UuT+MvGrH/PmEt0EI3nGsJJqFS6CmK0L7uittsx0b9ow==}
-
   grammex@3.1.12:
     resolution: {integrity: sha512-6ufJOsSA7LcQehIJNCO7HIBykfM7DXQual0Ny780/DEcJIpBlHRvcqEBWGPYd7hrXL2GJ3oJI1MIhaXjWmLQOQ==}
 
@@ -10123,9 +10111,6 @@ packages:
   zen-observable@0.8.15:
     resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
 
-  zeptomatch@1.1.0:
-    resolution: {integrity: sha512-a7DWkdUiwFRIEwqXAC0IYFwXsyaZm9n8V3dndQz+iaZsaq+KcNESNMxV9G/8H8hxIe/hSTT45+SorgkYwCvBMg==}
-
   zeptomatch@2.0.2:
     resolution: {integrity: sha512-H33jtSKf8Ijtb5BW6wua3G5DhnFjbFML36eFu+VdOoVY4HD9e7ggjqdM6639B+L87rjnR6Y+XeRzBXZdy52B/g==}
 
@@ -12432,7 +12417,7 @@ snapshots:
 
   '@jest/pattern@30.0.1':
     dependencies:
-      '@types/node': 20.19.25
+      '@types/node': 22.19.1
       jest-regex-util: 30.0.1
 
   '@jest/reporters@29.7.0':
@@ -12602,7 +12587,7 @@ snapshots:
       '@jest/schemas': 30.0.5
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.19.25
+      '@types/node': 22.19.1
       '@types/yargs': 17.0.35
       chalk: 4.1.2
 
@@ -17427,8 +17412,6 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  grammex@1.2.1: {}
-
   grammex@3.1.12: {}
 
   graphemer@1.4.0: {}
@@ -18213,7 +18196,7 @@ snapshots:
   jest-haste-map@30.2.0:
     dependencies:
       '@jest/types': 30.2.0
-      '@types/node': 20.19.25
+      '@types/node': 22.19.1
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -18504,7 +18487,7 @@ snapshots:
   jest-util@30.2.0:
     dependencies:
       '@jest/types': 30.2.0
-      '@types/node': 20.19.25
+      '@types/node': 22.19.1
       chalk: 4.1.2
       ci-info: 4.3.1
       graceful-fs: 4.2.11
@@ -18565,7 +18548,7 @@ snapshots:
 
   jest-worker@30.2.0:
     dependencies:
-      '@types/node': 20.19.25
+      '@types/node': 22.19.1
       '@ungap/structured-clone': 1.3.0
       jest-util: 30.2.0
       merge-stream: 2.0.0
@@ -21828,10 +21811,6 @@ snapshots:
       zen-observable: 0.8.15
 
   zen-observable@0.8.15: {}
-
-  zeptomatch@1.1.0:
-    dependencies:
-      grammex: 1.2.1
 
   zeptomatch@2.0.2:
     dependencies:

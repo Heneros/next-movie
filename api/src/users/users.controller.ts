@@ -28,13 +28,18 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 import { ProfileOwnerGuard } from '@/guards/profile-owner.guard';
-import { CheckUserExistPipe } from 'src/pipe/CheckUserExistPipe.pipe';
+import { CheckUserExistPipe } from '@/pipe/CheckUserExistPipe.pipe';
 // import { UpdateUserDto } from './dto/update-profile';
 import { UpdateProfileCommand } from './commands/UpdateProfile.command';
-import { UserInterceptor } from 'src/interceptors/User.interceptor';
+import { UserInterceptor } from '@/interceptors/User.interceptor';
 import { GetProfileQuery } from './queries/GetProfile.query';
-import { UpdateUserRole } from './dto/update-user-role.dto';
+
 import { UpdateUserDto } from './dto/update-user.dto';
+
+
+
+
+
 
 @Controller(USERS_CONTROLLER)
 export class UsersController {

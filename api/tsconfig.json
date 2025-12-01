@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "baseUrl": ".",
+    "rootDir": ".",
     "incremental": true,
     "noEmitOnError": false,
     "declaration": false,
@@ -68,6 +69,9 @@
       ],
       "@/pipe/*": [
         "./src/pipe/*"
+      ],
+      "@/interceptors/*": [
+        "./src/interceptors/*"
       ],
       "@/ai-agent/*": [
         "./src/ai-agent/*"

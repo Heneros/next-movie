@@ -13,7 +13,7 @@ import { QueryStatsDto } from './dto/query-stats.dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetMonthlyStatsQuery } from './query/getStatsByMonth.query';
 import { IncrementViewCommand } from './commands';
-import { CheckUserExistPipe } from 'src/pipe/CheckUserExistPipe.pipe';
+import { CheckUserExistPipe } from '@/pipe/CheckUserExistPipe.pipe';
 import { GetTotalStatsQuery } from './query';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';

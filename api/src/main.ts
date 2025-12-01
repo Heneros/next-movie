@@ -1,5 +1,5 @@
 import path from 'path';
-
+import 'module-alias/register';
 import 'dotenv/config';
 // dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 
