@@ -60,7 +60,6 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 
       const avatar = await this.cloudinaryService.getImageAvatar(user.id);
 
-
       return {
         accessToken,
         refreshToken,

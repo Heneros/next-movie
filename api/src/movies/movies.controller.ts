@@ -14,6 +14,7 @@ import {
   UploadedFile,
   UseInterceptors,
   DefaultValuePipe,
+  UploadedFiles,
 } from '@nestjs/common';
 import {
   AI_ROUTES,
@@ -35,7 +36,7 @@ import {
 } from '@nestjs/swagger';
 import { MovieEntity } from './entities/movie.entity';
 import { FindAllMovieQuery, GetIdMovieQuery } from './queries';
-import { Movie } from '@prisma/client';
+
 import {
   CreateMovieCommand,
   RemoveMovieCommand,
@@ -48,7 +49,7 @@ import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
 import { plainToInstance } from 'class-transformer';
 import { Role } from '@/decorators/role.decorator';
 import { CloudinaryService } from '@/cloudinary/cloudinary.service';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 
 import { Throttle } from '@nestjs/throttler';
@@ -57,7 +58,6 @@ import { UpdateMovieDto } from './dto-input/update-movie.dto';
 
 import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
-
 
 @Controller(MOVIE_CONTROLLER)
 @ApiTags('Movie')
@@ -170,45 +170,6 @@ export class MoviesController {
     return new MovieEntity(movie);
   }
 
-  // @Post(MOVIE_ROUTES.UPLOAD_IMAGES)
-  // @ApiOperation({ summary: 'Gallery upload multiple images' })
-  // @ApiConsumes('multipart/form-data')
-  // @ApiBody({
-  //   schema: {
-  //     type: 'object',
-  //     properties: {
-  //       files: {
-  //         type: 'array',
-  //         items: {
-  //           type: 'string',
-  //           format: 'binary',
-  //         },
-  //       },
-  //     },
-  //   },
-  // })
-  // @UseInterceptors(
-  //   FilesInterceptor('files', 5, {
-  //     storage: memoryStorage(),
-  //     limits: { fileSize: 5 * 1024 * 1024 },
-  //   }),
-  // )
-  // @UseGuards(AuthGuard)
-  // @Roles('Admin', 'Editor')
-  // uploadGallery(
-  //   @Param('id', ParseIntPipe) movieId: number,
-  //   @UploadedFiles() files: Express.Multer.File[],
-  // ) {
-  //   try {
-  //     if (!files) {
-  //       return 'Error during upload files';
-  //     }
-  //     return this.cloudinaryService.uploadGalleryImages(movieId, files);
-  //   } catch (error) {
-  //     console.log('FILES:', error);
-  //   }
-  // }
-
   @ApiOperation({ summary: 'Get preview image movie' })
   @Get(MOVIE_ROUTES.IMAGE_PREVIEW)
   async getPreviewImg(@Param('movieId', ParseIntPipe) movieId: number) {
@@ -285,7 +246,7 @@ export class MoviesController {
   @ApiOperation({ summary: 'Delete preview image movie' })
   @Delete(MOVIE_ROUTES.IMAGE_PREVIEW)
   @UseGuards(JwtAuthGuard)
-  @Role('Admin', 'Editor')
+  @Role('ADMIN', 'EDITOR')
   async deletePreviewImg(@Param('id', ParseIntPipe) previewId: number) {
     try {
       const res = this.cloudinaryService.deleteImagePreview(previewId);
@@ -323,5 +284,46 @@ export class MoviesController {
     const { messages, model } = body;
     const text = await this.aiagentService.chat(messages, model);
     return text;
+  }
+
+  @Post(MOVIE_ROUTES.UPLOAD_IMAGES)
+  @ApiOperation({ summary: 'Gallery upload multiple images' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        files: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+    },
+  })
+  @UseInterceptors(
+    FilesInterceptor('qwerty', 5, {
+      storage: memoryStorage(),
+      limits: { fileSize: 5 * 1024 * 1024 },
+    }),
+  )
+  @Role('ADMIN', 'EDITOR')
+  @UseGuards(JwtAuthGuard)
+  async uploadGallery(
+    @Param('movieId', CheckMovieExistPipe, ParseIntPipe) movieId: number,
+    @UploadedFiles() files: Express.Multer.File[],
+  ) {
+    console.log(files);
+    try {
+      if (!files) {
+        return 'Error during upload files';
+      }
+      return await this.cloudinaryService.uploadGalleryImages(movieId, files);
+    } catch (err) {
+      console.error('FILES:', err);
+      throw new Error('', err);
+    }
   }
 }

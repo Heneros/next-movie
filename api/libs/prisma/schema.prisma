@@ -1,14 +1,13 @@
 generator client {
-  provider = "prisma-client-js"
-  // output   = "../generated"
-
-  
+  provider        = "prisma-client-js"
+  // output          = "../generated"
+  // previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
-}
 
+}
 enum UserRole {
   USER
   EDITOR
@@ -243,12 +242,12 @@ model GalleryImage{
     id       Int    @id @default(autoincrement())
     url String 
     publicId String 
-    altText String? 
-      order     Int      @default(0)
+    // altText String? 
+    //   order     Int      @default(0)
    movie Movie @relation(fields: [movieId], references: [id])
    movieId Int 
 
    createdAt DateTime @default(now())
 
-   @@index([movieId, order])
+   @@index([movieId])
 }

@@ -25,6 +25,11 @@ export abstract class AbstractRepositoryPrisma<T> {
     return this.model.create({ data });
   }
 
+  async createMany(data: any): Promise<T> {
+    return this.model.createMany({ data });
+  }
+
+
   async update(where: any, data: any): Promise<T> {
     return this.model.update({ where, data });
   }
@@ -32,4 +37,6 @@ export abstract class AbstractRepositoryPrisma<T> {
   async delete(where: any): Promise<T> {
     return this.model.delete({ where });
   }
+
+  
 }

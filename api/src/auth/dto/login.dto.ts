@@ -20,7 +20,6 @@ export class LoginUserDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
-  @MaxLength(24)
   @ApiProperty({
     description: 'Enter password',
     example: '*******',

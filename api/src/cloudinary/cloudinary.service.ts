@@ -13,10 +13,18 @@ import 'multer';
 import { AvatarRepository } from './repository/AvatarRepository.repository';
 import { folderCloud } from '../data';
 import path from 'path';
+import { GalleryRepository } from '@/movies/repository/Gallery.repository';
+import { MovieRepository } from '@/movies/repository/Movie.repository';
+import { PrismaService } from '@/prisma/prisma.service';
 
 @Injectable()
 export class CloudinaryService {
-  constructor(private avatarRepository: AvatarRepository) {}
+  constructor(
+    private galleryRepository: GalleryRepository,
+    private avatarRepository: AvatarRepository,
+    private movieRepository: MovieRepository,
+    private prisma: PrismaService,
+  ) {}
 
   async uploadFileAvatarUser(
     userId: number,
@@ -213,5 +221,60 @@ export class CloudinaryService {
     await cloudinary.uploader.destroy(res.publicId);
 
     return res.id;
+  }
+
+  async uploadGalleryImages(movieId: number, files: Express.Multer.File[]) {
+    const savedImages = [];
+
+    for (const file of files) {
+      const originalName = file.originalname;
+      const fileName = path.parse(originalName).name;
+      const uniqueFileName = `${fileName}_${Date.now()}`;
+      const filePathOnCloudinary = `${folderCloud}/${uniqueFileName}`;
+
+      const uploaded = await new Promise<{
+        url: string;
+        publicId: string;
+      }>((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            public_id: filePathOnCloudinary,
+            resource_type: 'image',
+            fetch_format: 'auto',
+            quality: 'auto:eco',
+          },
+          (err, result) => {
+            if (err) reject(err);
+            else if (result?.secure_url)
+              resolve({
+                url: result.secure_url,
+                publicId: result.public_id,
+              });
+            else reject(new Error('No Cloudinary URL'));
+          },
+        );
+        streamifier.createReadStream(file.buffer).pipe(uploadStream);
+      });
+
+      const newGallery = await this.galleryRepository.create({
+        url: uploaded.url,
+        publicId: uploaded.publicId,
+        // title,
+        movie: {
+          connect: { id: movieId },
+        },
+      });
+
+      //await this.prisma.movie.update({
+      //   where: { id: movieId },
+      //   data: {
+      //     galleryImages: newGallery.id,
+      //   },
+      // });
+
+      savedImages.push(newGallery);
+    }
+
+    return { images: savedImages };
   }
 }

@@ -64,7 +64,7 @@ export const MOVIE_ROUTES = {
   UPDATE_REVIEW: ':id/review/user/:userId',
   DELETE_REVIEW: ':id/review/:userId',
 
-  UPLOAD_IMAGES: 'gallery/:id',
+  UPLOAD_IMAGES: 'gallery/:movieId',
   FILTER: 'filter',
 
   IMAGE_PREVIEW: 'preview/:movieId',

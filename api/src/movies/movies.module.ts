@@ -12,7 +12,7 @@ import { AvatarRepository } from '@/cloudinary/repository/AvatarRepository.repos
 import { RedisService } from '@/redis/redis.service';
 import { RedisModule } from '@/redis/redis.module';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
-
+import { GalleryRepository } from './repository/Gallery.repository';
 
 @Module({
   imports: [PrismaModule, CqrsModule, RedisModule],
@@ -21,6 +21,7 @@ import { AiAgentService } from '@/ai-agent/ai-agent.service';
     ...Object.values(Handlers),
     MovieRepository,
     AvatarRepository,
+    GalleryRepository,
     CloudinaryService,
     RedisService,
     JwtService,
