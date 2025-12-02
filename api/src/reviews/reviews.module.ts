@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import * as Handlers from './handlers/index';
 
 import { ReviewsController } from './reviews.controller';
 import { ReviewsResolver } from './reviews.resolver';
@@ -9,17 +10,22 @@ import { RedisModule } from '@/redis/redis.module';
 import { AuthRepository } from '@/auth/repositories/Auth.repository';
 import { PrismaService } from '@/prisma/prisma.service';
 import { MovieRepository } from '@/movies/repository/Movie.repository';
+import { ReviewRepository } from './repository/Review.repository';
+import { RedisService } from '@/redis/redis.service';
 
 @Module({
-  imports: [PrismaModule, CqrsModule, RedisModule],
+  imports: [PrismaModule, CqrsModule, RedisModule, ],
 
   controllers: [ReviewsController],
   providers: [
+        ...Object.values(Handlers),
     AuthRepository,
     PrismaService,
     MovieRepository,
     ReviewsResolver,
+    ReviewRepository,
     JwtService,
+    RedisService
   ],
 })
 export class ReviewsModule {}

@@ -3,9 +3,9 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
 
 export enum Recommended {
-  GOOD = 'Good',
-  NEUTRALITY = 'Neutrality',
-  NEGATIVE = 'Negative',
+  GOOD = 'GOOD',
+  NEUTRALITY = 'NEUTRALITY',
+  NEGATIVE = 'NEGATIVE',
 }
 registerEnumType(Recommended, {
   name: 'Recommended',

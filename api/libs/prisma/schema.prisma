@@ -14,6 +14,11 @@ enum UserRole {
   ADMIN
 }
 
+enum Recommended {
+  GOOD 
+  NEUTRALITY 
+  NEGATIVE
+}
 
 model User {
   id           Int               @id @default(autoincrement())
@@ -45,7 +50,7 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-visits ProfileVisit[]
+  visits ProfileVisit[]
   movies          Movie[] 
   likes           Like[]
   comments        Comment[]
@@ -53,6 +58,7 @@ visits ProfileVisit[]
   chats           ChatUser[]
   messages        Message[]
   watchList       WatchListItem[] 
+  review Review?
 }
 
 model ProfileVisit {
@@ -107,6 +113,8 @@ model Movie {
   comments      Comment[]
   likes         Like[]
   watchList     WatchListItem[] 
+
+  review Review[]
 }
 
 
@@ -250,4 +258,22 @@ model GalleryImage{
    createdAt DateTime @default(now())
 
    @@index([movieId])
+}
+
+model Review{
+  id Int @id @default(autoincrement())
+
+  movie Movie  @relation(fields: [movieId], references: [id],  onDelete: Cascade)
+  user User  @relation(fields: [userId], references: [id],  onDelete: Cascade)
+
+
+  userId Int @unique
+  movieId  Int
+
+  text      String     
+  feedback  Recommended 
+
+
+  createdAt DateTime @default(now())
+  updatedAt      DateTime  @updatedAt
 }

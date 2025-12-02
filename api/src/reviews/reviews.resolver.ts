@@ -11,7 +11,6 @@ import { CreateReviewCommand } from './commands';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { ReviewEntity } from './entities/review.entity';
 
-
 @ApiTags('Reviews')
 @Resolver((of) => ReviewEntity)
 export class ReviewsResolver {
@@ -24,21 +23,19 @@ export class ReviewsResolver {
     description: 'Get all reviews',
   })
   async getReview() {
-
-    
     // const createReview = await this.commandBus.execute(
     //   new CreateReviewCommand(movieId, userId),
     // );
     // return createReview;
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Mutation(() => ReviewEntity, {
     description: 'Create review to movie',
   })
   @ApiResponse({ status: 201, description: 'Review Created' })
   async createReview(
-    @Args('movieId', CheckMovieExistPipe) movieId: number,
+    @Args('movieId', CheckMovieExistPipe) movieId: number,///Change later on @User
     @Args('userId', CheckUserExistPipe) userId: number,
     @Args('input') content: CreateReviewDto,
   ) {

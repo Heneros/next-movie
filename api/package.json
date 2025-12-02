@@ -41,7 +41,6 @@
     "@/reviews/*": "dist/src/reviews/*"
   },
   "scripts": {
-    "prestart:dev": "rimraf dist",
     "build": "nest build",
     "build:watch": "tsc -p tsconfig.json --watch",
     "start:watch": "wait-on dist/src/main.js && nodemon -L --watch dist/src --ext js,json --exec \"node -r module-alias/register dist/src/main.js\"",
