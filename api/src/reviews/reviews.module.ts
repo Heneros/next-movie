@@ -14,18 +14,18 @@ import { ReviewRepository } from './repository/Review.repository';
 import { RedisService } from '@/redis/redis.service';
 
 @Module({
-  imports: [PrismaModule, CqrsModule, RedisModule, ],
+  imports: [PrismaModule, CqrsModule, RedisModule],
 
   controllers: [ReviewsController],
   providers: [
-        ...Object.values(Handlers),
+    ...Object.values(Handlers),
     AuthRepository,
     PrismaService,
     MovieRepository,
     ReviewsResolver,
     ReviewRepository,
     JwtService,
-    RedisService
+    RedisService,
   ],
 })
 export class ReviewsModule {}

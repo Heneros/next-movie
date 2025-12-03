@@ -41,11 +41,17 @@ type MovieEntity {
 type Mutation {
   """Create review to movie"""
   createReview(input: CreateReviewDto!, movieId: Float!, userId: Float!): ReviewEntity!
+
+  """Delete review to movie"""
+  deleteReview(id: Float!): ReviewEntity!
+
+  """Update review to movie"""
+  updateReview(id: Float!, input: CreateReviewDto!): ReviewEntity!
 }
 
 type Query {
-  """Get all reviews"""
-  getReview: [ReviewEntity!]!
+  """Get review by id"""
+  getReview(id: Float!): ReviewEntity!
 }
 
 enum Recommended {
