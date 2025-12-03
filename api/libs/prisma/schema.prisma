@@ -64,25 +64,15 @@ model User {
 model ProfileVisit {
     id         Int      @id @default(autoincrement())
      userId     Int
-     visitorId  String? 
-     ip         String? 
-
-     year Int 
-     month Int
-   
+        ipHash         String 
+    
      viewCount Int      @default(0)
 
-     createdAt  DateTime @default(now())
+      visitDate DateTime @default(now()) @db.Date
      updatedAt DateTime @updatedAt
-
+  @@unique([userId, ipHash, visitDate])
      user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-   
-     @@unique([userId, year, month])
-     @@index([userId, createdAt])
-     @@index([visitorId, createdAt])
-
-     @@index([year, month])
-}
+   }
 
 
 model Movie {

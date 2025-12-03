@@ -36,9 +36,10 @@ export class GetByProfileHandler implements IQueryHandler<GetProfileQuery> {
       RedisPrefixEnum.USERS_ID,
       String(userId),
       JSON.stringify(profileUser),
-      CACHE_TTL.FIVE_MINUTE,
+      CACHE_TTL.TEN_SECONDS,
     );
 
     return profileUser;
   }
 }
+ 
