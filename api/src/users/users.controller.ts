@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Query,
+  Req,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -35,6 +36,7 @@ import { UserInterceptor } from '@/interceptors/User.interceptor';
 import { GetProfileQuery } from './queries/GetProfile.query';
 
 import { UpdateUserDto } from './dto/update-user.dto';
+import type { Request } from 'express';
 
 
 
@@ -92,8 +94,10 @@ export class UsersController {
   @ApiOperation({ summary: 'Get my profile.' })
   @ApiBearerAuth('access-token')
   @ApiCreatedResponse({ type: UserEntity })
-  async getProfile(@Param('userId', CheckUserExistPipe) userId: number) {
-    const result = await this.queryBus.execute(new GetProfileQuery(userId));
+  async getProfile(
+    @Param('userId', CheckUserExistPipe) userId: number,
+  @Req() request: Request,) {
+    const result = await this.queryBus.execute(new GetProfileQuery(userId, request));
     return plainToInstance(UserEntity, result);
   }
 }

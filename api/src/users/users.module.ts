@@ -9,6 +9,7 @@ import * as Handlers from './handlers/index';
 import { JwtService } from '@nestjs/jwt';
 import { UsersRepository } from './repository/Users.repository';
 import { AuthRepository } from '@/auth/repositories/Auth.repository';
+import { VisitTrackerService } from './services/visit-tracker.service';
 
 @Module({
   imports: [PrismaModule, PassportModule, CloudinaryModule, RedisModule],
@@ -16,6 +17,7 @@ import { AuthRepository } from '@/auth/repositories/Auth.repository';
   providers: [
     MailService,
     JwtService,
+    VisitTrackerService,
     UsersRepository,
     AuthRepository,
     ...Object.values(Handlers),
