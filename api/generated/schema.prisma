@@ -1,0 +1,253 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  EDITOR
+  ADMIN
+}
+
+enum Recommended {
+  GOOD
+  NEUTRALITY
+  NEGATIVE
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  email    String   @unique
+  payment  String?  @default("Bank")
+  role     UserRole @default(USER)
+
+  refreshToken String[]
+  token        VerifyResetToken?
+
+  profileViews Int @default(0)
+
+  password        String
+  isEmailVerified Boolean? @default(false)
+
+  blocked Boolean @default(false)
+
+  provider   String?
+  providerId String?
+
+  avatar    Avatar?
+  googleId  String? @unique()
+  githubId  String? @unique()
+  discordId String? @unique()
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  visits    ProfileVisit[]
+  movies    Movie[]
+  likes     Like[]
+  comments  Comment[]
+  orders    Order[]
+  chats     ChatUser[]
+  messages  Message[]
+  watchList WatchListItem[]
+  review    Review?
+}
+
+model ProfileVisit {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  ipHash String
+
+  viewCount Int @default(0)
+
+  visitDate DateTime @default(now()) @db.Date
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, ipHash, visitDate])
+}
+
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  slug        String   @unique
+  year        Int?
+  category    String[]
+
+  published Boolean @default(false)
+
+  author    User  @relation(fields: [authorId], references: [id])
+  authorId  Int
+  rating    Int?  @default(0)
+  avgRating Float @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // posterId    Int?  @unique
+  // poster      Avatar?  @relation(fields: [posterId], references: [id])
+  galleryImages GalleryImage[]
+
+  comments  Comment[]
+  likes     Like[]
+  watchList WatchListItem[]
+
+  review Review[]
+}
+
+model Feedback {
+  id        Int      @id @default(autoincrement())
+  email     String
+  username  String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model VerifyResetToken {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  token String
+
+  expiresAt DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, token])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  movieId   Int
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id])
+  movie Movie @relation(fields: [movieId], references: [id])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  movieId   Int
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id])
+  movie Movie @relation(fields: [movieId], references: [id])
+
+  @@unique([userId, movieId], map: "userId_movieId_unique")
+}
+
+model Chat {
+  id        Int        @id @default(autoincrement())
+  title     String?
+  isGroup   Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  users     ChatUser[]
+  messages  Message[]
+}
+
+model ChatUser {
+  id       Int      @id @default(autoincrement())
+  chatId   Int
+  userId   Int
+  joinedAt DateTime @default(now())
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([chatId, userId])
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  chatId    Int
+  userId    Int
+  body      String
+  createdAt DateTime @default(now())
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  provider   String
+  providerId String?
+  amount     Float
+  currency   String   @default("USD")
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model WatchListItem {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  movieId   Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, movieId])
+}
+
+model Avatar {
+  id       Int    @id @default(autoincrement())
+  url      String
+  publicId String
+
+  userId Int? @unique()
+
+  movieId Int? @unique()
+
+  user User? @relation(fields: [userId], references: [id])
+
+  // movie    Movie?
+
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id       Int    @id @default(autoincrement())
+  url      String
+  publicId String
+  // altText String? 
+  //   order     Int      @default(0)
+  movie    Movie  @relation(fields: [movieId], references: [id])
+  movieId  Int
+
+  createdAt DateTime @default(now())
+
+  @@index([movieId])
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  userId  Int @unique
+  movieId Int
+
+  text     String
+  feedback Recommended
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

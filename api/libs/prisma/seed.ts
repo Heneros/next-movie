@@ -1,5 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import { PrismaClient } from '@prisma/client';
+
+// const prisma = new PrismaClient();
 
 const prisma = new PrismaClient();
 
@@ -60,7 +62,7 @@ async function main() {
 
     const categories = faker.helpers.arrayElements(
       ['Action', 'Drama', 'Comedy', 'Horror', 'Sci-Fi', 'Fantasy', 'Thriller'],
-      faker.number.int({ min: 1, max: 3 }), 
+      faker.number.int({ min: 1, max: 3 }),
     );
 
     moviePromises.push(
@@ -70,7 +72,7 @@ async function main() {
           description: faker.lorem.sentence(),
           slug: slug,
           year: faker.number.int({ min: 1950, max: 2025 }),
-          category: categories, 
+          category: categories,
           author: {
             connect: { id: user.id },
           },

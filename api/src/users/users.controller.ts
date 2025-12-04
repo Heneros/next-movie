@@ -90,7 +90,6 @@ export class UsersController {
   }
 
   @Get(USERS_ROUTES.GET_ID_USER)
-  // @UseGuards(JwtAuthGuard, ProfileOwnerGuard)
   @ApiOperation({ summary: 'Get my profile.' })
   @ApiBearerAuth('access-token')
   @ApiCreatedResponse({ type: UserEntity })

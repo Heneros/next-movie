@@ -28,8 +28,8 @@
     "prisma:build:reset": "pnpm --filter  ./api exec prisma generate &&  pnpm --filter  ./api exec migrate reset ",
     "prisma:generate": "pnpm --filter api exec prisma generate",
     "prisma:migrate": "pnpm --filter api exec prisma migrate dev",
-    "prisma:build": "pnpm --filter api exec npx prisma generate && pnpm --filter api exec npx prisma migrate dev",
-    "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts"
+    "prisma:build": "pnpm --filter ./api exec  prisma generate --schema=libs/prisma/schema.prisma  && pnpm --filter ./api exec  prisma migrate dev --schema=libs/prisma/schema.prisma",
+    "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts "
   },
   "devDependencies": {
     "@prisma/client": "^7.0.1",
