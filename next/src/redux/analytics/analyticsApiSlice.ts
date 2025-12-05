@@ -14,7 +14,7 @@ export const analyticsApi = baseApiSlice.injectEndpoints({
         }),
 
         getTotalStats: builder.query({
-            query: (userId) => ({
+            query: ({ userId }) => ({
                 url: `/analytics/${userId}/total`,
                 method: 'GET',
             }),

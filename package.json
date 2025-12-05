@@ -25,7 +25,7 @@
     "server": "pnpm --prefix ./api run start:dev",
     "next": "pnpm --prefix ./next run dev",
     "dev": "pnpm -w exec concurrently \"pnpm --prefix ./api run start:dev & timeout 5\"  \"pnpm --prefix ./next run dev\"",
-    "prisma:build:reset": "pnpm --filter  ./api exec prisma generate &&  pnpm --filter  ./api exec migrate reset ",
+    "prisma:build:reset": "pnpm --filter  ./api  exec prisma migrate reset --schema=libs/prisma/schema.prisma --force",
     "prisma:generate": "pnpm --filter api exec prisma generate",
     "prisma:migrate": "pnpm --filter api exec prisma migrate dev",
     "prisma:build": "pnpm --filter ./api exec  prisma generate --schema=libs/prisma/schema.prisma  && pnpm --filter ./api exec  prisma migrate dev --schema=libs/prisma/schema.prisma",

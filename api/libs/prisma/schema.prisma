@@ -65,15 +65,17 @@ model User {
 
 model ProfileVisit {
     id         Int      @id @default(autoincrement())
-     userId     Int
-        ipHash         String 
-  //     year      Int
-  // month     Int
-  //    viewCount Int      @default(0)
+    userId     Int
+    ipHash         String 
+    year      Int
+    month     Int  
 
-      visitDate DateTime @default(now()) @db.Date
-     updatedAt DateTime @updatedAt
+
+
+    visitDate DateTime @default(now()) @db.Date
+    updatedAt DateTime @updatedAt
   @@unique([userId, ipHash, visitDate])
+    @@index([userId, year, month])
      user User @relation(fields: [userId], references: [id], onDelete: Cascade)
    }
 

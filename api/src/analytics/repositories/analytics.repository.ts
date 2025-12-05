@@ -16,67 +16,64 @@ export class AnalyticsRepository extends AbstractRepositoryPrisma<ProfileVisit> 
     this.model = this.prisma.profileVisit;
   }
 
-  async getMonthlyStats(userId: number, months: number = 12) {
-    const startDate = new Date();
+  // analytics.repository.ts (или где у тебя getMonthlyStats)
+  async getMonthlyStats(userId: number, monthsBack = 12) {
+    const now = new Date();
+    // начальная дата — первый день месяца, monthsBack месяцев назад
+    const startDate = new Date(
+      now.getFullYear(),
+      now.getMonth() - monthsBack + 1,
+      1,
+    );
 
-    startDate.setMonth(startDate.getMonth() - months);
+    // Собственный raw SQL (внимание: используем только выражения, которые группируем)
+    const rows: Array<{ year: number; month: number; count: number }> =
+      (await this.prismaService.$queryRaw`
+      SELECT
+        EXTRACT(YEAR FROM "visitDate")::int AS year,
+        EXTRACT(MONTH FROM "visitDate")::int AS month,
+        COUNT(*)::int AS count
+      FROM "ProfileVisit"
+      WHERE "userId" = ${userId}
+        AND "visitDate" >= ${startDate}
+      GROUP BY
+        EXTRACT(YEAR FROM "visitDate"),
+        EXTRACT(MONTH FROM "visitDate")
+      ORDER BY year ASC, month ASC
+    `) as any;
 
-    const result: any[] = await this.prismaService.$queryRaw`
-    SELECT 
-      EXTRACT(YEAR FROM "visitDate") as year,
-      EXTRACT(MONTH FROM "visitDate") as month,
-      COUNT(*)::integer as count
-    FROM "ProfileVisit"
-    WHERE "userId" = ${userId}
-      AND "visitDate" >= ${startDate}
-    GROUP BY 
-      EXTRACT(YEAR FROM "visitDate"),
-      EXTRACT(MONTH FROM "visitDate")
-    ORDER BY year DESC, month DESC
-    LIMIT ${months}
-  `;
+    // Преобразуем в Map для быстрого поиска
+    const map = new Map<string, number>();
+    for (const r of rows) {
+      map.set(`${r.year}-${r.month}`, r.count);
+    }
 
-    return result.map((row) => ({
-      year: Number(row.year),
-      month: Number(row.month),
-      count: Number(row.count),
-      label: `${this.getMonthName(Number(row.month))} ${row.year}`,
-    }));
-  }
+    // Соберём массив месяцев (хронологически), заполняя пропуски нулями
+    const result: Array<{
+      year: number;
+      month: number;
+      count: number;
+      label: string;
+    }> = [];
+    for (let i = monthsBack - 1; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const year = d.getFullYear();
+      const month = d.getMonth() + 1;
+      const count = map.get(`${year}-${month}`) ?? 0;
+      const label = d.toLocaleString('en', { month: 'short' }) + ` ${year}`; // "Jan 2025"
+      result.push({ year, month, count, label });
+    }
 
-  async increaseStat(userId: number, year: number, month: number) {
-    const res = await this.model.upsert({
-      where: {
-        userId_year_month: {
-          userId,
-          year,
-          month,
-        },
-      },
-      update: {
-        viewCount: {
-          increment: 1,
-        },
-      },
-      create: {
-        userId,
-        year,
-        month,
-        viewCount: 1,
-      },
-    });
-    return res;
+    return result;
   }
 
   async getTotalStats(userId: number) {
-    const result = await this.model.aggregate({
+    const total = await this.model.count({
       where: { userId },
-      _count: {
-        _all: true,
-      },
     });
+
     return {
-      totalViews: result._count._all || 0,
+      totalViews: total,
     };
   }
 
@@ -95,7 +92,6 @@ export class AnalyticsRepository extends AbstractRepositoryPrisma<ProfileVisit> 
       'Nov',
       'Dec',
     ];
-
-    return months[month - 1] || '';
+    return months[month - 1] || `Month ${month}`;
   }
 }
