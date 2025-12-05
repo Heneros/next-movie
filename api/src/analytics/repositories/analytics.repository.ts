@@ -16,6 +16,34 @@ export class AnalyticsRepository extends AbstractRepositoryPrisma<ProfileVisit> 
     this.model = this.prisma.profileVisit;
   }
 
+  async getMonthlyStats(userId: number, months: number = 12) {
+    const startDate = new Date();
+
+    startDate.setMonth(startDate.getMonth() - months);
+
+    const result: any[] = await this.prismaService.$queryRaw`
+    SELECT 
+      EXTRACT(YEAR FROM "visitDate") as year,
+      EXTRACT(MONTH FROM "visitDate") as month,
+      COUNT(*)::integer as count
+    FROM "ProfileVisit"
+    WHERE "userId" = ${userId}
+      AND "visitDate" >= ${startDate}
+    GROUP BY 
+      EXTRACT(YEAR FROM "visitDate"),
+      EXTRACT(MONTH FROM "visitDate")
+    ORDER BY year DESC, month DESC
+    LIMIT ${months}
+  `;
+
+    return result.map((row) => ({
+      year: Number(row.year),
+      month: Number(row.month),
+      count: Number(row.count),
+      label: `${this.getMonthName(Number(row.month))} ${row.year}`,
+    }));
+  }
+
   async increaseStat(userId: number, year: number, month: number) {
     const res = await this.model.upsert({
       where: {
@@ -41,12 +69,33 @@ export class AnalyticsRepository extends AbstractRepositoryPrisma<ProfileVisit> 
   }
 
   async getTotalStats(userId: number) {
-    const res = await this.model.aggregate({
+    const result = await this.model.aggregate({
       where: { userId },
-      _sum: {
-        viewCount: true,
+      _count: {
+        _all: true,
       },
     });
-    return res;
+    return {
+      totalViews: result._count._all || 0,
+    };
+  }
+
+  private getMonthName(month: number): string {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    return months[month - 1] || '';
   }
 }

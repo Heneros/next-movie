@@ -67,8 +67,9 @@ model ProfileVisit {
     id         Int      @id @default(autoincrement())
      userId     Int
         ipHash         String 
-    
-     viewCount Int      @default(0)
+  //     year      Int
+  // month     Int
+  //    viewCount Int      @default(0)
 
       visitDate DateTime @default(now()) @db.Date
      updatedAt DateTime @updatedAt

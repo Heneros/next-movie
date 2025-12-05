@@ -28,38 +28,37 @@ export class AnalyticsController {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Post(ANALYTICS_ROUTES.INCREMENT_VIEW)
-  @ApiOperation({ summary: 'Watch Profile user' })
-  @ApiCreatedResponse({
-    description: 'profile views increased',
-  })
-  async incrementView(
-    @Param('userId', CheckUserExistPipe, ParseIntPipe) userId: number,
-  ) {
-    const result = await this.commandBus.execute(
-      new IncrementViewCommand(userId),
-    );
-    return plainToInstance(ProfileVisitEntity, result);
-  }
+  // @Post(ANALYTICS_ROUTES.INCREMENT_VIEW)
+  // @ApiOperation({ summary: 'Watch Profile user' })
+  // @ApiCreatedResponse({
+  //   description: 'profile views increased',
+  // })
+  // async incrementView(
+  //   @Param('userId', CheckUserExistPipe, ParseIntPipe) userId: number,
+  // ) {
+  //   const result = await this.commandBus.execute(
+  //     new IncrementViewCommand(userId),
+  //   );
+  //   return plainToInstance(ProfileVisitEntity, result);
+  // }
 
-  @Get(ANALYTICS_ROUTES.GET_STATS)
-  @UseGuards(JwtAuthGuard)
+  @Get(ANALYTICS_ROUTES.GET_MONTHLY)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Profile user views' })
   @ApiCreatedResponse({
     description: 'Profile views ',
   })
   async getStatsByMonth(
     @Param('userId', CheckUserExistPipe, ParseIntPipe) userId: number,
-    @Query() query: QueryStatsDto,
+    // @Query() query: QueryStatsDto,
   ) {
-    const stats = await this.queryBus.execute(
-      new GetMonthlyStatsQuery(userId, query.monthsBack),
-    );
-    return plainToInstance(MonthlyStatsEntity, stats);
+    const stats = await this.queryBus.execute(new GetMonthlyStatsQuery(userId));
+    return stats;
+    // return plainToInstance(MonthlyStatsEntity, stats);
   }
 
   @Get(ANALYTICS_ROUTES.GET_TOTAL)
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Get Total stats from profile' })
   async getStatsTotal(
     @Param('userId', CheckUserExistPipe, ParseIntPipe) userId: number,

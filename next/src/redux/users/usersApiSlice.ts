@@ -4,7 +4,7 @@ import baseApiSlice from '../api/baseApi';
 export const usersApiSlice = baseApiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getProfile: builder.query<User, number>({
-            query: (userId) => `/users/profile/${userId}`,
+            query: (userId) => `/users/${userId}`,
         }),
     }),
 });

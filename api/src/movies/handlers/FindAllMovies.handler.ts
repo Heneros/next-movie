@@ -23,6 +23,9 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
 
 
     
+
+
+    
     try {
       const cacheKey = `${page}:limit:${limit}`;
       const movieCached = await this.redisService.getMovies(cacheKey);

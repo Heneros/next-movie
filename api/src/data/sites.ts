@@ -75,7 +75,9 @@ export const ANALYTICS_CONTROLLER = 'analytics' as const;
 export const ANALYTICS_ROUTES = {
   INCREMENT_VIEW: ':userId/increment',
   GET_STATS: ':userId/stats',
+
   GET_TOTAL: ':userId/total',
+  GET_MONTHLY: ':userId/monthly',
 } as const;
 
 export const AI_ROUTES = {

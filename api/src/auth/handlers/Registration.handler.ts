@@ -9,11 +9,10 @@ import bcrypt from 'bcryptjs';
 import { MailService } from '@/mail/mail.service';
 import { RedisRepository } from '@/redis/redis.repository';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
+import { User } from '@/interfaces/cus-user';
 
 @CommandHandler(RegisterUserCommand)
-export class RegisterUserHandler
-  implements ICommandHandler<RegisterUserCommand>
-{
+export class RegisterUserHandler implements ICommandHandler<RegisterUserCommand> {
   constructor(
     private readonly authRepository: AuthRepository,
     private readonly mailService: MailService,
@@ -67,7 +66,7 @@ export class RegisterUserHandler
         username: createdUser.username,
         email: createdUser.email,
         id: createdUser.id,
-      };
+      } as User;
 
       const responseAI = await this.aiAgentService.sendMessageWelcome(
         createdUser.username,

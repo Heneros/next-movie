@@ -38,11 +38,6 @@ import { GetProfileQuery } from './queries/GetProfile.query';
 import { UpdateUserDto } from './dto/update-user.dto';
 import type { Request } from 'express';
 
-
-
-
-
-
 @Controller(USERS_CONTROLLER)
 export class UsersController {
   constructor(
@@ -71,8 +66,6 @@ export class UsersController {
     return plainToInstance(UserEntity, newUsers);
   }
 
-
-  
   @Patch(USERS_ROUTES.UPDATE_USER)
   @UseGuards(JwtAuthGuard, ProfileOwnerGuard)
   @ApiOperation({ summary: 'Update my profile. Only for authorized user' })
@@ -95,8 +88,11 @@ export class UsersController {
   @ApiCreatedResponse({ type: UserEntity })
   async getProfile(
     @Param('userId', CheckUserExistPipe) userId: number,
-  @Req() request: Request,) {
-    const result = await this.queryBus.execute(new GetProfileQuery(userId, request));
+    @Req() request: Request,
+  ) {
+    const result = await this.queryBus.execute(
+      new GetProfileQuery(userId, request),
+    );
     return plainToInstance(UserEntity, result);
   }
 }

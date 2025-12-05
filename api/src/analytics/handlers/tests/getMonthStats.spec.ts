@@ -26,8 +26,8 @@ describe('Get Views by Month', () => {
 
     const result = await handler.execute(new GetMonthlyStatsQuery(2, 2));
     expect(analyticsRepository.findMany).toHaveBeenCalledTimes(1);
-    expect(result.data).toBeInstanceOf(Array);
-    expect(result.total).toBeGreaterThanOrEqual(0);
+    expect(result).toBeInstanceOf(Array);
+    expect(result).toBeGreaterThanOrEqual(0);
   });
 
   afterEach(() => {

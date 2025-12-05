@@ -1,30 +1,19 @@
-import { IncrementViewResponse, ProfileStatsResponse } from '@/interfaces';
+// import { IncrementViewResponse, ProfileStatsResponse } from '@/interfaces';
 import baseApiSlice from '../api/baseApi';
 
 export const analyticsApi = baseApiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getStatsByProfileMonth: builder.query<
-            ProfileStatsResponse,
-            { userId: number; monthsBack?: number }
-        >({
+        getStatsByProfileMonthly: builder.query({
             query: ({ userId }) => ({
-                url: `/analytics/${userId}/stats`,
+                url: `/analytics/${userId}/monthly`,
                 method: 'GET',
             }),
             providesTags: (result, error, { userId }) => [
                 { type: 'ProfileStats', id: userId },
             ],
         }),
-        incrementProfileView: builder.mutation<IncrementViewResponse, string>({
-            query: (userId) => ({
-                url: `/analytics/${userId}/increment`,
-                method: 'POST',
-            }),
-            invalidatesTags: (result, error, userId) => [
-                { type: 'ProfileStats', id: userId },
-            ],
-        }),
-        getTotalStats: builder.query<{ totalViews: number }, string>({
+
+        getTotalStats: builder.query({
             query: (userId) => ({
                 url: `/analytics/${userId}/total`,
                 method: 'GET',
@@ -36,8 +25,5 @@ export const analyticsApi = baseApiSlice.injectEndpoints({
     }),
 });
 
-export const {
-    useGetStatsByProfileMonthQuery,
-    useGetTotalStatsQuery,
-    useIncrementProfileViewMutation,
-} = analyticsApi;
+export const { useGetStatsByProfileMonthlyQuery, useGetTotalStatsQuery } =
+    analyticsApi;

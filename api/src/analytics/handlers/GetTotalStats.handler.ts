@@ -9,10 +9,6 @@ export class GetTotalStatsHandler implements IQueryHandler<GetTotalStatsQuery> {
   async execute(query: GetTotalStatsQuery) {
     const { userId } = query;
 
-    const total = await this.analyticsRepository.getTotalStats(userId);
-
-    return {
-      totalViews: total._sum.viewCount || 0,
-    };
+    return await this.analyticsRepository.getTotalStats(userId);
   }
 }
