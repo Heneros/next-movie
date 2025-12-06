@@ -92,6 +92,7 @@ model ProfileVisit {
    }
 
 
+
 model Movie {
   id            Int       @id @default(autoincrement())
    title     String 
@@ -124,9 +125,21 @@ model Movie {
   watchList     WatchListItem[] 
 
   review Review[]
+
+  directors    Director[] @relation("MovieDirectors")
+ /// directorId Int[]
+
 }
 
 
+model Director{
+    id        Int      @id @default(autoincrement())
+  name      String
+  bio       String?
+  birthDate DateTime?
+
+  movies    Movie[]  @relation("MovieDirectors")
+}
 
 model Feedback {
   id        Int      @id @default(autoincrement())

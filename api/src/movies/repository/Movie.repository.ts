@@ -4,6 +4,7 @@ import { AbstractRepositoryPrisma } from '@/prisma/abstract.repository';
 import { CreateMovieDto } from '../dto-input/create-movie.dto';
 import { PrismaService } from '@/prisma/prisma.service';
 import { PAGINATION_LIMIT } from '@/data/defaultVariables';
+import { FilterMovieDto } from '../dto-input/filter-movie.dto';
 
 @Injectable()
 export class MovieRepository extends AbstractRepositoryPrisma<Movie> {
@@ -60,31 +61,43 @@ export class MovieRepository extends AbstractRepositoryPrisma<Movie> {
     });
   }
 
-  async findAllMovie(offset: number, limit: number) {
+  async findAllMovie(
+    offset: number,
+    limit: number,
+    filterMovieDto: FilterMovieDto,
+  ) {
+    const {
+      year,
+      category,
+      minRating,
+      orderBy = 'title',
+      order = 'desc',
+    } = filterMovieDto;
+
+    const where: any = {};
+
+    if (year) {
+      where.year = Number(year);
+    }
+
+    if (minRating) {
+      where.avgRating = { gte: Number(minRating) };
+    }
+
+    if (category) {
+      where.category = { has: category };
+    }
+
     const [data, total] = await this.prisma.$transaction([
       this.model.findMany({
         skip: offset,
         take: limit,
-        orderBy: { id: 'asc' },
+        where,
+        orderBy: { [orderBy]: order as 'asc' | 'desc' },
       }),
-      this.model.count(),
+      this.model.count({ where }),
     ]);
-    return [data, total] as const;
 
-    // return await this.model.findMany({
-    //   skip,
-    //   take,
-    //   orderBy: {
-    //     id: 'asc',
-    //   },
-    // });
+    return [data, total] as const;
   }
-  //   async removeMovie(id: number) {
-  //     const movie = Promise.all([
-  //       this.prisma.reviews.deleteMany({ where: { movieId: id } }),
-  //       this.prisma.rating.deleteMany({ where: { movieId: id } }),
-  //       this.prisma.movie.delete({ where: { id } }),
-  //     ]);
-  //     return movie;
-  //   }
 }

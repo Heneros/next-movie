@@ -1,4 +1,5 @@
 import { IQuery } from '@nestjs/cqrs';
+import { FilterMovieDto } from '../dto-input/filter-movie.dto';
 
 export class FindAllMovieQuery implements IQuery {
   constructor(
@@ -6,5 +7,6 @@ export class FindAllMovieQuery implements IQuery {
 
     public readonly limit: number,
     public readonly page: number,
+    public readonly filters: FilterMovieDto,
   ) {}
 }

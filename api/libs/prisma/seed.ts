@@ -9,6 +9,13 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Start seeding...');
+  const directorNames = [
+    'Steven Spielberg',
+    'Christopher Nolan',
+    'Greta Gerwig',
+    'Ava DuVernay',
+    'Quentin Tarantino',
+  ];
 
   const userAdminEmail = 'seed-admin@example.com';
   const userEditorEmail = 'seed-editor@example.com';
@@ -58,6 +65,14 @@ async function main() {
   });
   console.log('User ready:', { id: user.id, email: user.email });
 
+
+  const directorPromises = directorNames.map((name) =>
+    prisma.director.create({
+      data: { name, bio: faker.lorem.sentences(2) },
+    }),
+  );
+
+  const directors = await Promise.all(directorPromises);
   const moviesData = [
     {
       title: 'The Last Dawn',
@@ -101,6 +116,7 @@ async function main() {
       ['Action', 'Drama', 'Comedy', 'Horror', 'Sci-Fi', 'Fantasy', 'Thriller'],
       faker.number.int({ min: 1, max: 3 }),
     );
+    const selected = faker.helpers.arrayElements(directors, faker.number.int({ min: 0, max: 2 }));
 
     moviePromises.push(
       prisma.movie.create({
@@ -112,6 +128,9 @@ async function main() {
           category: categories,
           author: {
             connect: { id: user.id },
+          },
+              directors: {
+            connect: selected.map((d) => ({ id: d.id })),
           },
         },
       }),

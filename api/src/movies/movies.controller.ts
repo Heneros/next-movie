@@ -15,6 +15,7 @@ import {
   UseInterceptors,
   DefaultValuePipe,
   UploadedFiles,
+  ValidationPipe,
 } from '@nestjs/common';
 import {
   AI_ROUTES,
@@ -58,6 +59,7 @@ import { UpdateMovieDto } from './dto-input/update-movie.dto';
 
 import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
+import { FilterMovieDto } from './dto-input/filter-movie.dto';
 
 @Controller(MOVIE_CONTROLLER)
 @ApiTags('Movie')
@@ -82,12 +84,14 @@ export class MoviesController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(PAGINATION_LIMIT), ParseIntPipe)
     limit: number,
+    @Query('filter', new ValidationPipe({ transform: true }))
+    filterMovieDto: FilterMovieDto,
   ) {
     page = Math.max(1, page);
     limit = Math.max(1, Math.min(limit, 100));
     const offset = (page - 1) * limit;
     const movies = await this.queryBus.execute(
-      new FindAllMovieQuery(offset, limit, page),
+      new FindAllMovieQuery(offset, limit, page, filterMovieDto),
     );
     return movies;
     // console.log(movies);
