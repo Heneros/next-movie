@@ -22,17 +22,29 @@ enum Recommended {
   NEGATIVE
 }
 
+model VerifyResetToken {
+  id        Int   @id @default(autoincrement())
+  token     String
+  userId    Int   @unique
+  user      User  @relation(name: "UserVerifyToken", fields: [userId], references: [id], onDelete: Cascade)
+
+  expiresAt DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, token])
+}
+
 model User {
   id           Int               @id @default(autoincrement())
   username     String            @unique
   email        String            @unique
-  payment      String?            @default("Bank")
+  payment      String?           @default("Bank")
   role         UserRole          @default(USER)
 
   refreshToken String[]
-  token  VerifyResetToken?
-  
-  profileViews Int   @default(0)
+  token    VerifyResetToken? @relation(name: "UserVerifyToken")
+
 
 
   password     String
@@ -92,7 +104,9 @@ model Movie {
 
 
 
-  author      User     @relation(fields: [authorId], references: [id])
+  author      User     @relation(fields: [authorId], references: [id], onDelete:  SetNull)
+
+  
   authorId    Int 
   rating        Int? @default(0)  
   avgRating    Float @default(0)
@@ -124,19 +138,6 @@ model Feedback {
 
 
 
-model VerifyResetToken {
-  id     Int  @id @default(autoincrement())
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  token String
-
-  expiresAt DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([userId, token])
-}
 
 
 model Comment{

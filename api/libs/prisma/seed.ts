@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
 
+import bcrypt from 'bcryptjs';
+
 // const prisma = new PrismaClient();
 
 const prisma = new PrismaClient();
@@ -8,15 +10,50 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Start seeding...');
 
-  const userEmail = 'seed-admin@example.com';
+  const userAdminEmail = 'seed-admin@example.com';
+  const userEditorEmail = 'seed-editor@example.com';
+  const pass = 'password123';
+  const salt = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash(pass, salt);
 
   const user = await prisma.user.upsert({
-    where: { email: userEmail },
+    where: { email: userAdminEmail },
     update: {},
     create: {
-      email: userEmail,
+      role: 'ADMIN',
+      email: userAdminEmail,
+      isEmailVerified: true,
       username: 'seed_admin',
-      password: 'password123',
+      password: hashedPassword,
+    },
+  });
+  const user2 = await prisma.user.upsert({
+    where: { email: userEditorEmail },
+    update: {},
+    create: {
+      role: 'EDITOR',
+      email: userEditorEmail,
+      isEmailVerified: true,
+      username: 'seed_editor',
+      password: hashedPassword,
+    },
+  });
+
+  await prisma.verifyResetToken.upsert({
+    where: { userId: user.id },
+    update: {},
+    create: {
+      token: 'EDITOR',
+      userId: user.id,
+    },
+  });
+
+  await prisma.verifyResetToken.upsert({
+    where: { userId: user2.id },
+    update: {},
+    create: {
+      token: 'qwwerrtt',
+      userId: user2.id,
     },
   });
   console.log('User ready:', { id: user.id, email: user.email });

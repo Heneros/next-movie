@@ -23,7 +23,6 @@ describe('GetAllUsers QueryHandler', () => {
     updatedAt: new Date(),
     isEmailVerified: true,
     refreshToken: [],
-    profileViews: 0,
     payment: 'bank',
     provider: '',
     providerId: '',
