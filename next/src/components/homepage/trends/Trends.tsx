@@ -36,26 +36,29 @@ export default function Trends({ movies }: { movies: MovieItem[] }) {
             </div>
             {/* Slider */}
             <Swiper
+
                 navigation={{
                     prevEl: ".trends-prev",
                     nextEl: ".trends-next",
                 }}
-                spaceBetween={20}
-                slidesPerView={5}
+                spaceBetween={0}
                 breakpoints={{
-                    640: { slidesPerView: 2 },
-                    768: { slidesPerView: 3 },
-                    1024: { slidesPerView: 4.2, spaceBetween: 40 },
-                    1280: { slidesPerView: 5.2 },
+                    100: { slidesPerView: 2, spaceBetween: 0 },
+                    400: { slidesPerView: 2, spaceBetween: 6 },
+                    640: { slidesPerView: 2, spaceBetween: 8 },
+                    768: { slidesPerView: 3, spaceBetween: 10 },
+                    1100: { slidesPerView: 4.5, spaceBetween: 10 },
+                    1500: { slidesPerView: 5.9, spaceBetween: 6 },
                 }}
+                className="py-4"
             >
                 {movies.map((info) => (
-                    <SwiperSlide key={info.id} className="w-auto relative">
+
+                    <SwiperSlide key={info.id} className="w-auto! flex justify-center px-35 sm:px-20">
                         <MovieCard info={info} />
                     </SwiperSlide>
-
                 ))}
-            </Swiper >
+            </Swiper>
 
         </section >
     )

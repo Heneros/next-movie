@@ -19,16 +19,15 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
     const { offset = 0, limit = PAGINATION_LIMIT, page = 1, filters } = query;
     ///  const skip = (page - 1) * PAGINATION_LIMIT;
 
-    // this.logger.debug('qwerty');
 
     try {
-      const cacheKey = `${page}:limit:${limit}`;
+    const cacheKey = `movies:page:${page}:limit:${limit}:offset:${offset}:filters:${JSON.stringify(filters)}`;
       const movieCached = await this.redisService.getMovies(cacheKey);
       if (movieCached) {
         // console.log(movieCached);
         return movieCached;
       }
-
+      
       const [data, total] = await this.movieRepository.findAllMovie(
         offset,
         limit,

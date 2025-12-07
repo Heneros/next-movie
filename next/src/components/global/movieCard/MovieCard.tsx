@@ -1,65 +1,74 @@
-"use client"
+"use client";
 
-import { MovieItem } from '@/interfaces'
-import { useGetPreviewQuery } from '@/redux/movie/moviesApiSlice'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Image from 'next/image'
-import React from 'react'
-import Skeleton from 'react-loading-skeleton'
+import React from "react";
+import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { MovieItem } from "@/interfaces";
+import { useGetPreviewQuery } from "@/redux/movie/moviesApiSlice";
 
 export default function MovieCard({ info }: { info: MovieItem }) {
+    const { data: previewData, isLoading } = useGetPreviewQuery(info.id);
 
-
-    const { data: previewData, isLoading, isError, error } = useGetPreviewQuery(info.id)
-
-
-
-    // if (isLoading) return <div>Loading preview...</div>;
-    // if (error) return <div>Failed to load preview. (Error {error?.status!})</div>;
-    // console.log(previewData)
-
-    // console.log(info.id)
     return (
-        <div className='w-[140px]  sm:w-[170px] md:w-[190px] lg:w-[296px]'>
+        <div className="relative w-[145px] sm:w-[180px] md:w-[220px] lg:w-[260px]">
 
-            {isLoading ? (<Skeleton height={250} />) : previewData ? (
+            {isLoading && (
+                <Skeleton
+                    height={340}
+                    borderRadius={30}
+                />
+            )}
+
+            {!isLoading && previewData && (
                 <>
-                    <div className='inverted-radius  w-full  h-[300px] sm:h-80 md:h-[340px] lg:h-[360px] cursor-pointer relative '>
+                    <div className="inverted-radius relative w-full h-[210px] sm:h-[260px] md:h-[310px] lg:h-[350px] overflow-hidden cursor-pointer">
                         <Image
                             fill
                             loading="lazy"
                             decoding="async"
                             quality={75}
-                            className="object-cover       
-                                    duration-500
-                                    ease-in-out
-                                    hover:scale-110"
-                            alt={info.title ?? "poster"} sizes="(max-width: 768px) 200px, (max-width: 1280px) 240px, 300px"
-                            src={`${previewData.url}`} />
-
+                            className="object-cover duration-500 ease-in-out hover:scale-110"
+                            src={previewData.url}
+                            alt={info.title ?? "poster"}
+                        />
                     </div>
+
                     <div
                         className="
-         top-0 left-0 z-50 w-14 h-14 rounded-2xl backdrop-blur-lg 
-        flex justify-center items-center
-        text-2xl font-bold shadow-md  bg-auto bg-left-top  cursor-pointer
-        absolute
-          duration-500
-       ease-in-out
-      "
+              absolute top-2 left-2
+              z-50 w-10 h-10 
+              rounded-2xl 
+              backdrop-blur-lg 
+              flex justify-center items-center
+              shadow-md
+            "
                         style={{ backgroundImage: `url(${previewData.url})` }}
                     >
                         <FontAwesomeIcon
                             icon={faPlus}
-                            className="relative z-10 text-2xl dark:text-white text-neutral-950 w-5 h-5"
+                            className="relative z-10 text-white w-4 h-4"
                         />
                     </div>
                 </>
+            )}
 
-            ) : (<div className="inverted-radius  w-full  h-[300px] sm:h-[320px] md:h-[340px] lg:h-[360px] cursor-pointer  bg-gray-700 flex items-center justify-center text-yellow-500 text-sm">
-                No Image
-            </div>)}
+            {!isLoading && !previewData && (
+                <div
+                    className="
+            inverted-radius
+            w-full
+            h-[210px] sm:h-[260px] md:h-[310px] lg:h-[350px]
+            bg-neutral-800
+            flex items-center justify-center
+            text-yellow-500
+            text-sm
+          "
+                >
+                    No Image
+                </div>
+            )}
 
         </div>
     )

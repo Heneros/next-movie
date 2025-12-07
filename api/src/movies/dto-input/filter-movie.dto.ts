@@ -18,7 +18,7 @@ export class FilterMovieDto {
 
   @IsOptional()
   @IsString()
-  public category?: string[];
+  public category?: string;
 
   @IsOptional()
   @IsString()
@@ -38,7 +38,7 @@ export class FilterMovieDto {
 
   @IsOptional()
   @IsIn(['year', 'rating', 'title'])
-  public orderBy?: 'year' | 'rating' | 'title';
+  public orderBy?: string = 'title';
 
   @IsOptional()
   @IsIn(['asc', 'desc'])

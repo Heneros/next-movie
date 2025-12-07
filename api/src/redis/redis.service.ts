@@ -27,7 +27,7 @@ export class RedisService {
     if (!result) return null;
 
     return JSON.parse(result);
-    return null;
+
   }
   async saveMovies(
     key: string,
@@ -37,7 +37,7 @@ export class RedisService {
     // console.log(data);
     // const key = this.makeKey(RedisPrefixEnum.MOVIE_LIST, page);
     const value = JSON.stringify(data);
-    await this.redis.set(key, value);
+    await this.redis.set(key, value, 'EX', ttl);
     await this.redis.expire(key, ttl);
   }
 
@@ -72,7 +72,7 @@ export class RedisService {
     // const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
     // const value = JSON.stringify(data);
 
-    const result = await this.redis.set(key, data);
+    const result = await this.redis.set(key, data, 'EX', ttl);
     await this.redis.expire(key, ttl);
     if (result) {
       return result;
