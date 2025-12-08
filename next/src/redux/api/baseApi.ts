@@ -13,7 +13,7 @@ const baseApiSlice = createApi({
     //baseQuery: baseQueryWithRefreshToken,
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3000',
+        baseUrl: BASE_URL,
         credentials: 'include',
         prepareHeaders: (headers, { getState }) => {
             const state = getState() as RootState;

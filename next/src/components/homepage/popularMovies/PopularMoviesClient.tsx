@@ -41,14 +41,16 @@ export default function PopularMoviesClient({ popularMovies }: { popularMovies: 
                 spaceBetween={20}
                 slidesPerView={5}
                 breakpoints={{
-                    640: { slidesPerView: 2 },
-                    768: { slidesPerView: 3 },
-                    1024: { slidesPerView: 4.2, spaceBetween: 40 },
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    768: { slidesPerView: 3, spaceBetween: 50 },
+                    900: { slidesPerView: 3, spaceBetween: 80 },
+                    1024: { slidesPerView: 4.2, spaceBetween: 85 },
                     1280: { slidesPerView: 5.2 },
+
                 }}
             >
                 {popularMovies.map((trend) => (
-                    <SwiperSlide key={trend.id} className="shrink-0">
+                    <SwiperSlide key={trend.id} className="w-auto! ">
 
                         <MovieCard info={trend} />
                     </SwiperSlide>
