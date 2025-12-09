@@ -9,12 +9,12 @@ export type MoviesResponse = {
 export async function getMovies({
     page = 1,
     limit = 10,
-    q = '',
-}: {
-    page?: number;
-    limit?: number;
-    q?: string;
-} = {}): Promise<MoviesResponse> {
+   category,
+  year,
+  minRating,
+  orderBy,
+  order,
+}: GetMoviesParams = {}): Promise<MoviesResponse> {
     const params = new URLSearchParams();
     params.set('page', String(page));
     params.set('limit', String(limit));
