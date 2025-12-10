@@ -5,6 +5,7 @@ import { useGetPreviewQuery } from '@/redux/movie/moviesApiSlice'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 
@@ -73,7 +74,10 @@ export default function MovieCard({ info }: { info: MovieItem }) {
 
                             </>
                         </div>
-                        <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold py-2 rounded transition-color">Visit page</button>
+                        <div className=' mx-auto  flex justify-center '>
+                            <Link href={`/movie/${info.id}`} className=" text-center block mx-auto w-100 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold py-2 rounded transition-color">Visit page</Link>
+                        </div>
+
                     </div>
                 </div>
             </div>)}

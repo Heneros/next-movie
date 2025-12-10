@@ -68,7 +68,7 @@ export default function MovieCarousel({
                 {slides.map((m) => (
                     <SwiperSlide key={m.id}>
                         <div className="relative w-full h-[60vh] md:h-[70vh]  flex md:items-center">
-                            <div className="absolute inset-0 -z-10">
+                            <div className="absolute inset-0 ">
                                 {m.backdropUrl ? (
                                     <Image
                                         src={m.backdropUrl}
@@ -79,11 +79,11 @@ export default function MovieCarousel({
                                         sizes="(max-width: 768px) 100vw, 1200px"
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-gradient-to-r from-[#041028] [#071026] to-transparent" />
+                                    <div className="w-full h-full bg-gradient-to-r from-[#041028] [#071026] " />
                                 )}
                             </div>
 
-                            <div className="container flex flex-row md:flex mx-auto px-4 lg:px-16 z-20  items-center relative">
+                            <div className="container flex flex-row md:flex mx-auto px-4 lg:px-16  items-center relative">
                                 <div className=" max-w-2xl flex-1 text-black dark:text-[#fff] py-12">
                                     <motion.h2
                                         initial={{ opacity: 0, y: 20 }}
@@ -129,7 +129,6 @@ export default function MovieCarousel({
                                                                 alt={'Icon star'}
                                                                 width={32}
                                                                 height={32}
-
                                                                 src={iconStar}
                                                                 className={`h-5 w-5 ${filled
                                                                     ? "text-yellow-400"
@@ -173,7 +172,7 @@ export default function MovieCarousel({
                                             </Link>
 
                                             <Link
-                                                href={`/movies/${m.id}/details`}
+                                                href={`/movies/${m.id}`}
                                                 className="flex items-center gap-2 px-6 py-3 border border-white rounded-full hover:bg-white/10
                                 transition
                                 dark:text-white text-black"
@@ -187,9 +186,9 @@ export default function MovieCarousel({
                                 </div>
                                 <div
                                     className=" absolute  hidden  md:flex-0
-                                right-0 lg:right-16 bottom-7 z-30 md:flex flex-row align-baseline justify-center items-center"
+                                right-0 lg:right-16 bottom-7  md:flex flex-row align-baseline justify-center items-center"
                                 >
-                                    {slides.slice(0, 4).map((thumb, index) => (
+                                    {slides.map((thumb, index) => (
                                         <div
                                             key={thumb.id}
                                             onClick={() =>

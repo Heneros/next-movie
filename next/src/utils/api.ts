@@ -42,7 +42,9 @@ export async function getMovies({
     const res = await fetch(`${DOMAIN_BACKEND}/movie?${params.toString()}`, {
         cache: 'no-store',
     });
-    if (!res.ok) throw new Error('Failed to fetch trends: ' + res.status);
+    if (!res.ok){
+        console.log(res)
+        throw new Error('Failed to fetch trends: ' + res.status)};
     const json = await res.json();
     return json;
 }

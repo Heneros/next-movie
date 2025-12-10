@@ -5,5 +5,5 @@ export interface GetMoviesParams {
   year?: number;
   minRating?: number;
   orderBy?: string; 
-  order?: 'asc' | 'desc';
+  order?: string
 }

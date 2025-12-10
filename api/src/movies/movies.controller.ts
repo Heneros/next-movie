@@ -180,6 +180,9 @@ export class MoviesController {
   }
 
   @Patch(MOVIE_ROUTES.UPDATE_MOVIE)
+    @Post(MOVIE_ROUTES.CREATE_MOVIE)
+  @UseGuards(JwtAuthGuard)
+  @Role("ADMIN", "EDITOR")
   @ApiOperation({
     summary: 'Update movie by id.',
   })
@@ -206,6 +209,7 @@ export class MoviesController {
 
   @Post(MOVIE_ROUTES.CREATE_MOVIE)
   @UseGuards(JwtAuthGuard)
+  @Role("ADMIN", "EDITOR")
   @ApiOperation({
     summary: 'Create movie. available only for admin or editor role',
   })
@@ -247,7 +251,7 @@ export class MoviesController {
     }),
   )
   @UseGuards(JwtAuthGuard)
-  @Role('Admin', 'Editor')
+  @Role('ADMIN', 'EDITOR')
   @ApiOperation({ summary: 'Upload a preview image for a movie' })
   @ApiConsumes('multipart/form-data')
   @ApiBody({

@@ -17,32 +17,6 @@ import PopularMoviesClient from "@/components/homepage/popularMovies/PopularMovi
 
 config.autoAddCss = false;
 
-const demoMovies = [
-    {
-        id: "1",
-        title: "The Witcher",
-        description:
-            "Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world...",
-        posterUrl: "",
-        backdropUrl:
-            "https://images.unsplash.com/photo-1526779259212-939e64788e3c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
-        imdb: 8.1,
-        categories: ["Fantasy", "Drama"],
-        provider: "NETFLIX",
-    },
-    {
-        id: "2",
-        title: "Oppenheimer",
-        description:
-            "Physicist J. Robert Oppenheimer works on the Manhattan Project...",
-        posterUrl: "",
-        backdropUrl:
-            "https://i.pinimg.com/474x/c8/f4/59/c8f459a0f1a692bd9b8d595ce58efa39.jpg",
-        imdb: 9.0,
-        categories: ["History", "Drama"],
-        provider: "IMAX",
-    },
-];
 
 const metadata: Metadata = {
     title: "MovieApp on Next.js",
@@ -51,15 +25,42 @@ const metadata: Metadata = {
 
 export default async function Home() {
 
-    let movies;
+    let moviesRespSlider;
+    let moviesRespPopular
+    let moviesRespTrends
+
+    let trends
+    let popular
+    let slider
+
     let total
     let moviesResp
     try {
-        // moviesResp = await getMovies();
-        // const { movies, total } = moviesResp;
-        // return movies, total
-        moviesResp = await getMovies();
-        movies = moviesResp.data || [];
+        moviesRespSlider = await getMovies({
+            category: 'Drama',
+            orderBy: 'asc'
+        });
+
+        slider = moviesRespSlider.data || [];
+
+
+
+
+        moviesRespPopular = await getMovies({
+            // year: 2022,
+            orderBy: 'desc'
+        });
+        popular = moviesRespPopular.data || [];
+
+
+
+        moviesRespTrends = await getMovies({
+            year: 2022,
+
+            orderBy: 'asc'
+        });
+        trends = moviesRespTrends.data || [];
+
         total = moviesResp.total || 0;
         // console.log(moviesResp)
     } catch (err) {
@@ -69,13 +70,13 @@ export default async function Home() {
 
     return (
         <>
-            <MovieCarousel movies={demoMovies} />
+            <MovieCarousel movies={slider} />
             <div className="trends ">
-                <Trends movies={movies} />
+                <Trends movies={trends} />
             </div>
 
             <section className="popular-movies ">
-                <PopularMoviesClient popularMovies={movies} />
+                <PopularMoviesClient popularMovies={popular} />
             </section >
 
         </>

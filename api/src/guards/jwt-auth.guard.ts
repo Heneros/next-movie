@@ -1,18 +1,12 @@
 import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
-  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Request } from 'express';
-import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { Reflector } from '@nestjs/core';
-import { UsersRepository } from '@/users/repository/Users.repository';
-import { PrismaService } from '@/prisma/prisma.service';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -38,57 +32,53 @@ export class JwtAuthGuard implements CanActivate {
 
     // const req = context.switchToHttp().getRequest<Request>();
 
-    // const token = request.cookies.jwtMovies;
-    const authHeader = request.headers?.authorization;
+    ///const authHeader = request.headers?.authorization;
+const token = request.cookies?.jwtMovies;
 
-    if (!authHeader) {
-      throw new UnauthorizedException('No authorization header');
-    }
-
-    const token = authHeader?.split('Bearer ')[1];
-    if (!token) {
-      throw new BadRequestException('No token provided');
-    }
+if (!token) {
+  throw new UnauthorizedException('No token cookie provided');
+}
 
     const roles = this.reflector.getAllAndOverride('role', [
       context.getHandler(),
       context.getClass(),
     ]);
 
-    console.log(request.user);
 
-    if (roles.length > 0) {
+
+    if (roles?.length > 0) {
       try {
         const payload = this.jwtService.verify(token, {
           secret: process.env.JWT_SECRET,
         });
+    console.log(payload);
 
-        const hasRole = roles.some((role) => roles.includes(role));
-        if (!hasRole) {
-          return false;
-        }
+    const hasRole = roles.some((role) => payload.role.includes(role));
+    if (!hasRole) {   
+      throw new UnauthorizedException('Insufficient permissions');
+     
+    }
 
-        if (roles.some((role) => payload.roles.includes(role))) {
-          request.user = payload;
-          return true;
-        }
-        return false;
+    request.user = payload;
+    return true;
+    // if (!hasRole) {
+        //   return false;
+        // }
+
+        // if (roles.some((role) => payload.roles.includes(role))) {
+        //   request.user = payload;
+        //   return true;
+        // }
+        // return false;
       } catch (error) {
         // if (error instanceof BadRequestException || UnauthorizedException) {
         //   return error;
         // }
-        // console.error('error', error);
+        console.error('error', error);
         return false;
       }
     }
 
     return true;
   }
-
-  // private extractBearerToken(authHeader: string): string | null {
-  //   if (!authHeader) return null;
-
-  //   const [scheme, creds] = authHeader.split(' ');
-  //   return scheme === 'Bearer' ? creds : null;
-  // }
 }
