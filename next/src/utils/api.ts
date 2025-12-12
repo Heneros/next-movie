@@ -39,12 +39,25 @@ export async function getMovies({
   if (order) {
     params.set('order', order);
   }
-    const res = await fetch(`${DOMAIN_BACKEND}/movie?${params.toString()}`, {
+  try{
+  const res = await fetch(`${DOMAIN_BACKEND}/movie?${params.toString()}`, {
         cache: 'no-store',
-    });
+    });  
+          console.log(res)
     if (!res.ok){
         console.log(res)
         throw new Error('Failed to fetch trends: ' + res.status)};
     const json = await res.json();
     return json;
+  }catch(error: any){
+        console.error('🚨 Fetch error details:', {
+          message: error.message,
+          cause: error.cause,
+ 
+        });
+      
+        return { data: [], total: 0 };
+  }
+
+  
 }

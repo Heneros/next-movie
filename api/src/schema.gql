@@ -29,6 +29,7 @@ type MovieEntity {
   posterId: Int
   posterUrl: String!
   previewId: Int
+  provider: String
   published: Boolean
   rating: Int
   slug: Int

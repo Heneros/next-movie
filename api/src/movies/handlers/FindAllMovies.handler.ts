@@ -34,9 +34,9 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
         filters
       );
 
-      if (data.length === 0) {
-        throw new NotFoundException('No movies Exist');
-      }
+      // if (data.length === 0) {
+      //   throw new NotFoundException('No movies Exist 5555');
+      // }
       const res = { data, total };
 
       // console.log(res);
@@ -44,8 +44,14 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
 
       return res;
     } catch (error: unknown) {
-      console.error(error);
-      throw new BadRequestException('Invalid data format', { cause: error });
+      console.error('FindAllMoviesHandler error q:', error);
+      
+
+      if (error instanceof Error) {
+        throw new BadRequestException(`Database error: ${error.message}`);
+      }
+      
+      throw new BadRequestException('Unknown error occurred');
     }
   }
 }

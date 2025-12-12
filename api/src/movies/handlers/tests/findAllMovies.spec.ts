@@ -4,6 +4,7 @@ import { FindAllMovieQuery, GetIdMovieQuery } from '@/movies/queries';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { FindAllMoviesHandler } from '../FindAllMovies.handler';
 import { RedisService } from '@/redis/redis.service';
+import { FilterMovieDto } from '@/movies/dto-input/filter-movie.dto';
 
 describe('FindAllMovies', () => {
   let handler: FindAllMoviesHandler;
@@ -25,9 +26,10 @@ describe('FindAllMovies', () => {
 
   it('should find a movie successfully', async () => {
     const foundMovie = { id: 1, ...movieDataTest };
+    const filtersMovie = new FilterMovieDto()
     movieRepository.findAllMovie.mockResolvedValue(foundMovie);
 
-    const result = await handler.execute(new FindAllMovieQuery(1, 1 , 1));
+    const result = await handler.execute(new FindAllMovieQuery(1, 1 , 1, filtersMovie));
 
     expect(movieRepository.findAllMovie).toHaveBeenCalledTimes(1);
     // expect(movieRepository.findByIdUnique.mock.calls[0][0]).toBe(1);

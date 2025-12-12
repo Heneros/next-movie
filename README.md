@@ -21,7 +21,7 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 - Users
 ---
 
-## Packages:
+## Packages and libraries:
 - Prisma
 - Tailwind
 - Graphql
@@ -31,6 +31,8 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 - Docker Compose
 - SuperTest+Jest
 - i18next
+- Formik and Yup
+- Redis
 
 
 
