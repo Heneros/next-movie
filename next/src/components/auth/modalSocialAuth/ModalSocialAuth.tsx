@@ -1,9 +1,10 @@
 "use client"
 
 import { BASE_URL, DOMAIN_BACKEND } from '@/_data/constants'
-import { useGithubAuthQuery } from '@/redux/auth/authApiSlice'
 import Link from 'next/link'
+import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons'
 import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function ModalSocialAuth() {
 
@@ -11,9 +12,20 @@ export default function ModalSocialAuth() {
         window.open()
     }
     return (
-        <div>
-            <Link href={`${DOMAIN_BACKEND}/auth/github/callback`}>Github</Link>
-            <Link href={`${DOMAIN_BACKEND}/auth/google/callback`}>Google</Link>
+        <div className='flex items-center flex-col gap-3'>
+
+            <Link href={`${DOMAIN_BACKEND}/auth/github/callback`}
+                className='flex items-center justify-between gap-3'
+            >
+                <FontAwesomeIcon icon={faGithub} size="2x" />
+                <span className="font-medium">GitHub</span>
+            </Link>
+
+            <Link href={`${DOMAIN_BACKEND}/auth/google/callback`} className='flex items-center justify-between gap-3 '
+            >
+                <FontAwesomeIcon icon={faGoogle} size="2x" />
+                <span className="font-medium">Google</span>
+            </Link>
         </div>
     )
 }

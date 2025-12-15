@@ -38,7 +38,7 @@ export default function PopularMoviesClient({ popularMovies }: { popularMovies: 
             <Swiper
 
                 // navigation
-                spaceBetween={20}
+                // spaceBetween={20}
                 slidesPerView={5}
                 breakpoints={{
                     640: { slidesPerView: 2, spaceBetween: 20 },

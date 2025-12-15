@@ -62,13 +62,6 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
             }),
         }),
 
-        githubAuth: builder.query({
-            query: () => ({
-                url: `/auth/github/callback`,
-                method: 'GET',
-            }),
-        }),
-
         logout: builder.mutation<void, void>({
             query: () => ({
                 url: '/auth/logout',
@@ -93,6 +86,6 @@ export const {
     useRequestResetPasswordMutation,
     useResetPasswordMutation,
     useVerifyEmailQuery,
-    useGithubAuthQuery,
+
     useLogoutMutation,
 } = authApiSlice;

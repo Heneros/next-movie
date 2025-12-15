@@ -23,7 +23,7 @@ const useImageUpload = () => {
             return null;
         }
 
-        console.log(MAX_SIZE_IMG)
+        // console.log(MAX_SIZE_IMG)
 
 
         if (file.size > MAX_SIZE_IMG * 1024 * 1024) {

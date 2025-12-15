@@ -13,13 +13,14 @@ const baseApiSlice = createApi({
     //baseQuery: baseQueryWithRefreshToken,
 
     baseQuery: fetchBaseQuery({
-        baseUrl: BASE_URL,
+        baseUrl: 'http://localhost:3001',
         credentials: 'include',
         prepareHeaders: (headers, { getState }) => {
             const state = getState() as RootState;
             const token = state.auth.user?.accessToken;
             const googleToken = state.auth?.googleToken;
             const githubToken = state.auth?.githubToken;
+            //console.log(githubToken);
             const discordToken = state.auth?.discordToken;
             if (token) {
                 headers.set('authorization', `Bearer ${token}`);

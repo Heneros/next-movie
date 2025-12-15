@@ -8,6 +8,7 @@ import { RootState } from '@/redux/store';
 export const useAuthGuard = () => {
     const { userToken } = useAppSelector((s: RootState) => s.auth);
 
+
     const {
         data: authData,
         isLoading,
@@ -19,6 +20,8 @@ export const useAuthGuard = () => {
     });
 
     const user = authData?.user ?? null;
+
+
 
     const isAuthenticated = useMemo(() => !!user, [user]);
 

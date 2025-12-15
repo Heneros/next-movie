@@ -18,7 +18,7 @@ export default function MovieCard({ info }: { info: MovieItem }) {
 
 
     return (
-        <div className='mx-5 lg:mx-10 '>
+        <div className='mx-2 lg:mx-5  '>
 
             {isLoading ? (<Skeleton height={250} />) : previewData ? (
                 <>
@@ -53,7 +53,6 @@ export default function MovieCard({ info }: { info: MovieItem }) {
                         />
                     </div>
                 </>
-
             ) : (<div className="relative group flex items-center justify-center flex-col   inverted-radius  w-full  h-[300px] sm:h-[320px] md:h-[340px] lg:h-[360px] cursor-pointer  bg-gray-700 text-yellow-500 text-sm ">
 
                 <div> No Image</div>

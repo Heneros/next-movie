@@ -3,7 +3,7 @@ import { useAuthGuard } from './useAuthGuard';
 import { AuthGuardProps } from '@/interfaces';
 import Loader from '@/components/global/Loader';
 import { usePathname, useRouter } from 'next/navigation';
-import { ADMIN_ROUTES, EDITOR_ROUTES } from '@/_data/sites';
+
 
 export const AuthGuard = ({
     children,

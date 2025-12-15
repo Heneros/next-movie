@@ -47,6 +47,7 @@ import { ResetPasswordRequestCommand } from './commands/RequestResetPassword.com
 import { VerifyUserQuery } from './query';
 import { AuthGuard } from '@nestjs/passport';
 import { PassportService } from './services/Passport.service';
+import { domainClient } from '../data/defaultVariables';
 
 @Controller(AUTH_CONTROLLER)
 @ApiTags('Auth')
@@ -205,6 +206,7 @@ export class AuthController {
     @Req() req: CustomRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
+    console.log(req);
     const result = await this.queryBus.execute(new AuthMeQuery(req, res));
     return result;
   }
@@ -237,7 +239,7 @@ export class AuthController {
           maxAge: 31 * 24 * 60 * 60 * 1000,
           secure: !isDevelopment,
         })
-        .redirect('/');
+        .redirect(domainClient);
     } catch (error: any) {
       console.error('Google Auth Error:', error);
       if (error instanceof BadRequestException) {
@@ -277,7 +279,7 @@ export class AuthController {
           maxAge: 31 * 24 * 60 * 60 * 1000,
           secure: !isDevelopment,
         })
-        .redirect('/');
+        .redirect(domainClient);
     } catch (error: any) {
       console.error('Google Auth Error:', error);
       if (error instanceof BadRequestException) {
