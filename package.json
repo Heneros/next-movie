@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@prisma/adapter-pg": "^7.0.1",
     "next": "16.0.3",
     "pg": "^8.16.3",
     "react": "^19.2.0",
@@ -31,13 +30,13 @@
     "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts "
   },
   "devDependencies": {
-    "@prisma/client": "^7.0.1",
-    "@swc/jest": "^0.2.39",
+    "@types/express": "^5.0.5",
+    "@types/express-session": "^1.18.2",
+    "@types/jest": "30.0.0",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.10.1",
-    "@types/pg": "^8.15.6",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
-    "prisma": "^7.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

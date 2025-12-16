@@ -7,13 +7,13 @@ WORKDIR /usr/src/app
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml* ./
 
-COPY next/package.json ./
+COPY api/package.json ./
 
 RUN pnpm install  --prod=false
 
 COPY . .
 
 
-EXPOSE 3001 
+EXPOSE 3000 
 
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "run:dev"]

@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.base.json",
+
   "compilerOptions": {
     "outDir": "./dist",
     "target": "ES2022",
@@ -84,10 +84,6 @@
       ]
     },
     "types": [
-      "jest",
-      "express",
-      "express-session",
-      "multer",
       "node"
     ],
     "typeRoots": [
