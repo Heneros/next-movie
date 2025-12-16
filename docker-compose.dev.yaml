@@ -1,5 +1,32 @@
 ---
 services:
+
+  nextjs:
+    container_name: nextjs_app
+    restart: always
+    ports:
+    - "3001:3001"
+    env_file: ./next/.env
+    build:
+      context: .
+      dockerfile: ./next/Dockerfile
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - NEXT_TELEMETRY_DISABLED=1
+    volumes:
+     - ./next:/usr/src/app
+     - /usr/src/app/node_modules
+     - /usr/src/app/.next
+    #  - pnpm-store:/root/.local/share/pnpm/store
+    working_dir: /usr/src/app
+    tmpfs:
+      - /tmp
+    networks:
+      - movie_net
+
+
   postgres:
     restart: always
     image: postgres:14-alpine
@@ -117,6 +144,7 @@ volumes:
   pgadmin-data:
   mongodb_data:
   mongo-express-data:
+  pnpm-store:
 
 networks:
   movie_net:

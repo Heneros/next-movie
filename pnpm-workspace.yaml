@@ -1,7 +1,6 @@
 packages:
   - "api"
   - "next"
-  - "my-app"
 ignoredBuiltDependencies:
   - '@prisma/client'
   - '@prisma/engines'

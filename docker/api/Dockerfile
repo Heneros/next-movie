@@ -1,8 +1,10 @@
 # ---------- builder ----------
-FROM node:22-alpine AS builder
+FROM node:23.11.1 AS builder
 WORKDIR /usr/src/app
 
-COPY api/package.json api/package-lock.json* ./api/
+RUN corepack enable && corepack prepare pnpm@latest 
+
+COPY api/package.json  ./api/
 
 WORKDIR /usr/src/app/api
 
@@ -23,7 +25,7 @@ RUN npx prisma generate --schema=../libs/prisma/schema.prisma
 RUN npm run build
 
 # ---------- development runtime ----------
-FROM node:22-alpine AS development
+FROM node:23.11.1  AS development
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/api ./api
 WORKDIR /usr/src/app/api
