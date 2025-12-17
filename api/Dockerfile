@@ -1,19 +1,22 @@
 FROM node:23.11.1
 
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-RUN npm install -g pnpm
+WORKDIR /usr/src/app
 
-WORKDIR /usr/src/app 
+COPY api/package.json api/pnpm-lock.yaml* ./
 
-COPY pnpm-lock.yaml pnpm-workspace.yaml* ./
+RUN pnpm install --no-frozen-lockfile
 
-COPY api/package.json ./
+COPY api/ .
 
-RUN pnpm install  --prod=false
+ENV NODE_ENV=development
 
-COPY . .
+ENV CI=true
+
+EXPOSE 3000
+
+RUN pnpm prisma generate --schema=libs/prisma/schema.prisma
 
 
-EXPOSE 3000 
-
-CMD ["pnpm", "run:dev"]
+CMD ["sh", "-c", "pnpm install --prefer-offline --ignore-scripts && pnpm run start:dev"]

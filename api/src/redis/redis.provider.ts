@@ -17,7 +17,8 @@ export const RedisProvider: Provider = {
 
       return new Redis(redisUrl);
     }
-    const host = configService.get<string>('REDIS_HOST', 'localhost');
+        const host = configService.get<string>('REDIS_HOST', 'redis');
+   /// const host = configService.get<string>('REDIS_HOST', 'localhost');
     const port = configService.get<number>('REDIS_PORT', 6379);
     return new Redis({
       host,

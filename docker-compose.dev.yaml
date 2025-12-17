@@ -5,7 +5,7 @@ services:
     container_name: nextjs_app
     restart: always
     ports:
-    - "3001:3001"
+    - "3001:3000"
     env_file: ./next/.env
     build:
       context: .
@@ -29,14 +29,14 @@ services:
   nestjs:
     container_name: nestjs_app
     restart: always
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
     ports:
     - "3000:3000"
     env_file:
      - ./api/.env
      -  ./.env
-    build:
-      context: .
-      dockerfile: ./api/Dockerfile
     environment:
       - NODE_ENV=development
       - WATCHPACK_POLLING=true
@@ -44,7 +44,7 @@ services:
       - RUN_MIGRATIONS_ON_START=0
     volumes:
      - ./api:/usr/src/app
-     - /usr/src/app/node_module
+     - nest_node_modules:/usr/src/app/node_modules
     #  - pnpm-store:/root/.local/share/pnpm/tore
     working_dir: /usr/src/app
     tmpfs:
@@ -169,7 +169,7 @@ volumes:
   pgadmin-data:
   mongodb_data:
   mongo-express-data:
-  pnpm-store:
+  nest_node_modules:
 
 networks:
   movie_net:
