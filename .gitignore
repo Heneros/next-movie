@@ -21,10 +21,7 @@ api/dist/*
 !.env.example
 
 *.pdf
- 
-
- 
-
+.pnpm-store
 /ignore
 
 # testing

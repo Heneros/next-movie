@@ -9,11 +9,19 @@ import {
 import { BASE_URL, NEST_API } from '@/_data/constants';
 import type { RootState } from '@/interfaces/rootReducer';
 
+const getApiBase = () => {
+    if (typeof window === 'undefined') {
+        return 'http://nestjs:3000';
+    } else {
+        return 'http://localhost:3000';
+    }
+};
+
 const baseApiSlice = createApi({
     //baseQuery: baseQueryWithRefreshToken,
 
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3001',
+        baseUrl: getApiBase(),
         credentials: 'include',
         prepareHeaders: (headers, { getState }) => {
             const state = getState() as RootState;
@@ -28,12 +36,13 @@ const baseApiSlice = createApi({
                 headers.set('authorization', `Bearer ${googleToken}`);
             } else if (githubToken) {
                 headers.set('authorization', `Bearer ${githubToken}`);
-            } else if (discordToken) {
+                                                } else if (discordToken) {
                 headers.set('authorization', `Bearer ${discordToken}`);
             }
             return headers;
         },
     }),
+
     tagTypes: ['User', 'Movie', 'ProfileStats', 'Auth'] as const,
     endpoints: (builder) => ({}),
 });

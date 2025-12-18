@@ -9,7 +9,7 @@ import Image from "next/image";
 import { ANALYTICS_ROUTES, DASHBOARD_ROUTES } from "@/_data/sites";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { isActive } from "@/_data/functions";
+import { isActive } from "@/utils/functions";
 import SmallLoader from "@/components/global/smallLoader/SmallLoader";
 
 export default function Sidebar() {

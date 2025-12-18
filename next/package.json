@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev  -p 3001  ",
+        "dev": "next dev -H 0.0.0.0   -p 3001  ",
         "prisma:build": "npx prisma generate --schema=../libs/prisma/schema.prisma && npx prisma migrate deploy --schema=../libs/prisma/schema.prisma",
         "start": "next start -p 3001",
         "next": "next",

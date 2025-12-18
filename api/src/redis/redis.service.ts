@@ -20,7 +20,7 @@ export class RedisService {
     return `${prefix}:${page}`;
   }
 
-  async getMovies(keyFind: string): Promise<string | null> {
+      async getMovies(keyFind: string): Promise<string | null> {
     // const key = this.makeKey(keyFind);
     const result = await this.redis.get(keyFind);
 

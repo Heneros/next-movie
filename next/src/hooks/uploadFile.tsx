@@ -5,7 +5,7 @@ import { useUploadPreviewMutation } from "@/redux/movie/moviesApiSlice";
 import { useState } from "react";
 
 const useImageUpload = () => {
-    const [sendPreview, { isLoading }] = useUploadPreviewMutation();
+        const [sendPreview, { isLoading }] = useUploadPreviewMutation();
     const [preview, setPreview] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 

@@ -206,7 +206,7 @@ export class AuthController {
     @Req() req: CustomRequest,
     @Res({ passthrough: true }) res: Response,
   ) {
-    console.log(req);
+    // console.log(req);
     const result = await this.queryBus.execute(new AuthMeQuery(req, res));
     return result;
   }
