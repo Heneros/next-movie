@@ -1,4 +1,4 @@
-import { DOMAIN_BACKEND } from '@/_data/constants';
+import { DOCKER_BACKEND } from '@/_data/constants';
 import { GetMoviesParams, Movie } from '@/interfaces';
 export type MoviesResponse = {
     data: Movie[];
@@ -38,17 +38,17 @@ export async function getMovies({
     if (order) {
         params.set('order', order);
     }
+
     try {
         const res = await fetch(
-            `${DOMAIN_BACKEND}/movie?${params.toString()}`,
+            `${DOCKER_BACKEND}/movie?${params.toString()}`,
             {
                 cache: 'no-store',
             },
         );
 
-        console.log('tests');
         if (!res.ok) {
-            console.log(res);
+            // console.log(res);
             throw new Error('Failed to fetch trends: ' + res.status);
         }
         const json = await res.json();

@@ -1,6 +1,6 @@
 import baseApiSlice from '../api/baseApi';
 import { User } from '@/interfaces/user';
-import { logIn, logOut } from './authSlice';
+import { logIn, logOut, updateGithubToken } from './authSlice';
 
 export const authApiSlice = baseApiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -46,7 +46,21 @@ export const authApiSlice = baseApiSlice.injectEndpoints({
                 body,
             }),
         }),
-
+        githubAuth: builder.query({
+            query: () => ({
+                url: `/auth/github/callback`,
+                method: 'GET',
+            }),
+            invalidatesTags: ['User', 'Auth'],
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(updateGithubToken(data.user));
+                } catch (error) {
+                    console.log('Login failed:', error);
+                }
+            },
+        }),
         requestResetPassword: builder.mutation({
             query: (body) => ({
                 url: `/auth/reset_password_request`,
@@ -86,6 +100,6 @@ export const {
     useRequestResetPasswordMutation,
     useResetPasswordMutation,
     useVerifyEmailQuery,
-
+    useGithubAuthQuery,
     useLogoutMutation,
 } = authApiSlice;

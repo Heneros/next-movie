@@ -5,16 +5,18 @@ import Link from 'next/link'
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons'
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useGithubAuthQuery } from '@/redux/auth/authApiSlice'
 
 export default function ModalSocialAuth() {
-
-    const gitHub = () => {
-        window.open()
-    }
+    const { data } = useGithubAuthQuery(undefined)
+    // const gitHub = () => {
+    //     window.open()
+    // }
+    console.log(data)
     return (
         <div className='flex items-center flex-col gap-3'>
 
-            <Link href={`${DOMAIN_BACKEND}/auth/github/callback`}
+            <Link href={`${data}`}
                 className='flex items-center justify-between gap-3'
             >
                 <FontAwesomeIcon icon={faGithub} size="2x" />

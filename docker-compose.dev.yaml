@@ -1,11 +1,10 @@
 ---
 services:
-
   nextjs:
     container_name: nextjs_app
     restart: always
     ports:
-    - "3001:3001"
+      - "3001:3001"
     env_file: ./next/.env
     build:
       context: .
@@ -16,9 +15,9 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - NEXT_TELEMETRY_DISABLED=1
     volumes:
-     - ./next:/usr/src/app
-     - /usr/src/app/node_modules
-     - /usr/src/app/.next
+      - ./next:/usr/src/app:cached
+      - next_node_modules:/usr/src/app/node_modules
+      # - /usr/src/app/.next
     #  - pnpm-store:/root/.local/share/pnpm/store
     working_dir: /usr/src/app
     tmpfs:
@@ -33,18 +32,18 @@ services:
       context: .
       dockerfile: ./api/Dockerfile
     ports:
-    - "3000:3000"
+      - "3000:3000"
     env_file:
-     - ./api/.env
-     -  ./.env
+      - ./api/.env
+      - ./.env
     environment:
       - NODE_ENV=development
       - WATCHPACK_POLLING=true
       - CHOKIDAR_USEPOLLING=true
       - RUN_MIGRATIONS_ON_START=0
     volumes:
-     - ./api:/usr/src/app
-     - nest_node_modules:/usr/src/app/node_modules
+      - ./api:/usr/src/app
+      - nest_node_modules:/usr/src/app/node_modules
     working_dir: /usr/src/app
     tmpfs:
       - /tmp
@@ -169,6 +168,7 @@ volumes:
   mongodb_data:
   mongo-express-data:
   nest_node_modules:
+  next_node_modules:
 
 networks:
   movie_net:

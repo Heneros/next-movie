@@ -7,7 +7,7 @@ import { RootState } from '@/redux/store';
 
 export const useAuthGuard = () => {
     const { userToken } = useAppSelector((s: RootState) => s.auth);
-
+    // const test = useAppSelector((s: RootState) => s.auth);
     const {
         data: authData,
         isLoading,
@@ -18,6 +18,7 @@ export const useAuthGuard = () => {
         skip: !userToken,
     });
 
+    // console.log('test', test);
     const user = authData?.user ?? null;
 
     const isAuthenticated = useMemo(() => !!user, [user]);

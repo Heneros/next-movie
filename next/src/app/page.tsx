@@ -61,7 +61,7 @@ export default async function Home() {
         });
         trends = moviesRespTrends.data || [];
 
-        total = moviesResp.total || 0;
+        total = moviesResp?.total || 0;
         // console.log(moviesResp)
     } catch (err) {
         console.error('getMovies error', err);

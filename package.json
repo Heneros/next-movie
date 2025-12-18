@@ -18,7 +18,8 @@
   },
   "scripts": {
     "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
-        "docker:dev:run": "docker compose -f docker-compose.dev.yaml up -d",
+    "docker:dev:run": "docker compose -f docker-compose.dev.yaml up -d",
+    "docker:dev:logs": "docker compose -f docker-compose.dev.yaml up",
     "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
     "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
     "server": "pnpm --prefix ./api run start:dev",
