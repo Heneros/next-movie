@@ -8,15 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGithubAuthQuery } from '@/redux/auth/authApiSlice'
 
 export default function ModalSocialAuth() {
-    const { data } = useGithubAuthQuery(undefined)
+    // const { data } = useGithubAuthQuery(undefined)
     // const gitHub = () => {
     //     window.open()
-    // }
-    console.log(data)
+    // // }
+    // console.log(data)
     return (
         <div className='flex items-center flex-col gap-3'>
 
-            <Link href={`${data}`}
+            <Link href={`${DOMAIN_BACKEND}/auth/github/callback`}
                 className='flex items-center justify-between gap-3'
             >
                 <FontAwesomeIcon icon={faGithub} size="2x" />

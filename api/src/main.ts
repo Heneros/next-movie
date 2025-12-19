@@ -2,33 +2,26 @@ import path from 'path';
 import 'module-alias/register';
 import 'dotenv/config';
 // dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
-   
- 
-
-
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { domainClient } from './data/defaultVariables';
+import { domainClient, domainClientDocker } from './data/defaultVariables';
 import session from 'express-session';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
- /// console.log(' BOOTSTRAP STARTED');
+  console.log('BOOTSTRAP STARTED');
+
   // console.log(process.env.SECRET_SESSION);
   app.enableCors({
-    origin: [domainClient],
+    origin: [domainClient, domainClientDocker],
     credentials: true,
   });
- 
 
-   
   app.enableShutdownHooks();
 
   app.use(cookieParser());

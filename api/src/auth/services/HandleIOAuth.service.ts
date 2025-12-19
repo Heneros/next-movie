@@ -20,6 +20,7 @@ export class HandleIOAuth {
   ) {}
 
   protected async handleOauthLogin(profile): Promise<User> {
+    console.log('123',profile.email)
     let user = await this.authRepository.findByEmail(profile.email);
 
     if (!user) {

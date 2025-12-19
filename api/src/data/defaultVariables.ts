@@ -1,6 +1,7 @@
 export const domain = process.env.DOMAIN;
 
 export const domainClient = process.env.DOMAIN_CLIENT;
+export const domainClientDocker = process.env.DOMAIN_DOCKER_FRONTEND;
 
 export const isProduction = process.env.NODE_ENV === 'production';
 export const isDevelopment = process.env.NODE_ENV === 'development';

@@ -16,7 +16,6 @@ RUN pnpm install --no-frozen-lockfile
 COPY api/ .
 
 ENV NODE_ENV=development
-
 ENV CI=true
 
 EXPOSE 3000
@@ -24,6 +23,4 @@ EXPOSE 3000
 # RUN pnpm prisma generate --schema=libs/prisma/schema.prisma
 
 
-
-
-CMD ["sh", "-c", "pnpm install --prefer-offline --ignore-scripts && pnpm run start:dev"]
+CMD ["sh", "-c", "pnpm run start:dev"]

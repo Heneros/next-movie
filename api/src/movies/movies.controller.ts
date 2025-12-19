@@ -128,8 +128,7 @@ export class MoviesController {
     page = Math.max(1, page);
     limit = Math.max(1, Math.min(limit, 100));
     const offset = (page - 1) * limit;
-
-
+    console.log(4441);
       const filterMovieDto = new FilterMovieDto();
       filterMovieDto.category = category;
       filterMovieDto.year = year;
@@ -140,7 +139,7 @@ export class MoviesController {
       new FindAllMovieQuery(offset, limit, page, filterMovieDto),
     );
     return movies;
-    // console.log(movies);
+
     //  return movies.map((movie: Movie) => new MovieEntity(movie));
   }
 

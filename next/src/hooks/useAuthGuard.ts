@@ -18,7 +18,7 @@ export const useAuthGuard = () => {
         skip: !userToken,
     });
 
-    // console.log('test', test);
+    // console.log('authData', authData);
     const user = authData?.user ?? null;
 
     const isAuthenticated = useMemo(() => !!user, [user]);

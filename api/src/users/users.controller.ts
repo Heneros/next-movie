@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Query,
+Put,
   Req,
   UseGuards,
   UseInterceptors,
@@ -37,6 +38,7 @@ import { GetProfileQuery } from './queries/GetProfile.query';
 
 import { UpdateUserDto } from './dto/update-user.dto';
 import type { Request } from 'express';
+import { UpdateUserRole } from './dto/change-user-role.dto';
 
 @Controller(USERS_CONTROLLER)
 export class UsersController {
@@ -95,4 +97,14 @@ export class UsersController {
     );
     return plainToInstance(UserEntity, result);
   }
+
+  @Put(USERS_ROUTES.UPDATE_USER)
+  @Role("ADMIN")
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Update my profile. Only for authorized admin can perform this operation' })
+  async updateRole(@Param("userId", CheckUserExistPipe) userId: number,   
+  @Body() updateUserRole: UpdateUserRole){
+
+  }
+
 }

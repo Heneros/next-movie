@@ -69,7 +69,7 @@ const authSlice = createSlice({
 
             localStorage.setItem('user', JSON.stringify(action.payload));
         },
-        // setAuthed: (state, action) => {
+        // setAuthFed: (state, action) => {
         //     state.user = action.payload;
         // },
         logOut: (state) => {

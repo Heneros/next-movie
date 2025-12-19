@@ -46,8 +46,9 @@ export class AuthMeHandler implements IQueryHandler<AuthMeQuery> {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: this.configService.get('JWT_SECRET'),
       });
+      console.log(payload)
 
-      const user = await this.authRepository.findById(payload.id);
+      const user = await this.authRepository.findById(payload.userId);
       if (!user) {
         throw new NotFoundException('No found user');
       }

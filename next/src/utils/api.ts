@@ -1,4 +1,4 @@
-import { DOCKER_BACKEND } from '@/_data/constants';
+import { DOCKER_BACKEND, DOMAIN_BACKEND } from '@/_data/constants';
 import { GetMoviesParams, Movie } from '@/interfaces';
 export type MoviesResponse = {
     data: Movie[];
@@ -41,7 +41,7 @@ export async function getMovies({
 
     try {
         const res = await fetch(
-            `${DOCKER_BACKEND}/movie?${params.toString()}`,
+            `${DOMAIN_BACKEND}/movie?${params.toString()}`,
             {
                 cache: 'no-store',
             },

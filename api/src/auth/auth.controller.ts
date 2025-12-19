@@ -281,7 +281,7 @@ export class AuthController {
         })
         .redirect(domainClient);
     } catch (error: any) {
-      console.error('Google Auth Error:', error);
+      console.error('Github Auth Error:', error);
       if (error instanceof BadRequestException) {
         throw error;
       }
