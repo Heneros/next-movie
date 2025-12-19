@@ -4,11 +4,14 @@ import { BadRequestException, ConflictException } from '@nestjs/common';
 import { MovieRepository } from '../repository/Movie.repository';
 import { RedisPrefixEnum } from '@/data';
 import { RedisService } from '@/redis/redis.service';
+import { AvatarRepository } from '@/cloudinary/repository/AvatarRepository.repository';
+import crypto from 'crypto';
 
 @CommandHandler(CreateMovieCommand)
 export class CreateMovieHandler implements ICommandHandler<CreateMovieCommand> {
   constructor(
     private readonly redisService: RedisService,
+    private readonly avatarRepository: AvatarRepository,
     private readonly movieRepository: MovieRepository,
   ) {}
 
@@ -31,6 +34,12 @@ export class CreateMovieHandler implements ICommandHandler<CreateMovieCommand> {
       createMovieDto,
     );
 
+    await this.avatarRepository.createPreview(
+      'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+      // rand,
+      crypto.randomBytes(32).toString('hex'),
+      movie.id,
+    );
     await this.redisService.deleteMoviesCache();
 
     return movie;

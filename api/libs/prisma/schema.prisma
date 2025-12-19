@@ -85,7 +85,9 @@ model User {
   messages        Message[]
   watchList       WatchListItem[] 
   review Review?
-    avatar      Avatar? 
+
+  avatar      Avatar[]
+
   favorites Favorites[]
 
 }
@@ -125,9 +127,9 @@ model Movie {
   provider String? 
   
 
-  authorId    Int 
-  rating        Int? @default(0)  
-  avgRating    Float @default(0)
+  authorId      Int 
+    rating      Int? @default(0)  
+  avgRating     Float @default(0)
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -136,7 +138,7 @@ model Movie {
   // posterId    Int?  @unique
   // poster      Avatar?  @relation(fields: [posterId], references: [id])
   galleryImages GalleryImage[]
-  poster      Avatar?  
+  poster      Avatar[]  
   comments      Comment[]
   likes         Like[]
   watchList     WatchListItem[] 
@@ -259,14 +261,11 @@ model Avatar{
   url      String
   publicId String 
 
-  userId Int?  @unique()
-  
-  movieId Int?  @unique()
-  
+  userId   Int?
+  movieId  Int?
 
-
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  movie Movie? @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  user     User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  movie    Movie?  @relation(fields: [movieId], references: [id], onDelete: Cascade)
   // movie    Movie?
 
   createdAt DateTime @default(now())
@@ -278,7 +277,7 @@ model GalleryImage{
     publicId String 
     // altText String? 
     //   order     Int      @default(0)
-   movie Movie @relation(fields: [movieId], references: [id])
+   movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
    movieId Int 
 
    createdAt DateTime @default(now())

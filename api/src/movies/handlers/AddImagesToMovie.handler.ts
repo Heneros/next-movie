@@ -13,22 +13,20 @@ export class CreateMovieHandler implements ICommandHandler<AddImagesGalleryToMov
   constructor(
     private readonly redisService: RedisService,
 
-    private readonly galleryRepository: GalleryRepository
+    private readonly galleryRepository: GalleryRepository,
   ) {}
 
   async execute(command: AddImagesGalleryToMovie) {
     const { movieId, images } = command;
 
-
-   const existingCount = await this.galleryRepository.count(movieId)
-  
+    // const existingCount = await this.galleryRepository.count(movieId);
 
     const galleryImages = images.map((image, index) => ({
-        ...image, 
-        movieId,
-        order: image.order ?? existingCount + index,
-    }))
+      ...image,
+      movieId,
+      // order: image.order ?? existingCount + index,
+    }));
 
-    return await this.galleryRepository.createMany(galleryImages)
+    return await this.galleryRepository.createMany(galleryImages);
   }
 }

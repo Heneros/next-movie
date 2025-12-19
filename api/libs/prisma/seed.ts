@@ -65,7 +65,6 @@ async function main() {
   });
   console.log('User ready:', { id: user.id, email: user.email });
 
-
   const directorPromises = directorNames.map((name) =>
     prisma.director.create({
       data: { name, bio: faker.lorem.sentences(2) },
@@ -73,39 +72,9 @@ async function main() {
   );
 
   const directors = await Promise.all(directorPromises);
-  const moviesData = [
-    {
-      title: 'The Last Dawn',
-      description: 'An epic adventure through landscapes and time.',
-      slug: 'the-last-dawn',
-      year: 2021,
-      category: ['Drama', 'Adventure'],
-      published: true,
-      rating: 0,
-      avgRating: 0,
-    },
-    {
-      title: 'City of Lights',
-      description: 'A romantic drama set in a bustling metropolis.',
-      slug: 'city-of-lights',
-      year: 2019,
-      category: ['Romance', 'Drama'],
-      published: true,
-      rating: 0,
-      avgRating: 0,
-    },
-    {
-      title: 'Quantum Run',
-      description: 'Sci-fi thriller about time loops and corporate secrets.',
-      slug: 'quantum-run',
-      year: 2023,
-      category: ['Sci-Fi', 'Action'],
-      published: false,
-      rating: 0,
-      avgRating: 0,
-    },
-  ];
 
+  const galleryPromises: any = [];
+  const avatarPromises: any = [];
   const moviePromises = [];
 
   for (let i = 0; i < 12; i++) {
@@ -116,7 +85,10 @@ async function main() {
       ['Action', 'Drama', 'Comedy', 'Horror', 'Sci-Fi', 'Fantasy', 'Thriller'],
       faker.number.int({ min: 1, max: 3 }),
     );
-    const selected = faker.helpers.arrayElements(directors, faker.number.int({ min: 0, max: 2 }));
+    const selected = faker.helpers.arrayElements(
+      directors,
+      faker.number.int({ min: 0, max: 2 }),
+    );
 
     moviePromises.push(
       prisma.movie.create({
@@ -129,7 +101,7 @@ async function main() {
           author: {
             connect: { id: user.id },
           },
-              directors: {
+          directors: {
             connect: selected.map((d) => ({ id: d.id })),
           },
         },
@@ -139,6 +111,36 @@ async function main() {
 
   const movies = await Promise.all(moviePromises);
 
+  movies.forEach((movie) => {
+    for (let j = 0; j < 12; j++) {
+      galleryPromises.push(
+        prisma.galleryImage.create({
+          data: {
+            url: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+            publicId: String(faker.number.int({ min: 1, max: 3025 })),
+            // title,
+            movie: {
+              connect: { id: movie.id },
+            },
+          },
+        }),
+      );
+      avatarPromises.push(
+        prisma.avatar.create({
+          data: {
+            url: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+            publicId: String(faker.number.int({ min: 3025, max: 6925 })),
+
+            movie: {
+              connect: { id: movie.id },
+            },
+          },
+        }),
+      );
+    }
+  });
+  const galleries = await Promise.all(galleryPromises);
+  const avatars = await Promise.all(avatarPromises);
   movies.forEach((movie) => {
     console.log('Movie ready:', movie.title, 'id:', movie.id);
   });

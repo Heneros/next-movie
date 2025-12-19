@@ -22,9 +22,9 @@ export class ChangeUserRole {
   })
   //   @IsString()
   @Field(() => [UserRole], { nullable: false })
-  @IsArray()
-  @ArrayMinSize(1)
+  // @IsArray()
+  // @ArrayMinSize(1)
   @IsEnum(UserRole, { each: true })
   @IsNotEmpty()
-  roles: string[];
+  role: string;
 }

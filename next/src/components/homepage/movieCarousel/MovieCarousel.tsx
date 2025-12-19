@@ -60,6 +60,8 @@ export default function MovieCarousel({
                 modules={[Autoplay, Navigation, EffectFade]}
                 loop={true}
                 autoplay={{ delay: autoplayMs }}
+                fadeEffect={{ crossFade: true }}
+                watchSlidesProgress
                 effect="fade"
                 onSwiper={setSwiperInstance}
                 onSlideChange={(s) => setActiveIndex(s.realIndex)}
@@ -67,7 +69,7 @@ export default function MovieCarousel({
             >
                 {slides.map((m) => (
                     <SwiperSlide key={m.id}>
-                        <div className="relative w-full h-[60vh] md:h-[70vh]  flex md:items-center">
+                        <div className=" w-full h-[60vh] md:h-[70vh]  flex md:items-center">
                             <div className="absolute inset-0 ">
                                 {m.backdropUrl ? (
                                     <Image
@@ -79,7 +81,7 @@ export default function MovieCarousel({
                                         sizes="(max-width: 768px) 100vw, 1200px"
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-gradient-to-r from-[#041028] [#071026] " />
+                                    <div className="w-full h-full  " />
                                 )}
                             </div>
 
