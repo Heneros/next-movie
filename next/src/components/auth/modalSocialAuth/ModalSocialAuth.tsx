@@ -13,17 +13,18 @@ export default function ModalSocialAuth() {
     //     window.open()
     // // }
     // console.log(data)
+    const frontendAuthUrl = 'http://localhost:3000'
     return (
         <div className='flex items-center flex-col gap-3'>
 
-            <Link href={`${DOMAIN_BACKEND}/auth/github/callback`}
+            <Link href={`${frontendAuthUrl}/auth/github/callback`}
                 className='flex items-center justify-between gap-3'
             >
                 <FontAwesomeIcon icon={faGithub} size="2x" />
                 <span className="font-medium">GitHub</span>
             </Link>
 
-            <Link href={`${DOMAIN_BACKEND}/auth/google/callback`} className='flex items-center justify-between gap-3 '
+            <Link href={`${frontendAuthUrl}/auth/google/callback`} className='flex items-center justify-between gap-3 '
             >
                 <FontAwesomeIcon icon={faGoogle} size="2x" />
                 <span className="font-medium">Google</span>

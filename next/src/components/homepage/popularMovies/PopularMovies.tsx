@@ -14,9 +14,9 @@ export default async function PopularMovies({ popularMovies }: { popularMovies: 
             console.error("Backend returned", res.status);
             return <div>No movies in DB (status {res.status})</div>;
         }
-        const trends = await res.json();
+        const movies = await res.json();
 
-        return <PopularMoviesClient trends={popularMovies} />;
+        return <PopularMoviesClient popularMovies={movies} />;
     } catch (err) {
         console.error("Fetch failed:", err);
         return <div>Backend unavailable — check server</div>;

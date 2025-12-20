@@ -80,61 +80,63 @@ export class MoviesController {
     type: Number,
   })
   @ApiQuery({
-  name: 'limit',
-  required: false,
-  description: 'Items per page',
-  type: Number,
-})
-@ApiQuery({
-  name: 'category',
-  required: false,
-  description: 'Filter by category',
-  type: String,
-})
-@ApiQuery({
-  name: 'year',
-  required: false,
-  description: 'Filter by year',
-  type: Number,
-})
-@ApiQuery({
-  name: 'minRating',
-  required: false,
-  description: 'Filter by minimum rating',
-  type: Number,
-})
-@ApiQuery({
-  name: 'orderBy',
-  required: false,
-  description: 'Field to order by',
-  type: String,
-})
-@ApiQuery({
-  name: 'order',
-  required: false,
-  description: 'Order direction (asc/desc)',
-  type: String,
-})
+    name: 'limit',
+    required: false,
+    description: 'Items per page',
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'category',
+    required: false,
+    description: 'Filter by category',
+    type: String,
+  })
+  @ApiQuery({
+    name: 'year',
+    required: false,
+    description: 'Filter by year',
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'minRating',
+    required: false,
+    description: 'Filter by minimum rating',
+    type: Number,
+  })
+  @ApiQuery({
+    name: 'orderBy',
+    required: false,
+    description: 'Field to order by',
+    type: String,
+  })
+  @ApiQuery({
+    name: 'order',
+    required: false,
+    description: 'Order direction (asc/desc)',
+    type: String,
+  })
   @ApiOkResponse({ type: MovieEntity, isArray: true })
   async getAllMovies(
-  @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-  @Query('limit', new DefaultValuePipe(PAGINATION_LIMIT), ParseIntPipe) limit: number,
-  @Query('category') category?: string,
-  @Query('year', new ParseIntPipe({ optional: true })) year?: number,
-  @Query('minRating', new ParseIntPipe({ optional: true })) minRating?: number,
-  @Query('orderBy') orderBy?: string,
-  @Query('order') order?: 'asc' | 'desc',
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(PAGINATION_LIMIT), ParseIntPipe)
+    limit: number,
+    @Query('category') category?: string,
+    @Query('year', new ParseIntPipe({ optional: true })) year?: number,
+    @Query('minRating', new ParseIntPipe({ optional: true }))
+    minRating?: number,
+    @Query('orderBy') orderBy?: string,
+    @Query('order') order?: 'asc' | 'desc',
   ) {
     page = Math.max(1, page);
     limit = Math.max(1, Math.min(limit, 100));
     const offset = (page - 1) * limit;
-    console.log(4441);
-      const filterMovieDto = new FilterMovieDto();
-      filterMovieDto.category = category;
-      filterMovieDto.year = year;
-      filterMovieDto.minRating = minRating;
-      filterMovieDto.orderBy = orderBy;
-      filterMovieDto.order = order;
+    // console.log(4441);
+    const filterMovieDto = new FilterMovieDto();
+    filterMovieDto.category = category;
+    filterMovieDto.year = year;
+    filterMovieDto.minRating = minRating;
+    filterMovieDto.orderBy = orderBy;
+    filterMovieDto.order = order;
     const movies = await this.queryBus.execute(
       new FindAllMovieQuery(offset, limit, page, filterMovieDto),
     );
@@ -179,9 +181,9 @@ export class MoviesController {
   }
 
   @Patch(MOVIE_ROUTES.UPDATE_MOVIE)
-    @Post(MOVIE_ROUTES.CREATE_MOVIE)
+  @Post(MOVIE_ROUTES.CREATE_MOVIE)
   @UseGuards(JwtAuthGuard)
-  @Role("ADMIN", "EDITOR")
+  @Role('ADMIN', 'EDITOR')
   @ApiOperation({
     summary: 'Update movie by id.',
   })
@@ -208,7 +210,7 @@ export class MoviesController {
 
   @Post(MOVIE_ROUTES.CREATE_MOVIE)
   @UseGuards(JwtAuthGuard)
-  @Role("ADMIN", "EDITOR")
+  @Role('ADMIN', 'EDITOR')
   @ApiOperation({
     summary: 'Create movie. available only for admin or editor role',
   })

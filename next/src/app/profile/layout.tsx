@@ -31,7 +31,7 @@ interface PageProps {
     children: any,
     params: { id: string[] };
 }
-export default function ProfileLayout({ children, }: PageProps) {
+export default function ProfileLayout({ children }: PageProps) {
     return (
         <>
             <Wrapper>

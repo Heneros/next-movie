@@ -38,7 +38,8 @@ export default async function Home() {
     try {
         moviesRespSlider = await getMovies({
             category: 'Drama',
-            orderBy: 'asc'
+            orderBy: 'asc',
+            limit: 3
         });
 
         slider = moviesRespSlider.data || [];

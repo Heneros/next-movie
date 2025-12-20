@@ -6,23 +6,17 @@ import {
     FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 
-import { BASE_URL, DOCKER_BACKEND, DOMAIN_BACKEND } from '@/_data/constants';
+import { DOMAIN_BACKEND } from '@/_data/constants';
 import type { RootState } from '@/interfaces/rootReducer';
-
-const getApiBase = () => {
-    if (typeof window === 'undefined') {
-        return 'http://nestjs:3000';
-    } else {
-        return 'http://localhost:3000';
-    }
-};
 
 const baseApiSlice = createApi({
     //baseQuery: baseQueryWithRefreshToken,
 
     baseQuery: fetchBaseQuery({
-        baseUrl: DOMAIN_BACKEND,
+        ///   baseUrl: DOMAIN_BACKEND,
         credentials: 'include',
+
+        baseUrl: 'http://localhost:3000',
         prepareHeaders: (headers, { getState }) => {
             const state = getState() as RootState;
             const token = state.auth.user?.accessToken;

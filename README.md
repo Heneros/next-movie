@@ -10,6 +10,13 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 
 ---
 
+## Launch app through Docker Compose
+
+
+`b
+`
+
+
 ## Modules app should have
 
 - Reviews
@@ -42,7 +49,6 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 
 - custom third-party api integrate.
 - socket.io create another service for chats online and integrate to Nextjs
-- seed script
 - Paypal/Stripe
 - Crypto payment
 - Local History. in localStorage in frontend. which pages user visited

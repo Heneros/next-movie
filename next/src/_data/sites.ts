@@ -86,6 +86,20 @@ export const PROFILE_ROUTES: MenuItem[] = [
         href: '/profile/:userId/drafts',
         icon: faPencil,
     },
+    {
+        label: 'Edit My Profile',
+        href: '/profile/:userId/edit-profile',
+    },
+    {
+        label: 'Favorites',
+        href: '/profile/:userId/favorites',
+    },
+    {
+        label: 'Reviews  ',
+        href: '/profile/:userId/reviews',
+    },
+    {
+        label: 'Complain  ',
+        href: '/profile/:userId/complain',
+    },
 ];
-
-

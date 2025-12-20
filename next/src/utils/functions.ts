@@ -7,3 +7,7 @@ export const isActive = (pathname: string, href?: string) => {
         pathname.startsWith(href)
     );
 };
+
+export const linkId = (userId: number, url: any) => {
+    return url.replace(':userId', String(userId));
+};
