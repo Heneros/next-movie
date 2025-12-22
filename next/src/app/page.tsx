@@ -12,6 +12,7 @@ import PopularMovies from "@/components/homepage/popularMovies/PopularMovies";
 
 import { getMovies } from "@/utils/api";
 import PopularMoviesClient from "@/components/homepage/popularMovies/PopularMoviesClient";
+import GoldenGlobeAwards from "@/components/homepage/goldenGlobaAwards/GoldenGlobeAwards";
 
 
 
@@ -28,10 +29,12 @@ export default async function Home() {
     let moviesRespSlider;
     let moviesRespPopular
     let moviesRespTrends
+    let moviesRespGolden
 
     let trends
     let popular
     let slider
+    let golden
 
     let total
     let moviesResp
@@ -61,7 +64,16 @@ export default async function Home() {
             orderBy: 'asc'
         });
         trends = moviesRespTrends.data || [];
+        total = moviesResp?.total || 0;
 
+
+
+        moviesRespGolden = await getMovies({
+            year: 2025,
+
+            orderBy: 'asc'
+        });
+        golden = moviesRespGolden.data || [];
         total = moviesResp?.total || 0;
         // console.log(moviesResp)
     } catch (err) {
@@ -79,6 +91,11 @@ export default async function Home() {
             <section className="popular-movies ">
                 <PopularMoviesClient popularMovies={popular} />
             </section >
+
+            <section className="golden-awards ">
+                <GoldenGlobeAwards moviesGolden={golden} />
+            </section >
+
 
         </>
     )

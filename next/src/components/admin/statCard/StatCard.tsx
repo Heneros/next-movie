@@ -21,7 +21,7 @@ export default function StatCard({ title, value, delta, deltaText, hint, classNa
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.18 }}
-            className={clsx('rounded-xl p-4 bg-white/80 backdrop-blur-sm border border-white/10 shadow-sm', className)}
+            className={clsx('rounded-xl p-4 bg-white/80 backdrop-b-sm border border-white/10 shadow-sm', className)}
             role="group"
             aria-labelledby={`stat-${title}`}
         >
