@@ -79,6 +79,7 @@ const authSlice = createSlice({
             state.githubToken = null;
             localStorage.removeItem('user');
             localStorage.removeItem('googleToken');
+            localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('githubToken');
         },
         updateGoogleToken: (state, action: PayloadAction<string>) => {

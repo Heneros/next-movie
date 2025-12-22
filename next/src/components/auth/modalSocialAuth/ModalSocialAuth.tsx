@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons'
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useGithubAuthQuery } from '@/redux/auth/authApiSlice'
 
 export default function ModalSocialAuth() {
     // const { data } = useGithubAuthQuery(undefined)

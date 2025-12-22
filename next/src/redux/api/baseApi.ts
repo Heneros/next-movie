@@ -37,6 +37,9 @@ const baseApiSlice = createApi({
         },
     }),
 
+
+    
+
     tagTypes: ['User', 'Movie', 'ProfileStats', 'Auth'] as const,
     endpoints: (builder) => ({}),
 });

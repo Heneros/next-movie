@@ -24,7 +24,8 @@
     "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
     "server": "pnpm --prefix ./api run start:dev",
     "next": "pnpm --prefix ./next run dev",
-    "dev": "concurrently --names \"API,WEB\" --prefix \"[{name}]\" --kill-others-on-fail \"pnpm --prefix ./api run start:dev\" \"pnpm --prefix ./next run dev -p 3001\"",
+
+    "dev": "concurrently --names \"API,WEB\" --prefix \"[{name}]\" --kill-others-on-fail \"pnpm --prefix ./api run start:dev\" \"pnpm --prefix ./next run dev\"",
     "prisma:build:reset": "pnpm --filter  ./api  exec prisma migrate reset --schema=libs/prisma/schema.prisma --force",
     "prisma:generate": "pnpm --filter api exec prisma generate",
     "prisma:migrate": "pnpm --filter api exec prisma migrate dev",

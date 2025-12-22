@@ -2,27 +2,33 @@
 
 import { useEffect, useMemo } from 'react';
 import { useAuthMeQuery } from '@/redux/auth/authApiSlice';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
+import { logIn } from '@/redux/auth/authSlice';
 
 export const useAuthGuard = () => {
-    const { userToken } = useAppSelector((s: RootState) => s.auth);
-    // const test = useAppSelector((s: RootState) => s.auth);
-    const {
-        data: authData,
-        isLoading,
-        isFetching,
-        error,
-    } = useAuthMeQuery(undefined, {
+    const dispatch = useAppDispatch();
+
+    const { data, isLoading, isFetching, error } = useAuthMeQuery(undefined, {
         refetchOnMountOrArgChange: true,
-        skip: !userToken,
     });
 
-    // console.log('authData', authData);
-    const user = authData?.user ?? null;
+    const user = data?.user ?? null;
+    useEffect(() => {
+        if (!user) return;
+
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('isAuthenticated', 'true');
+
+        dispatch(
+            logIn({
+                user,
+                userToken: null!,
+            }),
+        );
+    }, [user, dispatch]);
 
     const isAuthenticated = useMemo(() => !!user, [user]);
-
     const isAdmin = useMemo(() => !!user && user.role === 'ADMIN', [user]);
     const isEditor = useMemo(() => !!user && user.role === 'EDITOR', [user]);
 

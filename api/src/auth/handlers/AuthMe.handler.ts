@@ -1,9 +1,4 @@
-import {
-  CommandHandler,
-  ICommandHandler,
-  IQueryHandler,
-  QueryHandler,
-} from '@nestjs/cqrs';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import bcrypt from 'bcryptjs';
 import { LoginUserCommand } from '../commands/LoginUser.command';
 import { AuthRepository } from '../repositories/Auth.repository';
@@ -46,13 +41,17 @@ export class AuthMeHandler implements IQueryHandler<AuthMeQuery> {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: this.configService.get('JWT_SECRET'),
       });
-      console.log(payload)
 
-      const user = await this.authRepository.findById(payload.userId);
+      // console.log(payload);
+
+      const user = await this.authRepository.findUnique({
+        id: payload.userId,
+      });
+
       if (!user) {
         throw new NotFoundException('No found user');
       }
-      // console.log(user);
+      //
       return {
         user: {
           id: user.id,
