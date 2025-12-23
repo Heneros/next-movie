@@ -10,8 +10,6 @@ import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 export default function MovieCard({ info }: { info: MovieItem }) {
-
-
     const { data: previewData, isLoading, isError, error } = useGetPreviewQuery(info.id)
 
     // console.log(previewData)
@@ -19,12 +17,10 @@ export default function MovieCard({ info }: { info: MovieItem }) {
 
     return (
         <div className='mx-2 lg:mx-5  '>
-
             {isLoading ? (<Skeleton height={250} />) : previewData ? (
                 <>
                     <div className='group relative'>
                         <div className='inverted-radius  h-[300px] sm:h-80 md:h-[340px] lg:h-[360px] cursor-pointer relative '>
-
                             <Image
                                 fill
                                 loading="lazy"

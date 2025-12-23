@@ -1,4 +1,5 @@
 import { User } from '@/interfaces';
+import { readLocalStorageItem } from '@/utils/functions';
 // import { AuthSlice } from '@/interfaces/AuthSlice.interface';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { isExpired } from 'react-jwt';
@@ -9,15 +10,6 @@ type AuthState = {
     googleToken?: string | null;
     githubToken?: string | null;
 };
-
-function readLocalStorageItem(key: string): string | null {
-    try {
-        if (typeof window === 'undefined') return null;
-        return localStorage.getItem(key);
-    } catch (error) {
-        return null;
-    }
-}
 
 function parseUser(token: string | null): User | null {
     if (!token) return null;

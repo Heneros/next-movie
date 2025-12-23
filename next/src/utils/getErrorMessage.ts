@@ -5,9 +5,7 @@ function getErrorMessage(
     err?: FetchBaseQueryError | SerializedError | any,
 ): string {
     if (!err) return 'Unknown error';
- 
 
-    
     if (err && typeof err === 'object' && 'status' in err) {
         const e = err as FetchBaseQueryError;
         if (typeof e.data === 'string') return e.data;

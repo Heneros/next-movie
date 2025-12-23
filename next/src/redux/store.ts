@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import baseApiSlice from './api/baseApi';
 
 import authReducer from './auth/authSlice';
+import movieReducer from './movie/movieSlice';
+
 import themeReducer, { ThemeMode } from './theme/theme';
 
 // import { moviesApi } from './api/movieApi';
@@ -27,11 +29,11 @@ const preloadedState = preloadedTheme
 const store = configureStore({
     reducer: {
         [baseApiSlice.reducerPath]: baseApiSlice.reducer,
-        // [moviesApi.reducerPath]: moviesApi.reducer,
         // baseQuery
         // feedback: feedbackReducer,
         auth: authReducer,
         theme: themeReducer,
+        movies: movieReducer,
     },
     preloadedState,
 

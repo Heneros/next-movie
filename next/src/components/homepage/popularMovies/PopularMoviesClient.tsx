@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,14 +12,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MovieItem } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import FilterMovies from "../filterMovies/FilterMovies";
+import { useAppSelector } from "@/redux/hooks";
+import { filterMovies } from "@/utils/filterMovies";
 
 export default function PopularMoviesClient({ popularMovies }: { popularMovies: MovieItem[] }) {
+    const { selectedCategories } = useAppSelector((s: any) => s.movies);
+
+    const filtered = useMemo(() => {
+        return filterMovies(popularMovies, selectedCategories);
+    }, [popularMovies, selectedCategories])
+
 
     const t = useTranslations("PopularMovies")
 
-    // console.log(trends)
+    const allCategories = useMemo(() => {
+        const set = new Set<string>()
+        popularMovies.forEach(m => m.category.forEach(c => set.add(c)));
+        return Array.from(set)
+    }, [popularMovies])
+
+    console.log(filtered)
     return (
         <section className="w-full">
+
             <div className="max-w-[1308px] mx-auto">
                 <div className="flex items-end justify-between py-12 px-10">
                     <h2 className="font-semibold text-5xl dark:text-white text-black">
@@ -34,11 +50,8 @@ export default function PopularMoviesClient({ popularMovies }: { popularMovies: 
                 </div>
             </div>
 
-
+            <FilterMovies allCategories={allCategories} />
             <Swiper
-
-                // navigation
-                // spaceBetween={20}
                 slidesPerView={5}
                 breakpoints={{
                     640: { slidesPerView: 2, spaceBetween: 20 },
@@ -49,7 +62,9 @@ export default function PopularMoviesClient({ popularMovies }: { popularMovies: 
 
                 }}
             >
-                {popularMovies.map((trend) => (
+
+
+                {filtered?.map((trend) => (
                     <SwiperSlide key={trend.id} className="w-auto! ">
 
                         <MovieCard info={trend} />

@@ -17,15 +17,14 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 `
 
 
-## Modules app should have
+## Modules app have
 
 - Reviews
-- Comments
-- Chat
-- Orders
-- Admin panel
-- Posts
+- Movies
 - Users
+- Auth
+- Analytics
+- Cloudinary
 ---
 
 ## Packages and libraries:
@@ -33,6 +32,7 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 - Tailwind
 - Graphql
 - Redux Rtk
+- JWT
 - ApolloClient
 - Nest.js
 - Docker Compose
@@ -40,7 +40,7 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 - i18next
 - Formik and Yup
 - Redis
-
+- Chart.js
 
 
 ---
