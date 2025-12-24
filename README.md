@@ -12,9 +12,25 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 
 ## Launch app through Docker Compose
 
+Rename file .env.example to .env 
+```
+mv .env.example .env
+```
 
-`b
-`
+Build project
+
+```bash 
+pnpm run docker:dev:build
+```
+
+
+Install prisma into and seed with data to docker container:
+
+```bash 
+  docker compose -f docker-compose.dev.yaml exec nestjs   pnpm run docker:prisma:init
+```
+
+
 
 
 ## Modules app have
@@ -25,13 +41,15 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 - Auth
 - Analytics
 - Cloudinary
+
 ---
 
 ## Packages and libraries:
 - Prisma
 - Tailwind
 - Graphql
-- Redux Rtk
+- Redux 
+- Rtk Query
 - JWT
 - ApolloClient
 - Nest.js
@@ -41,6 +59,7 @@ https://www.figma.com/design/zzLfLHPzV43yUkHJCerDSc/Movie---Series-Website--Comm
 - Formik and Yup
 - Redis
 - Chart.js
+- HuggingFace
 
 
 ---

@@ -30,7 +30,7 @@ const moviesSlice = createSlice({
             if (index !== -1) {
                 state.selectedCategories.splice(index, 1);
             } else {
-                if (state.selectedCategories.length < 3) {
+                if (state.selectedCategories.length > 0) {
                     state.selectedCategories.push(cat);
                 } else {
                     state.selectedCategories.shift();
@@ -48,18 +48,18 @@ const moviesSlice = createSlice({
 
             writeLocalStorageItem('filterMovies', state);
         },
-        filterCategory: (state, action) => {
-            state.selectedCategories = action.payload.selectedCategories;
+        // filterCategory: (state, action) => {
+        //     state.selectedCategories = action.payload.selectedCategories;
 
-            localStorage.setItem(
-                'filterMovies',
-                JSON.stringify(action.payload),
-            );
-        },
+        //     localStorage.setItem(
+        //         'filterMovies',
+        //         JSON.stringify(action.payload),
+        //     );
+        // },
     },
 });
 export const {
-    filterCategory,
+    // filterCategory,
     toggleCategory,
     clearCategories,
 

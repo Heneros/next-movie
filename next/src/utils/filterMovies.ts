@@ -8,7 +8,7 @@ export function filterMovies(
 
     if (selectedCategories && selectedCategories.length > 0) {
         res = res.filter((m) =>
-            selectedCategories.some((cat) => m.category.includes(cat)),
+            selectedCategories.every((cat) => m.category.includes(cat)),
         );
     }
     return res;

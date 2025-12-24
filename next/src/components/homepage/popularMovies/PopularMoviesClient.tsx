@@ -32,7 +32,7 @@ export default function PopularMoviesClient({ popularMovies }: { popularMovies: 
         return Array.from(set)
     }, [popularMovies])
 
-    console.log(filtered)
+
     return (
         <section className="w-full">
 
