@@ -83,3 +83,12 @@ export const ANALYTICS_ROUTES = {
 export const AI_ROUTES = {
   SEND_MESSAGE: 'ai-assistant',
 } as const;
+
+export const FAVORITES_CONTROLLER = 'favorites' as const;
+
+export const FAVORITES__ROUTES = {
+  ADD_TO_LIST: ':userId/add',
+  GET_ALL_FAVORITES: ':userId/favorites',
+
+  REMOVE_FAVORITE: ':userId',
+} as const;

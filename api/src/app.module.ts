@@ -21,6 +21,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { isDevelopment } from './data';
 import path, { join } from 'path';
+import { FavoriteModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import path, { join } from 'path';
     AnalyticsModule,
     AiAgentModule,
     ReviewsModule,
+    FavoriteModule
   ],
   controllers: [AppController],
   providers: [AppService],
