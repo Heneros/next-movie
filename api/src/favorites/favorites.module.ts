@@ -11,6 +11,8 @@ import { RedisService } from '@/redis/redis.service';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '@/prisma/prisma.service';
 import { GalleryRepository } from '@/movies/repository/Gallery.repository';
+import { MovieRepository } from '@/movies/repository/Movie.repository';
+import { AuthRepository } from '@/auth/repositories/Auth.repository';
 
 @Module({
   imports: [PrismaModule, CqrsModule, RedisModule],
@@ -19,7 +21,8 @@ import { GalleryRepository } from '@/movies/repository/Gallery.repository';
   providers: [
     ...Object.values(Handlers),
     FavoritesRepository,
-
+    MovieRepository,
+    AuthRepository,
     RedisService,
     JwtService,
     PrismaService,

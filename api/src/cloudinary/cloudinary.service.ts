@@ -128,17 +128,19 @@ export class CloudinaryService {
     });
   }
 
-  async getImageAvatar(userId: number) {
-    if (!userId) {
-      return;
-    }
+  // async getImageAvatar(id: number) {
+  //   if (!id) {
+  //     return null;
+  //   }
 
-    const res = await this.avatarRepository.findUnique({ userId });
-    if (!res) {
-      return;
-    }
-    return res;
-  }
+  //   const res = await this.avatarRepository.findUnique({
+  //     userId: id,
+  //   });
+  //   if (!res) {
+  //     return null;
+  //   }
+  // }
+
   async deleteImage(publicId: string) {
     return cloudinary.uploader.destroy(publicId);
   }

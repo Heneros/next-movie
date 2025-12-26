@@ -90,9 +90,9 @@ export class AuthController {
 
       res.cookie('jwtMovies', result.refreshToken, {
         httpOnly: true,
-        sameSite: 'none',
+        sameSite: 'strict',
         maxAge: 31 * 24 * 60 * 60 * 1000,
-        secure: true,
+        secure: isDevelopment ? false : true,
         path: '/',
       });
 

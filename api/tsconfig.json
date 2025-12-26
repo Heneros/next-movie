@@ -78,6 +78,9 @@
       "@/reviews/*": [
         "./src/reviews/*"
       ],
+      "@/favorites/*": [
+        "./src/favorites/*"
+      ],
       "@/*": [
         "./src"
       ]

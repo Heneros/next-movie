@@ -41,7 +41,7 @@ export class ProfileOwnerGuard implements CanActivate {
         secret: process.env.JWT_SECRET,
       });
 
-    //  console.log(decodedToken);
+      //  console.log(decodedToken);
 
       userIdFromToken = decodedToken.id;
     } catch (error) {

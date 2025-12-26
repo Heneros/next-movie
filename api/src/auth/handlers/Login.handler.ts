@@ -18,6 +18,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 
   async execute(command: LoginUserCommand) {
     const { logInDto } = command;
+    console.log(logInDto);
     try {
       const user = await this.authRepository.findByEmail(logInDto.email);
 
@@ -37,6 +38,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
       if (!isPasswordValid) {
         throw new BadRequestException('Invalid password');
       }
+
       const payload = {
         id: user.id,
         username: user.username,
@@ -51,15 +53,15 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
       });
 
       await this.verifyResetToken.deleteToken(user.id);
-
+      console.log('hahah555555');
       await this.verifyResetToken.updateToken(user.id, refreshToken);
-
+      console.log('hahah');
       await this.authRepository.updateProfile(user.id, {
         refreshToken: [refreshToken],
       });
 
-      const avatar = await this.cloudinaryService.getImageAvatar(user.id);
-
+      // const avatar = await this.cloudinaryService.getImageAvatar(user.id);
+      // console.log('qwewrt');
       return {
         accessToken,
         refreshToken,
@@ -68,7 +70,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
           username: user.username,
           email: user.email,
           role: user.role,
-          imageUrl: avatar ?? null,
+          // imageUrl: avatar ?? null,
         },
       };
     } catch (error) {
