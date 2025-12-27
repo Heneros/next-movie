@@ -1,5 +1,10 @@
 import { AuthRepository } from '@/auth/repositories/Auth.repository';
-import { BadRequestException, ForbiddenException, Injectable, PipeTransform } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  PipeTransform,
+} from '@nestjs/common';
 
 @Injectable()
 export class CheckUserExistPipe implements PipeTransform {

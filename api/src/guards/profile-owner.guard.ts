@@ -12,47 +12,35 @@ export class ProfileOwnerGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
   canActivate(context: ExecutionContext): boolean {
-    let request: any;
-    let idFromParams: number | null = null;
-    if (context.getType() === 'http') {
-      request = context.switchToHttp().getRequest();
-      idFromParams = +request.params.userId;
-    }
+    const request = context.switchToHttp().getRequest();
 
-    const authHeader = request.headers?.authorization;
-
+    const authHeader = request.headers.authorization;
     if (!authHeader) {
       throw new UnauthorizedException('No authorization header');
     }
 
-    const token = authHeader?.split('Bearer ')[1];
-
+    const token = authHeader.replace('Bearer ', '');
     if (!token) {
       throw new UnauthorizedException('No token provided');
     }
 
-    let userIdFromToken: number;
+    let payload: any;
 
     try {
-      // const payload = this.jwtService.verify(token, {
-      //   secret: process.env.JWT_SECRET,
-      // });
-      const decodedToken = this.jwtService.verify(token, {
+      payload = this.jwtService.verify(token, {
         secret: process.env.JWT_SECRET,
       });
-
-      //  console.log(decodedToken);
-
-      userIdFromToken = decodedToken.id;
-    } catch (error) {
+    } catch {
       throw new UnauthorizedException('Invalid token');
     }
 
-    if (!idFromParams || userIdFromToken !== idFromParams) {
-      throw new ForbiddenException(
-        'You are not authorized to action to this profile',
-      );
+    const userIdFromToken = payload.id;
+    const userIdFromParams = +request.params.userId;
+
+    if (userIdFromToken !== userIdFromParams) {
+      throw new ForbiddenException('Not your profile');
     }
+
     return true;
   }
 }
