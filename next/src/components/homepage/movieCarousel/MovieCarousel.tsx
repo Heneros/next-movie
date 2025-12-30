@@ -11,6 +11,7 @@ import "swiper/css/effect-fade";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useGetPreviewQuery } from "@/redux/movie/moviesApiSlice";
 
 type Movie = {
     id: string | number;
@@ -38,6 +39,7 @@ export default function MovieCarousel({
     const iconStar = 'icons/star.svg'
     const [activeIndex, setActiveIndex] = useState(0);
 
+
     const slides = useMemo(() => {
         if (!movies || movies.length === 0) {
             return [
@@ -54,6 +56,8 @@ export default function MovieCarousel({
         return movies;
     }, [movies]);
 
+    console.log(slides)
+
     return (
         <div className={`relative w-full ${className}`}>
             <Swiper
@@ -69,7 +73,7 @@ export default function MovieCarousel({
             >
                 {slides.map((m) => (
                     <SwiperSlide key={m.id}>
-                        <div className=" w-full h-[60vh] md:h-[70vh]  flex md:items-center">
+                        <div className=" w-full h-[60vh] md:h-[725px]  flex md:items-center">
                             <div className="absolute inset-0 ">
                                 {m.backdropUrl ? (
                                     <Image
@@ -85,13 +89,13 @@ export default function MovieCarousel({
                                 )}
                             </div>
 
-                            <div className="container flex flex-row md:flex mx-auto px-4 lg:px-16  items-center relative">
-                                <div className=" max-w-2xl flex-1 text-black dark:text-[#fff] py-12">
+                            <div className="w-full lg:mx-16 lg:mt-56 flex flex-row md:flex x-4 lg:px-16  items-center relative">
+                                <div className="  flex-1 text-black dark:text-white py-12">
                                     <motion.h2
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.6 }}
-                                        className="text-4xl md:text-6xl font-bold leading-tight mb-4"
+                                        className="text-4xl md:text-6xl font-medium leading-tight mb-4"
                                     >
                                         {m.title}
                                     </motion.h2>
@@ -138,13 +142,7 @@ export default function MovieCarousel({
                                                                     }`}
 
                                                             />
-                                                            // <Star
-                                                            //     key={i}
-                                                            //     className={`h-5 w-5 ${filled
-                                                            //         ? "text-yellow-400"
-                                                            //         : "text-gray-600"
-                                                            //         }`}
-                                                            // />
+
                                                         );
                                                     },
                                                 )}
@@ -169,7 +167,7 @@ export default function MovieCarousel({
                                                 className="flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-full shadow-lg transition font-medium dark:text-white text-black"
                                             >
                                                 <FontAwesomeIcon icon={faPlay} className="h-5 w-5 dark:text-white text-black" />
-                                                {/* <PlayIcon className="h-5 w-5 dark:text-white text-black" /> */}
+
                                                 Watch Movie
                                             </Link>
 
@@ -180,7 +178,7 @@ export default function MovieCarousel({
                                 dark:text-white text-black"
                                             >
                                                 <FontAwesomeIcon icon={faArrowRight} className="h-5 w-5 dark:text-white text-black" />
-                                                {/* <ArrowRightIcon className="h-5 w-5 dark:text-white text-black" /> */}
+                                      
                                                 More Info
                                             </Link>
                                         </div>
@@ -188,7 +186,7 @@ export default function MovieCarousel({
                                 </div>
                                 <div
                                     className=" absolute  hidden  md:flex-0
-                                right-0 lg:right-16 bottom-7  md:flex flex-row align-baseline justify-center items-center"
+                                right-0  bottom-7  md:flex flex-row align-baseline justify-center items-center"
                                 >
                                     {slides.map((thumb, index) => (
                                         <div

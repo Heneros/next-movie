@@ -80,8 +80,8 @@ export default function Header() {
 
     return (
         <>
-            <header className="fixed inset-x-0 top-4 z-50">
-                <div className="mx-auto max-w-[1223px]">
+            <header className="fixed inset-x-0 top-4 z-50 ">
+                <div className="mx-auto max-w-[1115px] ">
                     <div className="relative">
                         <div className="w-full bg-zinc-900/30 outline-sky-500 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center justify-between gap-3 shadow-sm">
                             {/* Logo */}
