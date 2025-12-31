@@ -1,3 +1,4 @@
+import { UsersRepository } from '@/users/repository/Users.repository';
 import {
   CanActivate,
   ExecutionContext,
@@ -9,9 +10,12 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class ProfileOwnerGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
 
     const authHeader = request.headers.authorization;
@@ -27,20 +31,26 @@ export class ProfileOwnerGuard implements CanActivate {
     let payload: any;
 
     try {
-      payload = this.jwtService.verify(token, {
+      payload = await this.jwtService.verify(token, {
         secret: process.env.JWT_SECRET,
       });
+      const userExist = await this.usersRepository.findById(payload.id);
+
+      if (userExist.id === payload.id) {
+        return true;
+      }
+      return false;
+
+      // console.log(userExist);
     } catch {
       throw new UnauthorizedException('Invalid token');
     }
 
-    const userIdFromToken = payload.id;
-    const userIdFromParams = +request.params.userId;
+    // const userIdFromToken = payload.id;
+    // const userIdFromParams = +request.params.userId;
 
-    if (userIdFromToken !== userIdFromParams) {
-      throw new ForbiddenException('Not your profile');
-    }
-
-    return true;
+    // if (userIdFromToken !== userIdFromParams) {
+    //   throw new ForbiddenException('Not your profile');
+    // }
   }
 }

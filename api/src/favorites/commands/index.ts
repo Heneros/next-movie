@@ -1,2 +1,2 @@
 export * from './AddToFavorites.command';
-export * from './RemoveFavorite.command';
+export * from './DeleteFavorite.command';

@@ -13,4 +13,4 @@ export class FavoritesRepository extends AbstractRepositoryPrisma<Favorites> {
     this.prisma = prismaService;
     this.model = this.prisma.favorites;
   }
-} 
+}

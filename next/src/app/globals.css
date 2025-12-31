@@ -129,7 +129,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.swiper-wrapper { gap: 0 !important; }   
+/* .swiper-wrapper { gap: 0 !important; }   
 .swiper-slide { margin-right: 0 !important; padding-right: 0 !important; }
 .swiper,
 .swiper-wrapper,
@@ -140,4 +140,4 @@ body {
 .swiper-slide {
   display: flex !important;
   justify-content: center;
-}
+} */

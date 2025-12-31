@@ -26,7 +26,7 @@ export class AddFavoriteHandler implements IQueryHandler<AddFavoriteCommand> {
 
       return res;
     } catch (error: any) {
-      console.error(error);
+      // console.error(error);
       if (error instanceof BadRequestException) {
         throw error;
       }

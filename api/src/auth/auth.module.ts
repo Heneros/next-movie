@@ -18,6 +18,7 @@ import { GoogleStrategy } from './passport/GoogleStrategy';
 import { PassportService } from './services/Passport.service';
 import { RedisModule } from '@/redis/redis.module';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
+import { UsersRepository } from '@/users/repository/Users.repository';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { AiAgentService } from '@/ai-agent/ai-agent.service';
 
     PassportService,
     HandleIOAuth,
+    UsersRepository,
     VerifyResetTokenRepository,
     PrismaService,
     GoogleStrategy,

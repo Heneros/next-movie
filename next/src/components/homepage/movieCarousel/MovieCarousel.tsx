@@ -56,7 +56,7 @@ export default function MovieCarousel({
         return movies;
     }, [movies]);
 
-    console.log(slides)
+
 
     return (
         <div className={`relative w-full ${className}`}>
@@ -89,7 +89,7 @@ export default function MovieCarousel({
                                 )}
                             </div>
 
-                            <div className="w-full lg:mx-16 lg:mt-56 flex flex-row md:flex x-4 lg:px-16  items-center relative">
+                            <div className="w-full  lg:mx-16 lg:mt-56 flex flex-col lg:flex-row md:flex x-4 lg:px-16  items-center relative">
                                 <div className="  flex-1 text-black dark:text-white py-12">
                                     <motion.h2
                                         initial={{ opacity: 0, y: 20 }}
@@ -178,15 +178,15 @@ export default function MovieCarousel({
                                 dark:text-white text-black"
                                             >
                                                 <FontAwesomeIcon icon={faArrowRight} className="h-5 w-5 dark:text-white text-black" />
-                                      
+
                                                 More Info
                                             </Link>
                                         </div>
                                     </motion.div>
                                 </div>
                                 <div
-                                    className=" absolute  hidden  md:flex-0
-                                right-0  bottom-7  md:flex flex-row align-baseline justify-center items-center"
+                                    className=" absolute  hidden none  lg:flex lg:flex-0
+                                right-0  bottom-7  flex-row align-baseline justify-center items-center"
                                 >
                                     {slides.map((thumb, index) => (
                                         <div

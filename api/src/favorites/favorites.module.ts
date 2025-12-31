@@ -13,6 +13,7 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { GalleryRepository } from '@/movies/repository/Gallery.repository';
 import { MovieRepository } from '@/movies/repository/Movie.repository';
 import { AuthRepository } from '@/auth/repositories/Auth.repository';
+import { UsersRepository } from '@/users/repository/Users.repository';
 
 @Module({
   imports: [PrismaModule, CqrsModule, RedisModule],
@@ -26,6 +27,7 @@ import { AuthRepository } from '@/auth/repositories/Auth.repository';
     RedisService,
     JwtService,
     PrismaService,
+    UsersRepository,
   ],
 })
 export class FavoriteModule {}

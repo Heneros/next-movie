@@ -22,6 +22,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { isDevelopment } from './data';
 import path, { join } from 'path';
 import { FavoriteModule } from './favorites/favorites.module';
+import { UsersRepository } from './users/repository/Users.repository';
 
 @Module({
   imports: [
@@ -51,9 +52,9 @@ import { FavoriteModule } from './favorites/favorites.module';
     AnalyticsModule,
     AiAgentModule,
     ReviewsModule,
-    FavoriteModule
+    FavoriteModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ],
 })
 export class AppModule {}

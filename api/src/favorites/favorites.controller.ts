@@ -10,12 +10,12 @@ import {
 import { FAVORITES__ROUTES, FAVORITES_CONTROLLER } from '../data';
 import { QueryBus, CommandBus } from '@nestjs/cqrs';
 import { GetFavoritesQuery } from './queries';
-import { AddFavoriteCommand } from './commands/AddToFavorites.command';
+
 import { CheckUserExistPipe } from '@/pipe/CheckUserExistPipe.pipe';
 import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
 import { ProfileOwnerGuard } from '@/guards/profile-owner.guard';
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
-import { RemoveFromFavoriteCommand } from './commands';
+import { AddFavoriteCommand, DeleteFromFavoriteCommand } from './commands';
 
 @Controller(FAVORITES_CONTROLLER)
 export class FavoritesController {
@@ -47,12 +47,9 @@ export class FavoritesController {
 
   @Delete(FAVORITES__ROUTES.REMOVE_FAVORITE)
   @UseGuards(JwtAuthGuard, ProfileOwnerGuard)
-  async removeFromFavorite(
-    @Param('userId', CheckUserExistPipe, ParseIntPipe) userId: number,
-    @Param('movieId', CheckMovieExistPipe, ParseIntPipe) movieId: number,
-  ) {
+  async removeFromFavorite(@Param('id', ParseIntPipe) id: number) {
     const favorites = await this.commandBus.execute(
-      new RemoveFromFavoriteCommand(userId, movieId),
+      new DeleteFromFavoriteCommand(id),
     );
     return favorites;
   }

@@ -88,7 +88,7 @@ export const FAVORITES_CONTROLLER = 'favorites' as const;
 
 export const FAVORITES__ROUTES = {
   ADD_TO_LIST: ':movieId/:userId',
-  GET_ALL_FAVORITES: ':userId/favorites',
+  GET_ALL_FAVORITES: ':userId',
 
-  REMOVE_FAVORITE: ':movieId/:userId',
+  REMOVE_FAVORITE: ':id',
 } as const;
