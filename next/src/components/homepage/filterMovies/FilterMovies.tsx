@@ -2,8 +2,6 @@
 "use client"
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { clearCategories, toggleCategory } from '@/redux/movie/movieSlice';
-import React from 'react'
-
 
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,18 +18,19 @@ export default function FilterMovies({ allCategories = [] }: Props) {
         dispatch(toggleCategory(cat))
     }
     return (
-        <div className="max-w-[1308px] mx-auto px-10">
+        <div className="max-w-[1308px] flex md:inline  py-25 my-22 md:my-17 px-10">
             <Swiper
                 modules={[Navigation]}
                 navigation
-                // spaceBetween={75}
-                slidesPerView={4}
+                // // spaceBetween={75}
+                slidesPerView={3}
                 breakpoints={{
-                    768: { slidesPerView: 5, spaceBetween: 40 },
-                    1024: { slidesPerView: 12, spaceBetween: 50 },
+                    400: { slidesPerView: 4, spaceBetween: 12 },
+                    768: { slidesPerView: 5, spaceBetween: 5 },
+                    1024: { slidesPerView: 12, spaceBetween: 2 },
                 }}
             >
-                <div className='flex items-center gap-4 mb-6 overflow-x-scroll'>
+                <div className='flex items-center mb-6 overflow-x-scroll'>
                     {allCategories.map((cat) => {
                         const active = selectedCategories.includes(cat)
                         return (

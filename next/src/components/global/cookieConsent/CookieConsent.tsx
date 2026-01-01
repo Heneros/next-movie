@@ -38,10 +38,10 @@ export default function CookieConsent() {
         h-45 bg-black
         border-t- border-gray-700
          dark:bg-gray-800 '>
-                    <div className='container mx-auto p-5 flex justify-between items-center gap-4  flex-col md:flex-row'>
-                        <p className='text-gray-300 text-center md: md:text-2xl'>
+                    <div className='xl:flex-row mx-auto p-5 flex justify-between items-center gap-4  flex-col '>
+                        <p className='text-gray-300 text-center md:text-2xl'>
                             This website uses cookies, as do most websites   since the 90s. By using this site, you consent to cookies. We have to say this or we get in trouble.
-                            <Link href="/terms-of-use" className='text-green-500 hover:underline '>
+                            <Link href="/terms-of-use" className='text-green-500 hover:underline white-nowrap '>
                                 Learn more.
                             </Link>
                         </p>

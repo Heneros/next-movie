@@ -89,7 +89,7 @@ export default function MovieCarousel({
                                 )}
                             </div>
 
-                            <div className="w-full  lg:mx-16 lg:mt-56 flex flex-col lg:flex-row md:flex x-4 lg:px-16  items-center relative">
+                            <div className="w-full  lg:mx-16 mt-56 flex flex-col lg:flex-row md:flex x-4 lg:px-16  items-center relative">
                                 <div className="  flex-1 text-black dark:text-white py-12">
                                     <motion.h2
                                         initial={{ opacity: 0, y: 20 }}
