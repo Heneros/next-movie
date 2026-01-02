@@ -49,13 +49,15 @@ jobs:
                 corepack enable 
                 corepack prepare pnpm@9.15.0 --activate
                 
-            - name: Install dependencies
+            - name: Install Frontend dependencies
               working-directory: ./next
               run: pnpm install
 
-            - name: Install Global
-              working-directory: .
+            - name: Install Backend dependencies
+              working-directory: ./api
               run: pnpm install
+
+
 
 
 
