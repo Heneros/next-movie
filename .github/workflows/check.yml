@@ -60,7 +60,6 @@ jobs:
 
 
 
-
             - name: Wait for PostgreSQL
               run: |
                   timeout 30s bash -c 'until pg_isready -h localhost -p 5432; do sleep 1; done'
@@ -71,16 +70,16 @@ jobs:
                   PGPASSWORD: postgres
 
             - name: Generate Prisma Client
-              # working-directory: ./next
+              working-directory: ./api
               env:
                   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-              run: npx prisma generate --schema=api/libs/prisma/schema.prisma
+              run: pnpm  prisma generate --schema=libs/prisma/schema.prisma
 
             - name: Run database migrations
-              # working-directory: ./next
+              working-directory: ./api
               env:
                   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-              run: npx prisma migrate deploy --schema=api/libs/prisma/schema.prisma
+              run: pnpm  prisma migrate deploy --schema=libs/prisma/schema.prisma
 
             # - name: Build application
             #   working-directory: ./next
