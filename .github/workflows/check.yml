@@ -29,26 +29,31 @@ jobs:
             DATABASE_URL: "postgres://postgres:postgres@localhost:5432/testDb"
             JWT_SECRET: "testJWT"
             NODE_ENV: test
-            NEXT_PUBLIC_NEST_API: https://movie-app-tawny-sigma.vercel.app
             BASE_URL: http://localhost:3001
 
         steps:
+
+        
+
             - name: Checkout code
               uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
-                submodules: 'recursive'
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: "20"
-                  cache: "npm"
-                  cache-dependency-path: next/package-lock.json
 
+
+            - name: Enable pnpm
+              run: |
+                corepack enable 
+                corepack prepare pnpm@9.15.0 --activate
+                
             - name: Install dependencies
               working-directory: ./next
-              run: npm ci
+              run: pnpm install
+
+
 
             - name: Wait for PostgreSQL
               run: |
