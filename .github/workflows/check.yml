@@ -55,7 +55,7 @@ jobs:
 
             - name: Install Backend dependencies
               working-directory: ./api
-              run: pnpm install
+              run: pnpm install --prod=false
 
 
 
@@ -80,7 +80,7 @@ jobs:
               # working-directory: ./next
               env:
                   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-              run: npx prisma migrate deploy --schema=api/ibs/prisma/schema.prisma
+              run: npx prisma migrate deploy --schema=api/libs/prisma/schema.prisma
 
             # - name: Build application
             #   working-directory: ./next
