@@ -53,6 +53,10 @@ jobs:
               working-directory: ./next
               run: pnpm install
 
+            - name: Install Global
+              working-directory: .
+              run: pnpm install
+
 
 
             - name: Wait for PostgreSQL
@@ -68,13 +72,13 @@ jobs:
               # working-directory: ./next
               env:
                   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-              run: npx prisma generate --schema=libs/prisma/schema.prisma
+              run: npx prisma generate --schema=api/libs/prisma/schema.prisma
 
             - name: Run database migrations
               # working-directory: ./next
               env:
                   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
-              run: npx prisma migrate deploy --schema=libs/prisma/schema.prisma
+              run: npx prisma migrate deploy --schema=api/ibs/prisma/schema.prisma
 
             # - name: Build application
             #   working-directory: ./next
