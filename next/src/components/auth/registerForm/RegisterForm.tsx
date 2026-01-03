@@ -52,9 +52,9 @@ export default function RegisterForm() {
 
 
     return (<>
-        <div className="w-full bg-white/90 dark:bg-gray-900/70  backdrop-blur-sm shadow-lg  p-5">
+        <div className="w-full   p-5">
             <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold">Registration Page</h2>
+                <h2 className="text-2xl font-bold text-white">Registration Page</h2>
                 <p>Create an account and start using the service</p>
             </div>
             <Formik initialValues={initialValues}

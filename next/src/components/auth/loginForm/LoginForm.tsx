@@ -41,7 +41,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 
 
     return (<>
-        <div className="w-full bg-white/90 dark:bg-gray-900/70  backdrop-blur-sm shadow-lg  py-5">
+        <div className="w-full  py-5">
             <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold">Log In</h2>
                 <p>Log in to site and access exclusive data</p>
@@ -126,7 +126,13 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
                         <div className="flex items-center flex-col gap-3 my-5 ">
                             <button
                                 type="submit"
-                                className="flex mx-auto border-1 border-b-blue-900 py-2 px-4 rounded-sm cursor-pointer"
+                                className="flex mx-auto 
+                                bg-primary-second
+                                max-w-160
+                                        max-h-46
+                                        border-2
+                                        border-white
+                                py-2 px-4 rounded-md cursor-pointer"
                                 disabled={isSubmitting || isLoading}
                             >
                                 {isSubmitting || isLoading ? 'Log in...' : 'Log in'}
@@ -137,8 +143,6 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
                                 Error {error}
                             </div>
                         )}
-
-
                     </form>
                 )
                 }

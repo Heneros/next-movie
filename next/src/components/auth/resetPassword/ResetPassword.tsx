@@ -30,7 +30,7 @@ export default function ResetPasswordForm() {
 
 
     return (<>
-        <div className="w-full bg-white/90 dark:bg-gray-900/70  backdrop-blur-sm shadow-lg  p-5">
+        <div className="w-full p-5">
             <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold">Request Reset Password</h2>
                 <p>Update password</p>
