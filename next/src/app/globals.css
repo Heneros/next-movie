@@ -3,6 +3,63 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @font-face {
+        font-family: "Lato";
+            src: url("../assets/fonts/Lato/Lato-Regular.ttf")
+        format("truetype");
+        font-weight: 400;
+            font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+        font-family: "Lato";
+            src: url("../assets/fonts/Lato/Lato-Thin.ttf")
+        format("truetype");
+        font-weight: 100;
+            font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+        font-family: "Lato";
+            src: url("../assets/fonts/Lato/Lato-Light.ttf")
+        format("truetype");
+        font-weight: 300;
+            font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+        font-family: "Lato";
+            src: url("../assets/fonts/Lato/Lato-Bold.ttf")
+        format("truetype");
+        font-weight: 700;
+            font-style: normal;
+    font-display: swap;
+}
+@font-face {
+        font-family: "Lato";
+            src: url("../assets/fonts/Lato/Lato-Regular.ttf")
+        format("truetype");
+        font-weight: 400;
+            font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+        font-family: "Lato";
+            src: url("../assets/fonts/Lato/Lato-Black.ttf")
+        format("truetype");
+        font-weight: 900;
+            font-style: normal;
+    font-display: swap;
+}
+
+
+
+
+
+@font-face {
     font-family: "AlegreyaSC";
     src: url("../assets/fonts/AlegreyaSC/AlegreyaSC-Regular.ttf")
         format("truetype");
@@ -26,6 +83,9 @@
         format("truetype");
 }
 
+
+
+
 @layer utilities {
     .static-bg-unique-200 {
         background-color: var(--color-unique-200);
@@ -47,6 +107,7 @@
 
     --color-testT-500: #a02d2d;
     --font-sans: sans-serif;
+    --font-lato: 'Lato';
 
     --font-alegreya: "AlegreyaSC";
 
@@ -128,16 +189,3 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
-
-/* .swiper-wrapper { gap: 0 !important; }   
-.swiper-slide { margin-right: 0 !important; padding-right: 0 !important; }
-.swiper,
-.swiper-wrapper,
-.swiper-slide {
-  height: 100% !important;
-}
-
-.swiper-slide {
-  display: flex !important;
-  justify-content: center;
-} */

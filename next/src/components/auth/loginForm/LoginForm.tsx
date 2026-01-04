@@ -41,10 +41,10 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
 
 
     return (<>
-        <div className="w-full  py-5">
+        <div className="mt-15 w-full  py-5">
             <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold">Log In</h2>
-                <p>Log in to site and access exclusive data</p>
+                <h2 className="text-2xl font-bold text-light-main">Log In</h2>
+                <p className=" text-light-main">Log in to site and access exclusive data</p>
             </div>
             <Formik initialValues={initialValues}
                 validationSchema={Yup.object().shape({
@@ -93,7 +93,7 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
                     <form onSubmit={handleSubmit} className="sm:px-4">
 
                         <div className="grid grid-cols-1 gap-4">
-                            <div className="space-y-4  ">
+                            <div className="space-y-4   ">
 
                                 <div className="flex flex-col">
                                     <label htmlFor="email">
@@ -129,13 +129,22 @@ export default function LoginForm({ onClose }: { onClose: () => void }) {
                                 className="flex mx-auto 
                                 bg-primary-second
                                 max-w-160
+                                w-40
+                                h-12
+                                justify-center
+                                items-center
                                         max-h-46
-                                        border-2
-                                        border-white
-                                py-2 px-4 rounded-md cursor-pointer"
+                                border-2 border-[#8FD3FF]
+    rounded-lg
+
+                                    transition
+    hover:brightness-110
+    disabled:opacity-60
+    disabled:cursor-not-allowed
+                  cursor-pointer"
                                 disabled={isSubmitting || isLoading}
                             >
-                                {isSubmitting || isLoading ? 'Log in...' : 'Log in'}
+                                {isSubmitting || isLoading ? 'Log In...' : 'Log in'}
                             </button>
                         </div>
                         {mounted && isError && (

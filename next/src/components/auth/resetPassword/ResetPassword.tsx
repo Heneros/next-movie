@@ -24,14 +24,13 @@ export default function ResetPasswordForm() {
     }, [])
 
     const initialValues: FormType = {
-
         email: '',
     }
 
 
     return (<>
         <div className="w-full p-5">
-            <div className="text-center mb-6">
+            <div className="text-center">
                 <h2 className="text-2xl font-bold">Request Reset Password</h2>
                 <p>Update password</p>
             </div>
@@ -93,7 +92,21 @@ export default function ResetPasswordForm() {
 
                             <button
                                 type="submit"
-                                className="flex mx-auto border-1 border-b-blue-900 py-2 px-4 rounded-sm cursor-pointer"
+                                className="flex mx-auto 
+                                bg-primary-second
+                                max-w-160
+                                w-40
+                                h-12
+                                justify-center
+                                items-center
+                                        max-h-46
+                                border-2 border-[#8FD3FF]
+    rounded-lg
+                                    transition
+    hover:brightness-110
+    disabled:opacity-60
+    disabled:cursor-not-allowed
+                  cursor-pointer"
                                 disabled={isSubmitting || isLoading}
                             >
                                 {isSubmitting || isLoading ? 'Sending...' : 'Send'}

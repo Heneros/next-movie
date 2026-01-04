@@ -52,7 +52,7 @@ export default function RegisterForm() {
 
 
     return (<>
-        <div className="w-full   p-5">
+        <div className="w-full mt-20 p-5">
             <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-white">Registration Page</h2>
                 <p>Create an account and start using the service</p>
@@ -165,14 +165,29 @@ export default function RegisterForm() {
 
                         </div>
                         <div className="flex items-center flex-col gap-3 my-5 ">
-                            <p className="font-sans text-sm sm:text-xl">I agree with  <Link
-                                className="font-bold "
+                            <p className="font-sans text-sm sm:text-xl ">I agree with  <Link
+                                className="font-bold mr-2 "
                                 href="/terms-of-use">Terms of use</Link>
                                 <input type="checkbox" value="" className="w-4 h-4" required />
                             </p>
                             <button
                                 type="submit"
-                                className="flex mx-auto border-1 border-b-blue-900 py-2 px-4 rounded-sm cursor-pointer"
+                                className="flex mx-auto 
+                                bg-primary-second
+                                max-w-160
+                                w-40
+                                h-12
+                                justify-center
+                                items-center
+                                        max-h-46
+                                border-2 border-[#8FD3FF]
+    rounded-lg
+
+                                    transition
+    hover:brightness-110
+    disabled:opacity-60
+    disabled:cursor-not-allowed
+                  cursor-pointer"
                                 disabled={isSubmitting || isLoading}
                             >
                                 {isSubmitting || isLoading ? 'Creating account...' : 'Submit'}

@@ -7,7 +7,7 @@ import LoginForm from "../loginForm/LoginForm";
 import RegisterForm from "../registerForm/RegisterForm";
 import ResetPasswordForm from "../resetPassword/ResetPassword";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faCross } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faClose, faCross } from "@fortawesome/free-solid-svg-icons";
 import imageBg from '@/assets/img/modal.png'
 
 // import { bgImage } from '@/assets/img/1.jpeg';
@@ -73,19 +73,20 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
                 }`}
         >
             <div className="absolute inset-0  dark:bg-black/70 backdrop-blur-sm z-50" />
-            <div role="dialog" aria-modal="true" className="auth-modal relative z-50 w-full      max-h-[calc(100vh-4rem)] overflow-y-auto  my-5 mx-4">
-                <div ref={panelRef} className="bg-linear-to-bl   from-[#030A1B] 
-  to-[#9747FF]  dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+            <div role="dialog" aria-modal="true" className="auth-modal relative z-50 w-full      max-h-[calc(100vh-4rem)] my-5 mx-4 font-lato text-light-main">
 
-                    <button type="button" aria-label="Close" className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-300" onClick={onClose}>
-                        <FontAwesomeIcon icon={faClose} size="2xl" />
+                <div ref={panelRef} className="    bg-[linear-gradient(210deg,#030A1B_95%,#9747FF_100%)]   rounded-2xl shadow-xl overflow-y-auto">
+
+                    <button type="button" aria-label="Close" className=" hover:text-gray-800 dark:hover:text-gray-300 top-5 left-5 relative" onClick={onClose}>
+                        <FontAwesomeIcon icon={faArrowLeft} size="xl" />
                     </button>
                     <div className="p-5 sm:p-12">
-                        <div className="flex items-center justify-between ">
+                        <div className="flex h-[70vh] min-h-[520px] max-h-[720px] items-center justify-between flex-row ">
 
-                            <div className="flex flex-col basis-1/3">
-                                <div className="flex items-center justify-between p-4 border-b  border-gray-700 mt-4">
-                                    <div className="flex items-center gap-2" role="tablist" aria-label="Authentication tabs">
+                            <div className="flex flex-col basis-full w-100 lg:basis-1/3 h-full ">
+
+                                <div className="flex items-center justify-between ">
+                                    <div className="flex items-center  h-14 shrink-0" role="tablist" aria-label="Authentication tabs">
                                         {tabs.map((tab) => {
                                             const active = tab.key === mode;
                                             return (
@@ -94,7 +95,14 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
                                                     type="button"
                                                     role="tab"
                                                     aria-selected={active}
-                                                    className={`px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-400 ${active ? "bg-sky-500 text-white" : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                                                    className={`
+                                                        px-3 py-1 
+                                                     
+                                                         transition-colors
+                                                        focus:outline-none 
+                                                        focus-visible:ring-2
+                                                    focus-visible:ring-sky-400
+                                                       ${active ? " border-sky-500     border-b-2 " : "hover:border-sky-500 "
                                                         }`}
                                                     onClick={() => setMode(tab.key)}
                                                 >
@@ -106,28 +114,30 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
 
 
                                 </div>
-                                {mode === "login" && (
-                                    <div key="login">
-                                        <LoginForm onClose={() => onClose()} />
-                                    </div>
-                                )}
-                                {mode === "reset" && (
-                                    <div key="reset">
-                                        <ResetPasswordForm />
-                                    </div>
-                                )}
-                                {mode === "register" && (
-                                    <div key="register">
-                                        <RegisterForm />
-                                    </div>
-                                )}
+                                <div className="flex-1 overflow-y-auto pr-2 ">
+                                    {mode === "login" && (
+                                        <div key="login">
+                                            <LoginForm onClose={() => onClose()} />
+                                        </div>
+                                    )}
+                                    {mode === "reset" && (
+                                        <div key="reset">
+                                            <ResetPasswordForm />
+                                        </div>
+                                    )}
+                                    {mode === "register" && (
+                                        <div key="register">
+                                            <RegisterForm />
+                                        </div>
+                                    )}
+
+                                </div>
+
                             </div>
-                            <div className="flex basis-2/3">
-                                <div className="min-w-full bg-center bg-cover bg-no-repeat min-h-150  " style={{
+                            <div className="none lg:flex lg:basis-2/3  lg:w-full  ">
+                                <div className="min-w-full w-full bg-center bg-cover bg-no-repeat lg:min-h-150   " style={{
                                     backgroundImage: `url(${imageBg.src})`
                                 }} />
-
-                                {/* <Image src={imageBg} alt="Modal image" className="w-100" /> */}
 
 
                             </div>
