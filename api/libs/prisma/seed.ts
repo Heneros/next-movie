@@ -77,6 +77,14 @@ async function main() {
   const avatarPromises: any = [];
   const moviePromises = [];
 
+  const backDropItems = [
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130486/next-movieapp/740549_1763130491249.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
+  ];
+
   for (let i = 0; i < 12; i++) {
     const title = faker.lorem.words({ min: 2, max: 4 });
     const slug = faker.helpers.slugify(title).toLowerCase();
@@ -85,6 +93,8 @@ async function main() {
       ['Action', 'Drama', 'Comedy', 'Horror', 'Sci-Fi', 'Fantasy', 'Thriller'],
       faker.number.int({ min: 1, max: 3 }),
     );
+    const backdrop = faker.helpers.arrayElement(backDropItems);
+
     const selected = faker.helpers.arrayElements(
       directors,
       faker.number.int({ min: 0, max: 2 }),
@@ -96,6 +106,8 @@ async function main() {
           title: title,
           description: faker.lorem.sentence(),
           slug: slug,
+          backdropUrl: backdrop,
+
           year: faker.number.int({ min: 1950, max: 2025 }),
           category: categories,
           author: {
@@ -113,10 +125,19 @@ async function main() {
 
   movies.forEach((movie) => {
     for (let j = 0; j < 12; j++) {
+      const backDropItems = [
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130486/next-movieapp/740549_1763130491249.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
+      ];
+
+      const valImg = faker.helpers.arrayElement(backDropItems);
       galleryPromises.push(
         prisma.galleryImage.create({
           data: {
-            url: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+            url: valImg,
             publicId: String(faker.number.int({ min: 1, max: 3025 })),
             // title,
             movie: {
@@ -128,7 +149,7 @@ async function main() {
       avatarPromises.push(
         prisma.avatar.create({
           data: {
-            url: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+            url: valImg,
             publicId: String(faker.number.int({ min: 3025, max: 6925 })),
 
             movie: {

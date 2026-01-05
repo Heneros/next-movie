@@ -138,6 +138,7 @@ model Movie {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
+  backdropUrl String?
 
   // posterId    Int?  @unique
   // poster      Avatar?  @relation(fields: [posterId], references: [id])
@@ -145,10 +146,10 @@ model Movie {
   poster      Avatar[]  
   comments      Comment[]
   likes         Like[]
-  watchList     WatchListItem[] 
+ 
 
   review Review[]
-
+  watchItem WatchListItem[]
   directors    Director[] @relation("MovieDirectors")
  /// directorId Int[]
   favorites Favorites[]
@@ -275,12 +276,11 @@ model Avatar{
   createdAt DateTime @default(now())
 }
 
+
 model GalleryImage{
     id       Int    @id @default(autoincrement())
     url String 
     publicId String 
-    // altText String? 
-    //   order     Int      @default(0)
    movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
    movieId Int 
 

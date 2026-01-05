@@ -19,24 +19,23 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
     const { offset = 0, limit = PAGINATION_LIMIT, page = 1, filters } = query;
     ///  const skip = (page - 1) * PAGINATION_LIMIT;
 
-
     try {
-    const cacheKey = `movies:page:${page}:limit:${limit}:offset:${offset}:filters:${JSON.stringify(filters)}`;
+      const cacheKey = `movies:page:${page}:limit:${limit}:offset:${offset}:filters:${JSON.stringify(filters)}`;
       const movieCached = await this.redisService.getMovies(cacheKey);
       if (movieCached) {
         // console.log(movieCached);
         return movieCached;
       }
-      
+
       const [data, total] = await this.movieRepository.findAllMovie(
         offset,
         limit,
-        filters
+        filters,
       );
 
-      // if (data.length === 0) {
-      //   throw new NotFoundException('No movies Exist 5555');
-      // }
+      if (data.length === 0) {
+        throw new NotFoundException('No movies Exist');
+      }
       const res = { data, total };
 
       // console.log(res);
@@ -45,12 +44,11 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
       return res;
     } catch (error: unknown) {
       console.error('FindAllMoviesHandler error q:', error);
-      
 
       if (error instanceof Error) {
         throw new BadRequestException(`Database error: ${error.message}`);
       }
-      
+
       throw new BadRequestException('Unknown error occurred');
     }
   }

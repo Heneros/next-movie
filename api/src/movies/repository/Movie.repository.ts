@@ -88,21 +88,33 @@ export class MovieRepository extends AbstractRepositoryPrisma<Movie> {
       where.category = { has: category };
     }
 
-    const orderByObj = {}
-  const allowedOrderFields = ['title', 'year', 'avgRating', 'id', 'createdAt', 'updatedAt'];
-   const safeOrderBy = allowedOrderFields.includes(orderBy) ? orderBy : 'title';
-  const safeOrder = order === 'asc' ? 'asc' : 'desc';
-  orderByObj[safeOrderBy] = safeOrder
+    const orderByObj = {};
+    const allowedOrderFields = [
+      'title',
+      'year',
+      'avgRating',
+      'id',
+
+      'createdAt',
+      'updatedAt',
+    ];
+    const safeOrderBy = allowedOrderFields.includes(orderBy)
+      ? orderBy
+      : 'title';
+    const safeOrder = order === 'asc' ? 'asc' : 'desc';
+    orderByObj[safeOrderBy] = safeOrder;
+
+
     const [data, total] = await this.prisma.$transaction([
       this.model.findMany({
         skip: offset,
         take: limit,
         where,
-        orderBy:orderByObj
+        orderBy: orderByObj,
       }),
       this.model.count({ where }),
     ]);
-
+    // console.log('data123', data);
     return [data, total] as const;
   }
 }

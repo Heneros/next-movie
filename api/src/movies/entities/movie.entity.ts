@@ -25,6 +25,10 @@ export class MovieEntity implements Movie {
   posterUrl: string | null;
 
   @ApiProperty()
+  @Field(() => String, { nullable: false })
+  backdropUrl: string | null;
+
+  @ApiProperty()
   @Field(() => Boolean, { nullable: true })
   published: boolean;
 
@@ -80,10 +84,9 @@ export class MovieEntity implements Movie {
   @Field(() => Int, { nullable: true })
   posterId: number | null;
 
-    @ApiProperty()
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   provider: string | null;
-
 
   constructor(data: Partial<MovieEntity> = {}) {
     Object.assign(this, data);

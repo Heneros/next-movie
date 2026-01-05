@@ -57,6 +57,8 @@ export default function MovieCarousel({
     }, [movies]);
 
 
+    // console.log(movies)
+
 
     return (
         <div className={`relative w-full ${className}`}>
@@ -75,9 +77,9 @@ export default function MovieCarousel({
                     <SwiperSlide key={m.id}>
                         <div className=" w-full h-[60vh] md:h-[725px]  flex md:items-center">
                             <div className="absolute inset-0 ">
-                                {m.backdropUrl ? (
+                                {m.posterUrl ? (
                                     <Image
-                                        src={m.backdropUrl}
+                                        src={m.posterUrl}
                                         alt={m.title}
                                         fill
                                         style={{ objectFit: "cover" }}
@@ -197,22 +199,28 @@ export default function MovieCarousel({
                                                 )
                                             }
                                             className={`
-                                                h-14 w-14
+                                                h-14 w-20
+                                               flex
+                                                mx-auto
                                                 md:w-20 md:h-20 
                                                 lg:w-28 lg:h-28  
                                                 xl:w-30 xl:h-30 
-                                                rounded-xl overflow-hidden border-2 cursor-pointer transform transition     ${activeIndex === index
-                                                    ? "border-[#006486] scale-105 h-20 w-20 md:h-25 md:w-25   lg:w-30 lg:h-30   xl:h-43 xl:w-43 "
+                                                rounded-xl overflow-hidden border-2 cursor-pointer transform transition     
+                                         
+                                                ${activeIndex === index
+                                                    ? "border-[#006486] scale-105 h-20 w-20 md:h-25 md:w-25   lg:w-30 lg:h-30   xl:h-43 xl:w-32 "
                                                     : "border-[#006486] hover:scale-105"
                                                 }`}
                                             role="button"
                                             aria-label={`preview ${thumb.title}`}
                                         >
-                                            {thumb.posterUrl ? (
+                                            {thumb.backdropUrl ? (
                                                 <Image
-                                                    src={thumb.posterUrl}
+                                                    src={thumb.backdropUrl}
                                                     width={128}
                                                     height={176}
+                                                    className="object-cover "
+                                                    sizes="(max-width: 768px) 80px, (max-width: 1024px) 120px, 160px"
                                                     alt={thumb.title}
                                                 />
                                             ) : (

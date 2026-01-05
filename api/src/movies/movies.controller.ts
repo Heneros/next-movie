@@ -140,6 +140,7 @@ export class MoviesController {
     const movies = await this.queryBus.execute(
       new FindAllMovieQuery(offset, limit, page, filterMovieDto),
     );
+    // console.log(movies);
     return movies;
 
     //  return movies.map((movie: Movie) => new MovieEntity(movie));
