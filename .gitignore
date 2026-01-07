@@ -23,7 +23,7 @@ api/dist/*
 *.pdf
 .pnpm-store
 /ignore
-
+Group 63.png
 # testing
 /coverage
 
