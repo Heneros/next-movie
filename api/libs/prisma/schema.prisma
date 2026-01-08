@@ -139,9 +139,8 @@ model Movie {
   updatedAt     DateTime  @updatedAt
 
   backdropUrl String?
+  backdropPublicId String?
 
-  // posterId    Int?  @unique
-  // poster      Avatar?  @relation(fields: [posterId], references: [id])
   galleryImages GalleryImage[]
   poster      Avatar[]  
   comments      Comment[]

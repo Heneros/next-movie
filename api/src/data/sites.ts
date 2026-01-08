@@ -57,17 +57,12 @@ export const MOVIE_ROUTES = {
   ALL_FAVORITE: ':userId/allFavorites',
   RATE_MOVIE: ':movieId/rateMovie',
 
-  GET_All_REVIEW_FROM_MOVIE: ':id/review',
-  GET_SINGLE_REVIEW_FROM_MOVIE: ':id/singleReview',
-  CREATE_REVIEW: ':id/review',
-
-  UPDATE_REVIEW: ':id/review/user/:userId',
-  DELETE_REVIEW: ':id/review/:userId',
-
   UPLOAD_IMAGES: 'gallery/:movieId',
   FILTER: 'filter',
 
   IMAGE_PREVIEW: 'preview/:movieId',
+
+  BACKDROP_IMG: 'backdrop/:movieId',
 } as const;
 
 export const ANALYTICS_CONTROLLER = 'analytics' as const;

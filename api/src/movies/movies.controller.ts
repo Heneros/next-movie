@@ -319,6 +319,31 @@ export class MoviesController {
     }
   }
 
+  @Patch(MOVIE_ROUTES.BACKDROP_IMG)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: memoryStorage(),
+      limits: { fileSize: 5 * 1024 * 1024 },
+    }),
+  )
+  async uploadBackdropImg(
+    @Param('movieId', CheckMovieExistPipe, ParseIntPipe) movieId: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    try {
+      if (!file) {
+        console.error('FILE:', file);
+        return 'Error during upload file';
+      }
+      return await this.cloudinaryService.uploadBackdropImgMovie(movieId, file);
+    } catch (err) {
+      console.error('FILE:', err);
+      throw new Error(err);
+    }
+  }
+
   @Throttle({ default: { limit: 15, ttl: 60000 } })
   @Post(AI_ROUTES.SEND_MESSAGE)
   @UseGuards(JwtAuthGuard)
@@ -360,7 +385,7 @@ export class MoviesController {
     },
   })
   @UseInterceptors(
-    FilesInterceptor('qwerty', 5, {
+    FilesInterceptor('image', 5, {
       storage: memoryStorage(),
       limits: { fileSize: 5 * 1024 * 1024 },
     }),
@@ -371,7 +396,7 @@ export class MoviesController {
     @Param('movieId', CheckMovieExistPipe, ParseIntPipe) movieId: number,
     @UploadedFiles() files: Express.Multer.File[],
   ) {
-    console.log(files);
+    // console.log(files);
     try {
       if (!files) {
         return 'Error during upload files';

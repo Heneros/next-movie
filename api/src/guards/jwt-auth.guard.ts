@@ -33,35 +33,31 @@ export class JwtAuthGuard implements CanActivate {
     // const req = context.switchToHttp().getRequest<Request>();
 
     ///const authHeader = request.headers?.authorization;
-const token = request.cookies?.jwtMovies;
+    const token = request.cookies?.jwtMovies;
 
-if (!token) {
-  throw new UnauthorizedException('No token cookie provided');
-}
+    if (!token) {
+      throw new UnauthorizedException('No token cookie provided');
+    }
 
     const roles = this.reflector.getAllAndOverride('role', [
       context.getHandler(),
       context.getClass(),
     ]);
 
-
-
     if (roles?.length > 0) {
       try {
         const payload = this.jwtService.verify(token, {
           secret: process.env.JWT_SECRET,
         });
-    console.log(payload);
 
-    const hasRole = roles.some((role) => payload.role.includes(role));
-    if (!hasRole) {   
-      throw new UnauthorizedException('Insufficient permissions');
-     
-    }
+        const hasRole = roles.some((role) => payload.role.includes(role));
+        if (!hasRole) {
+          throw new UnauthorizedException('Insufficient permissions');
+        }
 
-    request.user = payload;
-    return true;
-    // if (!hasRole) {
+        request.user = payload;
+        return true;
+        // if (!hasRole) {
         //   return false;
         // }
 

@@ -16,15 +16,94 @@ import path from 'path';
 import { GalleryRepository } from '@/movies/repository/Gallery.repository';
 import { MovieRepository } from '@/movies/repository/Movie.repository';
 import { PrismaService } from '@/prisma/prisma.service';
-
+import { faker } from '@faker-js/faker';
 @Injectable()
 export class CloudinaryService {
   constructor(
     private galleryRepository: GalleryRepository,
     private avatarRepository: AvatarRepository,
     private movieRepository: MovieRepository,
-    private prisma: PrismaService,
   ) {}
+
+  async uploadBackdropImgMovie(movieId: number, file: Express.Multer.File) {
+    if (!file.mimetype.startsWith('image/')) {
+      throw new BadRequestException({
+        message: 'Invalid image file',
+        name: 'Error',
+        http_code: 400,
+      });
+    }
+
+    try {
+      const mainFolder = folderCloud;
+      const fileName = faker.internet.username();
+      const uniqueFileName = `${fileName}_${Date.now()}`;
+      const filePathOnCloudinary = `${mainFolder}/${uniqueFileName}`;
+
+      const backDropImg = await new Promise<{
+        url: string;
+        publicId: string;
+      }>((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            public_id: filePathOnCloudinary,
+            resource_type: 'image',
+            fetch_format: 'auto',
+            quality: 'auto:eco',
+            crop: 'limit',
+          },
+          (
+            err: UploadApiErrorResponse | undefined,
+            result: UploadApiResponse | undefined,
+          ) => {
+            // if (err || !result) {
+            //   return reject(err);
+            // }
+            if (err || !result?.secure_url || !result.public_id) {
+              return reject(err ?? new Error('Invalid Cloudinary response'));
+            } else if (result && result.secure_url) {
+              resolve({
+                url: result.secure_url,
+                publicId: result.public_id,
+              });
+            } else {
+              reject(
+                new Error('Failed to get secure_url from Cloudinary response'),
+              );
+            }
+          },
+        );
+
+        if (!file.buffer) {
+          reject(new Error('File buffer is empty'));
+          return;
+        }
+
+        streamifier.createReadStream(file.buffer).pipe(uploadStream);
+      });
+      const newBackDrop = await this.movieRepository.update(
+        { id: movieId },
+        {
+          backdropUrl: backDropImg.url,
+          backdropPublicId: backDropImg.publicId,
+        },
+      );
+      return { backDrop: newBackDrop };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      if (error instanceof Error && 'http_code' in error) {
+        throw new BadRequestException({
+          message: `Cloudinary error: ${error.message}`,
+          statusCode: (error as any).http_code || 400,
+        });
+      }
+
+      console.error(`Error in uploadToCloudinary::  ${error}`);
+    }
+  }
 
   async uploadFileAvatarUser(
     userId: number,

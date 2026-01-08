@@ -104,7 +104,6 @@ export class MovieRepository extends AbstractRepositoryPrisma<Movie> {
     const safeOrder = order === 'asc' ? 'asc' : 'desc';
     orderByObj[safeOrderBy] = safeOrder;
 
-
     const [data, total] = await this.prisma.$transaction([
       this.model.findMany({
         skip: offset,
