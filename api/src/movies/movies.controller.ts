@@ -344,6 +344,20 @@ export class MoviesController {
     }
   }
 
+  @Delete(MOVIE_ROUTES.BACKDROP_IMG)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')
+  async deleteBackdropImg(
+    @Param('movieId', CheckMovieExistPipe, ParseIntPipe) movieId: number,
+  ) {
+    try {
+      return await this.cloudinaryService.deleteBackdropImgMovie(movieId);
+    } catch (err) {
+      console.error('FILE:', err);
+      throw new Error(err);
+    }
+  }
+
   @Throttle({ default: { limit: 15, ttl: 60000 } })
   @Post(AI_ROUTES.SEND_MESSAGE)
   @UseGuards(JwtAuthGuard)

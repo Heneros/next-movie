@@ -93,6 +93,17 @@ async function main() {
       ['Action', 'Drama', 'Comedy', 'Horror', 'Sci-Fi', 'Fantasy', 'Thriller'],
       faker.number.int({ min: 1, max: 3 }),
     );
+    const providers = [
+      'Netflix',
+      'Disney',
+      'Sony Pictures',
+      'Universal',
+      'Paramount',
+    ];
+
+    const avgRating = faker.number.float({ min: 1, max: 5, fractionDigits: 2 });
+
+    const randomProvider = faker.helpers.arrayElement(providers);
     const backdrop = faker.helpers.arrayElement(backDropItems);
 
     const selected = faker.helpers.arrayElements(
@@ -107,7 +118,8 @@ async function main() {
           description: faker.lorem.sentence(),
           slug: slug,
           backdropUrl: backdrop,
-
+          provider: randomProvider,
+          avgRating: avgRating,
           year: faker.number.int({ min: 1950, max: 2025 }),
           category: categories,
           author: {

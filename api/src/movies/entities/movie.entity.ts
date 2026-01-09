@@ -29,6 +29,10 @@ export class MovieEntity implements Movie {
   backdropUrl: string | null;
 
   @ApiProperty()
+  @Field(() => String, { nullable: false })
+  backdropPublicId: string | null;
+
+  @ApiProperty()
   @Field(() => Boolean, { nullable: true })
   published: boolean;
 

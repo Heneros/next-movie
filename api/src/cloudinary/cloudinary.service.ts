@@ -25,6 +25,36 @@ export class CloudinaryService {
     private movieRepository: MovieRepository,
   ) {}
 
+  async deleteBackdropImgMovie(movieId: number) {
+    try {
+      const movie = await this.movieRepository.findByIdUnique(movieId);
+
+      if (!movie) {
+        throw new BadRequestException('Movie not found');
+      }
+
+      if (movie.backdropPublicId) {
+        await cloudinary.uploader.destroy(movie.backdropPublicId);
+      }
+
+      const updatedMovie = await this.movieRepository.update(
+        { id: movieId },
+        {
+          backdropUrl: null,
+          backdropPublicId: null,
+        },
+      );
+
+      return { movie: updatedMovie };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      console.error('deleteBackdropImgMovie error:', error);
+      throw new BadRequestException('Failed to delete backdrop image');
+    }
+  }
   async uploadBackdropImgMovie(movieId: number, file: Express.Multer.File) {
     if (!file.mimetype.startsWith('image/')) {
       throw new BadRequestException({
@@ -40,6 +70,10 @@ export class CloudinaryService {
       const uniqueFileName = `${fileName}_${Date.now()}`;
       const filePathOnCloudinary = `${mainFolder}/${uniqueFileName}`;
 
+      const movieItem = await this.movieRepository.findByIdUnique(movieId);
+      if (!movieItem) {
+        throw new BadRequestException('Movie not found');
+      }
       const backDropImg = await new Promise<{
         url: string;
         publicId: string;
@@ -56,9 +90,6 @@ export class CloudinaryService {
             err: UploadApiErrorResponse | undefined,
             result: UploadApiResponse | undefined,
           ) => {
-            // if (err || !result) {
-            //   return reject(err);
-            // }
             if (err || !result?.secure_url || !result.public_id) {
               return reject(err ?? new Error('Invalid Cloudinary response'));
             } else if (result && result.secure_url) {
@@ -66,6 +97,7 @@ export class CloudinaryService {
                 url: result.secure_url,
                 publicId: result.public_id,
               });
+              cloudinary.uploader.destroy(movieItem.backdropPublicId);
             } else {
               reject(
                 new Error('Failed to get secure_url from Cloudinary response'),
@@ -81,6 +113,7 @@ export class CloudinaryService {
 
         streamifier.createReadStream(file.buffer).pipe(uploadStream);
       });
+
       const newBackDrop = await this.movieRepository.update(
         { id: movieId },
         {
@@ -345,13 +378,6 @@ export class CloudinaryService {
           connect: { id: movieId },
         },
       });
-
-      //await this.prisma.movie.update({
-      //   where: { id: movieId },
-      //   data: {
-      //     galleryImages: newGallery.id,
-      //   },
-      // });
 
       savedImages.push(newGallery);
     }

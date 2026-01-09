@@ -20,6 +20,7 @@ type MovieEntity {
   actorsList: [String!]!
   authorId: Int
   avgRating: Float
+  backdropPublicId: String!
   backdropUrl: String!
   category: [String!]!
   createdAt: DateTime
