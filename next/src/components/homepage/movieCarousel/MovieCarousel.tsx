@@ -71,7 +71,7 @@ export default function MovieCarousel({
                 effect="fade"
                 onSwiper={setSwiperInstance}
                 onSlideChange={(s) => setActiveIndex(s.realIndex)}
-                className="w-full h-[78vh]"
+                className="w-full  min-h-screen  lg:min-h-[78vh]"
             >
                 {slides.map((m) => (
                     <SwiperSlide key={m.id}>

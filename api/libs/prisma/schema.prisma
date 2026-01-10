@@ -141,6 +141,9 @@ model Movie {
   backdropUrl String?
   backdropPublicId String?
 
+  posterUrl String? 
+  posterUrlId String? 
+
   galleryImages GalleryImage[]
   poster      Avatar[]  
   comments      Comment[]

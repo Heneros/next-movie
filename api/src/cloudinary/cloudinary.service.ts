@@ -55,6 +55,37 @@ export class CloudinaryService {
       throw new BadRequestException('Failed to delete backdrop image');
     }
   }
+
+  async deletePosterUrlImgMovie(movieId: number) {
+    // try {
+    //   const movie = await this.movieRepository.findByIdUnique(movieId);
+
+    //   if (!movie) {
+    //     throw new BadRequestException('Movie not found');
+    //   }
+
+    //   if (movie.backdropPublicId) {
+    //     await cloudinary.uploader.destroy(movie.backdropPublicId);
+    //   }
+
+    //   const updatedMovie = await this.movieRepository.update(
+    //     { id: movieId },
+    //     {
+    //       backdropUrl: null,
+    //       backdropPublicId: null,
+    //     },
+    //   );
+
+    //   return { movie: updatedMovie };
+    // } catch (error) {
+    //   if (error instanceof BadRequestException) {
+    //     throw error;
+    //   }
+
+    //   console.error('deleteBackdropImgMovie error:', error);
+    //   throw new BadRequestException('Failed to delete backdrop image');
+    // }
+  }
   async uploadBackdropImgMovie(movieId: number, file: Express.Multer.File) {
     if (!file.mimetype.startsWith('image/')) {
       throw new BadRequestException({
