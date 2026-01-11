@@ -85,6 +85,15 @@ async function main() {
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
   ];
 
+  
+  const posterUrlItems = [
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130486/next-movieapp/740549_1763130491249.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
+    'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
+  ]
+
   for (let i = 0; i < 12; i++) {
     const title = faker.lorem.words({ min: 2, max: 4 });
     const slug = faker.helpers.slugify(title).toLowerCase();
@@ -98,6 +107,9 @@ async function main() {
       'Disney',
       'Sony Pictures',
       'Universal',
+      'Amazon',
+      'A24',
+      'HBO',
       'Paramount',
     ];
 
@@ -105,7 +117,8 @@ async function main() {
 
     const randomProvider = faker.helpers.arrayElement(providers);
     const backdrop = faker.helpers.arrayElement(backDropItems);
-
+    const posterUrl = faker.helpers.arrayElement(posterUrlItems);
+;
     const selected = faker.helpers.arrayElements(
       directors,
       faker.number.int({ min: 0, max: 2 }),
@@ -118,6 +131,7 @@ async function main() {
           description: faker.lorem.sentence(),
           slug: slug,
           backdropUrl: backdrop,
+          posterUrl: posterUrl,
           provider: randomProvider,
           avgRating: avgRating,
           year: faker.number.int({ min: 1950, max: 2025 }),

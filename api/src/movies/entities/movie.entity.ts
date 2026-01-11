@@ -22,15 +22,19 @@ export class MovieEntity implements Movie {
 
   @ApiProperty()
   @Field(() => String, { nullable: false })
-  posterUrl: string | null;
-
-  @ApiProperty()
-  @Field(() => String, { nullable: false })
   backdropUrl: string | null;
 
   @ApiProperty()
   @Field(() => String, { nullable: false })
   backdropPublicId: string | null;
+
+  @ApiProperty()
+  @Field(() => String, { nullable: false })
+  posterUrl: string | null;
+
+  @ApiProperty()
+  @Field(() => String, { nullable: false })
+  posterUrlId: string | null;
 
   @ApiProperty()
   @Field(() => Boolean, { nullable: true })

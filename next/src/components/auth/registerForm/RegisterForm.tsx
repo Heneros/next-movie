@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { useEffect, useRef, useState } from 'react'
 import * as Yup from 'yup'
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 
 type FormType = {
@@ -18,6 +19,9 @@ type FormType = {
 
 
 export default function RegisterForm() {
+    const navigate = useRouter()
+
+
     const [showPassword, setShowPassword] = useState(false)
     const [mounted, setMounted] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -47,8 +51,6 @@ export default function RegisterForm() {
     useEffect(() => {
         setMounted(true)
     }, [])
-
-
 
 
     return (<>
@@ -83,6 +85,7 @@ export default function RegisterForm() {
                         await registerUser(values).unwrap();
                         setStatus({ success: true });
                         resetForm()
+                        navigate.push('/auth/verify-email')
                     } catch (err: any) {
                         setError(err.data.message)
                         setStatus({ success: false });
@@ -100,7 +103,6 @@ export default function RegisterForm() {
                     values,
                 }) => (
                     <form onSubmit={handleSubmit} className="sm:px-4">
-
                         <div className="grid grid-cols-1 gap-4">
                             <div className="space-y-4  ">
                                 <div className="flex flex-col">

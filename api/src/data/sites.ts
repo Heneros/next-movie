@@ -63,6 +63,8 @@ export const MOVIE_ROUTES = {
   IMAGE_PREVIEW: 'preview/:movieId',
 
   BACKDROP_IMG: 'backdrop/:movieId',
+
+  POSTER_IMG: 'posterUrl/:movieId',
 } as const;
 
 export const ANALYTICS_CONTROLLER = 'analytics' as const;

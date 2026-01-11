@@ -344,6 +344,31 @@ export class MoviesController {
     }
   }
 
+  @Patch(MOVIE_ROUTES.POSTER_IMG)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: memoryStorage(),
+      limits: { fileSize: 5 * 1024 * 1024 },
+    }),
+  )
+  async uploadPosterImg(
+    @Param('movieId', CheckMovieExistPipe, ParseIntPipe) movieId: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    try {
+      if (!file) {
+        // console.error('FILE:', file);
+        return 'Error during upload file';
+      }
+      return await this.cloudinaryService.uploadPosterUrlMovie(movieId, file);
+    } catch (err) {
+      console.error('FILE:', err);
+      throw new Error(err);
+    }
+  }
+
   @Delete(MOVIE_ROUTES.BACKDROP_IMG)
   @UseGuards(JwtAuthGuard)
   @Role('ADMIN', 'EDITOR')
@@ -352,6 +377,20 @@ export class MoviesController {
   ) {
     try {
       return await this.cloudinaryService.deleteBackdropImgMovie(movieId);
+    } catch (err) {
+      console.error('FILE:', err);
+      throw new Error(err);
+    }
+  }
+
+  @Delete(MOVIE_ROUTES.POSTER_IMG)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')
+  async deletePosterUrl(
+    @Param('movieId', CheckMovieExistPipe, ParseIntPipe) movieId: number,
+  ) {
+    try {
+      return await this.cloudinaryService.deletePosterUrlImgMovie(movieId);
     } catch (err) {
       console.error('FILE:', err);
       throw new Error(err);

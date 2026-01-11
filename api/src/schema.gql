@@ -30,6 +30,7 @@ type MovieEntity {
   movieId: Int
   posterId: Int
   posterUrl: String!
+  posterUrlId: String!
   previewId: Int
   provider: String
   published: Boolean

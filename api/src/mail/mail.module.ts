@@ -9,13 +9,17 @@ const templateDir = isDevelopment
   ? join(process.cwd(), 'src', 'mail', 'templates')
   : join(process.cwd(), 'templates');
 
-// console.log(templateDir);
+console.log('USE_MAILDEV_DOCKER', process.env.USE_MAILDEV_DOCKER);
 
 @Module({
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: isDevelopment ? '127.0.0.1' : process.env.SMTP_HOST,
+        host: isDevelopment
+          ? process.env.USE_MAILDEV_DOCKER === 'true'
+            ? 'maildev'
+            : '127.0.0.1'
+          : process.env.SMTP_HOST,
         secure: isDevelopment ? false : true,
         port: isDevelopment ? 1025 : 587,
         auth: isDevelopment

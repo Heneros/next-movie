@@ -19,18 +19,18 @@
   "scripts": {
     "docker:dev:build": "docker compose -f docker-compose.dev.yaml up -d --build",
     "docker:dev:run": "docker compose -f docker-compose.dev.yaml up -d",
+    "docker:prisma:build": "docker compose -f docker-compose.dev.yaml exec nestjs npm run prisma:build && docker compose -f docker-compose.dev.yaml exec nestjs npm run prisma:seed",
     "docker:dev:logs": "docker compose -f docker-compose.dev.yaml up",
     "docker:dev:down": "docker compose -f docker-compose.dev.yaml down ",
     "docker:dev:remove": "docker compose -f docker-compose.dev.yaml down -v --remove-orphans",
     "server": "pnpm --prefix ./api run start:dev",
     "next": "pnpm --prefix ./next run dev",
     "dev": "concurrently --names \"API,WEB\" --prefix \"[{name}]\" --kill-others-on-fail \"pnpm --prefix ./api run start:dev\" \"pnpm --prefix ./next run dev\"",
-    "prisma:build:reset": "pnpm --filter  ./api  exec prisma migrate reset --schema=libs/prisma/schema.prisma --force",
     "prisma:generate": "pnpm --filter api exec prisma generate",
     "prisma:migrate": "pnpm --filter api exec prisma migrate dev",
+    "prisma:build:reset": "pnpm --filter  ./api  exec prisma migrate reset --schema=libs/prisma/schema.prisma --force",
     "prisma:build": "pnpm --filter ./api exec  prisma generate --schema=libs/prisma/schema.prisma  && pnpm --filter ./api exec  prisma migrate dev --schema=libs/prisma/schema.prisma",
-    "prisma:seed": "cross-env NODE_OPTIONS=--max-old-space-size=2048 ts-node api/libs/prisma/seed.ts ",
-    "docker:prisma:init": "docker compose -f docker-compose.dev.yaml exec nestjs npm run prisma:build && docker compose -f docker-compose.dev.yaml exec nestjs npm run prisma:seed"
+    "prisma:seed": "ts-node api/libs/prisma/seed.ts "
   },
   "devDependencies": {
     "@types/express": "^5.0.5",

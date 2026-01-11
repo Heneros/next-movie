@@ -1,6 +1,6 @@
 ##
 
-This Next.js project with Nest.js backend was Graphql+RestApi. and using third api custom from nest-movie project.
+This Next.js project with Nest.js backend was Graphql and RestApi. and using third api custom from nest-movie project.
 
 ---
 
@@ -27,10 +27,24 @@ pnpm run docker:dev:build
 Install prisma into and seed with data to docker container:
 
 ```bash 
-  docker compose -f docker-compose.dev.yaml exec nestjs   pnpm run docker:prisma:init
+  docker compose -f docker-compose.dev.yaml exec nestjs   pnpm run docker:prisma:build
 ```
 
+Seed data to database:
 
+```bash 
+  docker compose -f docker-compose.dev.yaml exec nestjs   pnpm run prisma:seed
+```
+
+## Functionality in app
+
+- Registration include dto check user and Throttle
+- After user registration to user send email during 15 minutes should validate his email
+- Request and Reset Passwords
+- Cloud saving images: avatar user, poster movie, gallery images of movie
+- Favorites movie to specific user only for registered users
+- CRUD operations with movies available implemented with RBAC. 
+- Reviews functionality to movie only for registered users
 
 
 
@@ -47,6 +61,7 @@ Install prisma into and seed with data to docker container:
 
 ## Packages and libraries:
 - Prisma
+- Swagger
 - Tailwind
 - Graphql
 - Redux 
@@ -116,4 +131,4 @@ Install prisma into and seed with data to docker container:
 - XSS protection
 - Nestjs @HttpCode
 - Monitoring resources
-- Add Gamification 
+- Add aspects Gamification 

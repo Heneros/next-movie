@@ -1,7 +1,8 @@
 import path from 'path';
 import 'module-alias/register';
-import 'dotenv/config';
-// dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
+import dotenv from 'dotenv';
+
+dotenv.config({ path: path.resolve(process.cwd(), '../.env.docker') });
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
