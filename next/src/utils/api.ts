@@ -38,7 +38,7 @@ export async function getMovies({
     if (order) {
         params.set('order', order);
     }
-    console.log('123', DOMAIN_BACKEND);
+
     try {
         const res = await fetch(
             `${DOMAIN_BACKEND}/movie?${params.toString()}`,

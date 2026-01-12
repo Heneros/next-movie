@@ -62,7 +62,7 @@ export function ProfileMenu() {
         exit: { opacity: 0, scale: 0.95, y: -4 },
     }
 
-    console.log(isAuthenticated)
+    // console.log(isAuthenticated)
 
     return (<div className="relative hidden md:inline-flex"
         onMouseEnter={() => setOpen(true)}

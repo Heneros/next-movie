@@ -23,11 +23,12 @@ export default function Trends({ movies }: { movies: MovieItem[] }) {
             <div className="max-w-[1308px] mx-auto ">
                 {/* Header */}
                 <div className="flex items-end justify-between py-12 px-10 ">
-                    <h2 className=" font-semibold text-5xl dark:text-white text-black">
+                    <h2 className=" font-semibold text-2xl md:text-5xl dark:text-white text-black">
                         {t("trends")}
                     </h2>
                     <div className='flex  items-center  justify-between '>
-                        <Link href="/movies" className='dark:text-primary-second    text-black text-2xl pr-5'>
+                        <Link href="/movies" className=' text-lg md:text-2xl 
+                                                dark:text-primary-second    text-black pr-5'>
                             {t("seeMore")}
                         </Link>
                         <FontAwesomeIcon icon={faArrowRight} className='dark:text-primary-second  text-black ' />

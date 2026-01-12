@@ -75,7 +75,7 @@ export default function MovieCarousel({
             >
                 {slides.map((m) => (
                     <SwiperSlide key={m.id}>
-                        <div className=" w-full h-[60vh] md:h-[725px]  flex md:items-center">
+                        <div className=" w-full min-h-[60vh] md:h-[725px]  flex md:items-center">
                             <div className="absolute inset-0 ">
                                 {m.posterUrl ? (
                                     <Image
@@ -172,7 +172,6 @@ export default function MovieCarousel({
 
                                                 Watch Movie
                                             </Link>
-
                                             <Link
                                                 href={`/movies/${m.id}`}
                                                 className="flex items-center gap-2 px-6 py-3 border border-white rounded-full hover:bg-white/10
@@ -180,7 +179,6 @@ export default function MovieCarousel({
                                 dark:text-white text-black"
                                             >
                                                 <FontAwesomeIcon icon={faArrowRight} className="h-5 w-5 dark:text-white text-black" />
-
                                                 More Info
                                             </Link>
                                         </div>
@@ -206,7 +204,6 @@ export default function MovieCarousel({
                                                 lg:w-28 lg:h-28  
                                                 xl:w-30 xl:h-30 
                                                 rounded-xl overflow-hidden border-2 cursor-pointer transform transition     
-                                         
                                                 ${activeIndex === index
                                                     ? "border-[#006486] scale-105 h-20 w-20 md:h-25 md:w-25   lg:w-30 lg:h-30   xl:h-43 xl:w-32 "
                                                     : "border-[#006486] hover:scale-105"

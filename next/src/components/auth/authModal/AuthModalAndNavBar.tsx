@@ -127,7 +127,7 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
                                     )}
                                     {mode === "register" && (
                                         <div key="register">
-                                            <RegisterForm />
+                                            <RegisterForm onClose={() => onClose()} />
                                         </div>
                                     )}
 

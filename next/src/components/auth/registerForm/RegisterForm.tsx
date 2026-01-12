@@ -18,7 +18,7 @@ type FormType = {
 }
 
 
-export default function RegisterForm() {
+export default function RegisterForm({ onClose }: { onClose: () => void }) {
     const navigate = useRouter()
 
 
@@ -79,13 +79,15 @@ export default function RegisterForm() {
                 })}
                 onSubmit={async (
                     values: FormType,
-                    { setStatus, setSubmitting, resetForm }) => {
+                    { setStatus, setSubmitting, resetForm, }) => {
                     setError(null)
                     try {
                         await registerUser(values).unwrap();
                         setStatus({ success: true });
                         resetForm()
+
                         navigate.push('/auth/verify-email')
+                        onClose()
                     } catch (err: any) {
                         setError(err.data.message)
                         setStatus({ success: false });
@@ -158,13 +160,8 @@ export default function RegisterForm() {
                                     <button type="button" className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-500 hover:text-gray-700" onClick={handleShowHideConfirmPassword}>
                                         {showConfirmPassword ? 'Hide' : 'Show'}
                                     </button>
-
-
-
                                 </div>
-
                             </div>
-
                         </div>
                         <div className="flex items-center flex-col gap-3 my-5 ">
                             <p className="font-sans text-sm sm:text-xl ">I agree with  <Link
@@ -183,9 +180,7 @@ export default function RegisterForm() {
                                 items-center
                                         max-h-46
                                 border-2 border-[#8FD3FF]
-    rounded-lg
-
-                                    transition
+    rounded-lg   transition
     hover:brightness-110
     disabled:opacity-60
     disabled:cursor-not-allowed

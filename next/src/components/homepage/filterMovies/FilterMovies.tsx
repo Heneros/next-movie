@@ -2,7 +2,10 @@
 "use client"
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { clearCategories, toggleCategory } from '@/redux/movie/movieSlice';
-
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useMemo, useRef } from 'react';
+import "swiper/css/navigation";
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,31 +17,77 @@ export default function FilterMovies({ allCategories = [] }: Props) {
     const dispatch = useAppDispatch()
     const { selectedCategories } = useAppSelector((state) => state.movies)
 
+    const prevButtonRef = useRef<HTMLButtonElement>(null);
+    const nextButtonRef = useRef<HTMLButtonElement>(null);
+    const swiperRef = useRef<any>(null);
+
     const onToggle = (cat) => {
         dispatch(toggleCategory(cat))
     }
+
+    useEffect(() => {
+        if (swiperRef.current && prevButtonRef.current && nextButtonRef.current) {
+            swiperRef.current.params.navigation.prevEl = prevButtonRef.current;
+            swiperRef.current.params.navigation.nextEl = nextButtonRef.current;
+            swiperRef.current.navigation.init();
+            swiperRef.current.navigation.update();
+        }
+    }, [])
     return (
-        <div className="max-w-[1308px] flex md:inline  py-25 my-22 md:my-17 px-10">
+        <div className="max-w-[1308px] flex md:inline  md:py-25 my-6 md:my-17 px-10 relative">
+            <button
+          
+                ref={prevButtonRef}
+                className="
+                swiper-custom-prev   
+                absolute  left-0  top-1/2 -translate-y-1/2 
+                z-10 w-10 h-10 flex items-center justify-center cursor-pointer"
+                aria-label='Prev slider'
+            >
+                <FontAwesomeIcon icon={faAngleLeft} className=" text-[#000] dark:text-white text-lg" />
+
+            </button>
+            <button
+                ref={nextButtonRef}
+                className="       swiper-custom-next 
+              absolute      right-0 top-1/2  -translate-y-1/2   z-10 w-10 h-10 flex items-center justify-center cursor-pointer"
+                aria-label='Next slider'
+            >
+                <FontAwesomeIcon icon={faAngleRight} className=" 
+                text-[#000] dark:text-white text-lg" />
+            </button>
+
             <Swiper
                 modules={[Navigation]}
-                navigation
+                navigation={{
+                    nextEl: nextButtonRef.current,
+                    prevEl: prevButtonRef.current,
+                    disabledClass: "swiper-button-disabled"
+
+                }}
+                onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                }}
                 // // spaceBetween={75}
-                slidesPerView={3}
+                //??// slidesPerView={3}
+                direction='rtl'
                 breakpoints={{
                     400: { slidesPerView: 4, spaceBetween: 12 },
-                    768: { slidesPerView: 5, spaceBetween: 5 },
-                    1024: { slidesPerView: 12, spaceBetween: 2 },
+                    768: { slidesPerView: 5, },
+                    1024: { slidesPerView: 12, },
                 }}
             >
-                <div className='flex items-center mb-6 overflow-x-scroll'>
+                <div className='flex items-center mb-6 overflow-x-scroll relative'>
+
+
                     {allCategories.map((cat) => {
                         const active = selectedCategories.includes(cat)
                         return (
-                            <SwiperSlide key={cat} className="w-auto">
+                            <SwiperSlide key={cat} className="max-w-29 md:mx-3 ">
                                 <button
                                     key={cat}
                                     onClick={() => onToggle(cat)}
-                                    className={`px-4 py-2 rounded-full min-w-5
+                                    className={`px-4 py-2 rounded-full 
                                         whitespace-nowrap border ${active ? 'bg-pink-500 text-white' : 'bg-transparent text-gray-300'
                                         }`}
                                 >
