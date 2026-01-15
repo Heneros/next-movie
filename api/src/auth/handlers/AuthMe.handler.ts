@@ -61,7 +61,7 @@ export class AuthMeHandler implements IQueryHandler<AuthMeQuery> {
         },
       };
     } catch (err: any) {
-      console.error('Error setting cookie or sending response:', err);
+      // console.error('Error setting cookie or sending response:', err);
 
       if (
         err.name === 'TokenExpiredError' ||

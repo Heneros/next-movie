@@ -34,9 +34,8 @@ export default function FilterMovies({ allCategories = [] }: Props) {
         }
     }, [])
     return (
-        <div className="max-w-[1308px] flex md:inline  md:py-25 my-6 md:my-17 px-10 relative">
+        <div className="max-w-[1308px] flex lg:inline  md:py-5 my-6 md:my-17 px-10 relative">
             <button
-          
                 ref={prevButtonRef}
                 className="
                 swiper-custom-prev   
@@ -45,7 +44,6 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                 aria-label='Prev slider'
             >
                 <FontAwesomeIcon icon={faAngleLeft} className=" text-[#000] dark:text-white text-lg" />
-
             </button>
             <button
                 ref={nextButtonRef}
@@ -56,7 +54,6 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                 <FontAwesomeIcon icon={faAngleRight} className=" 
                 text-[#000] dark:text-white text-lg" />
             </button>
-
             <Swiper
                 modules={[Navigation]}
                 navigation={{
@@ -70,7 +67,7 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                 }}
                 // // spaceBetween={75}
                 //??// slidesPerView={3}
-                direction='rtl'
+                direction='horizontal'
                 breakpoints={{
                     400: { slidesPerView: 4, spaceBetween: 12 },
                     768: { slidesPerView: 5, },
@@ -87,7 +84,7 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                                 <button
                                     key={cat}
                                     onClick={() => onToggle(cat)}
-                                    className={`px-4 py-2 rounded-full 
+                                    className={`px-4 py-2 rounded-full dark:text-amber-50 text-primary-second border-[#fff]
                                         whitespace-nowrap border ${active ? 'bg-pink-500 text-white' : 'bg-transparent text-gray-300'
                                         }`}
                                 >

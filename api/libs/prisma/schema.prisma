@@ -37,18 +37,23 @@ model VerifyResetToken {
 
 model Favorites{
   id Int @id @default(autoincrement())
+
   movie Movie @relation(fields: [movieId], references: [id], onUpdate: Cascade, onDelete: Cascade  )
 
   movieId Int
   userId Int
+    tvShowId Int
 
   
   createdAt DateTime @default(now())
   user User @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade  )
 
-  @@unique([userId, movieId])
+  tvShow TvShow @relation(fields: [tvShowId], references: [id], onUpdate: Cascade, onDelete: Cascade )
+
+  @@unique([userId, movieId, tvShowId])
   @@index([userId])
   @@index([movieId])
+  @@index([tvShowId])
 }
 
 model User {
@@ -112,7 +117,31 @@ model ProfileVisit {
      user User @relation(fields: [userId], references: [id], onDelete: Cascade)
    }
 
+model TvShow {
+    id            Int       @id @default(autoincrement())
+   title     String 
+  description   String?
+  slug          String    @unique
+  year          Int?
+  category        String[] 
+  tags String[]  
+  published Boolean @default(false)
+  provider String?
+  avgRating     Float @default(0)
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
+  backdropUrl String?
+  backdropPublicId String?
+
+  posterUrl String? 
+  posterUrlId String? 
+
+
+  galleryImages GalleryImage[]
+  favorites Favorites[]
+}
 
 model Movie {
   id            Int       @id @default(autoincrement())
@@ -129,10 +158,9 @@ model Movie {
   author      User     @relation(fields: [authorId], references: [id], onDelete:  SetNull)
 
   provider String? 
-  
+  tags String[]
 
   authorId      Int 
- rating      Int? @default(0)  
   avgRating     Float @default(0)
   
   createdAt     DateTime  @default(now())
@@ -283,12 +311,17 @@ model GalleryImage{
     id       Int    @id @default(autoincrement())
     url String 
     publicId String 
+
+   tvShow TvShow @relation(fields: [tvShowId], references: [id], onDelete: Cascade)
+   tvShowId Int 
+
    movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
    movieId Int 
 
    createdAt DateTime @default(now())
 
    @@index([movieId])
+      @@index([tvShowId])
 }
 
 model Review{
