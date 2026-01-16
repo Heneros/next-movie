@@ -98,7 +98,7 @@ model User {
   avatar      Avatar[]
 
   favorites Favorites[]
-
+  rating        Rating[]
 }
 
 model ProfileVisit {
@@ -127,8 +127,7 @@ model TvShow {
   tags String[]  
   published Boolean @default(false)
   provider String?
-  avgRating     Float @default(0)
-  
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -141,6 +140,8 @@ model TvShow {
 
   galleryImages GalleryImage[]
   favorites Favorites[]
+  rating       Rating[]
+  
 }
 
 model Movie {
@@ -161,8 +162,9 @@ model Movie {
   tags String[]
 
   authorId      Int 
-  avgRating     Float @default(0)
-  
+
+
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -181,8 +183,9 @@ model Movie {
   review Review[]
   watchItem WatchListItem[]
   directors    Director[] @relation("MovieDirectors")
- /// directorId Int[]
+
   favorites Favorites[]
+    rating        Rating[]  
 }
 
 
@@ -312,17 +315,38 @@ model GalleryImage{
     url String 
     publicId String 
 
-   tvShow TvShow @relation(fields: [tvShowId], references: [id], onDelete: Cascade)
-   tvShowId Int 
+   tvShow TvShow? @relation(fields: [tvShowId], references: [id], onDelete: Cascade)
+   tvShowId Int? 
 
-   movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
-   movieId Int 
+   movie Movie? @relation(fields: [movieId], references: [id], onDelete: Cascade)
+   movieId Int?
 
    createdAt DateTime @default(now())
 
    @@index([movieId])
       @@index([tvShowId])
 }
+
+
+model Rating {
+  id      Int   @id @default(autoincrement())
+  value   Float @default(0)
+
+  user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int
+
+  movie   Movie? @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId Int?
+
+  tvShow   TvShow? @relation(fields: [tvShowId], references: [id], onDelete: Cascade)
+  tvShowId Int?
+
+
+  @@unique([userId, movieId])
+  @@unique([userId, tvShowId])
+}
+
+
 
 model Review{
   id Int @id @default(autoincrement())

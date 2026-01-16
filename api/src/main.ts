@@ -2,8 +2,6 @@ import path from 'path';
 import 'module-alias/register';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: path.resolve(process.cwd(), '../.env.docker') });
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { domainClient, domainClientDocker } from './data/defaultVariables';
@@ -22,6 +20,9 @@ async function bootstrap() {
     origin: [domainClient, domainClientDocker],
     credentials: true,
   });
+
+  
+
 
   app.enableShutdownHooks();
 

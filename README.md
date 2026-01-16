@@ -39,14 +39,16 @@ Seed data to database:
 ## Functionality in app
 
 - Registration include dto check user and Throttle
+- Oauth2 with Github, Google
 - After user registration to user send email during 15 minutes should validate his email
 - Request and Reset Passwords
-- Cloud saving images: avatar user, poster movie, gallery images of movie
+- Resend Email if user missed
+- Cloud saving images: avatar user, poster movie, gallery images to movie
 - Favorites movie to specific user only for registered users
-- CRUD operations with movies available implemented with RBAC. 
+- CRUD operations with movie available implemented with functionality RBAC. 
 - Reviews functionality to movie only for registered users
-
-
+- Ratings. User can rate movie or tvShow.
+- Implemented cache requests.
 
 ## Modules app have
 
