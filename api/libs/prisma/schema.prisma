@@ -42,7 +42,7 @@ model Favorites{
 
   movieId Int
   userId Int
-    tvShowId Int
+  tvShowId Int
 
   
   createdAt DateTime @default(now())
@@ -128,6 +128,8 @@ model TvShow {
   published Boolean @default(false)
   provider String?
 
+  avgRating Float    @default(0)
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -153,7 +155,8 @@ model Movie {
   category        String[] 
   
   published Boolean @default(false)
-
+ 
+  avgRating Float    @default(0)
 
 
   author      User     @relation(fields: [authorId], references: [id], onDelete:  SetNull)
@@ -330,17 +333,17 @@ model GalleryImage{
 
 model Rating {
   id      Int   @id @default(autoincrement())
-  value   Float @default(0)
+  value   Float
 
   user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  Int
 
-  movie   Movie? @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  movieId Int?
 
-  tvShow   TvShow? @relation(fields: [tvShowId], references: [id], onDelete: Cascade)
-  tvShowId Int?
+  movie     Movie? @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId   Int?
 
+  tvShow    TvShow? @relation(fields: [tvShowId], references: [id], onDelete: Cascade)
+  tvShowId  Int?
 
   @@unique([userId, movieId])
   @@unique([userId, tvShowId])

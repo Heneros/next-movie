@@ -96,6 +96,10 @@ export class MovieEntity implements Movie {
   @Field(() => String, { nullable: true })
   provider: string | null;
 
+  @ApiProperty()
+  @Field(() => [String], { nullable: true })
+  tags: string[] ;
+
   constructor(data: Partial<MovieEntity> = {}) {
     Object.assign(this, data);
     // if (authorId) {

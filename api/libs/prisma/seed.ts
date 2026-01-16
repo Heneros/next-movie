@@ -76,7 +76,7 @@ async function main() {
   const galleryPromises: any = [];
   const avatarPromises: any = [];
   const moviePromises = [];
-  const ratingsPromises: any = []
+  const ratingsPromises: any = [];
 
   const backDropItems = [
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
@@ -86,27 +86,46 @@ async function main() {
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
   ];
 
-  
   const posterUrlItems = [
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130486/next-movieapp/740549_1763130491249.jpg',
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
-  ]
-   const avgRating = faker.number.float({ min: 1, max: 5, fractionDigits: 2 });
+  ];
+  const avgRating = faker.number.float({ min: 1, max: 5, fractionDigits: 2 });
   for (let i = 0; i < 12; i++) {
     const title = faker.lorem.words({ min: 2, max: 4 });
     const slug = faker.helpers.slugify(title).toLowerCase();
 
     const categories = faker.helpers.arrayElements(
-      ['Action', 'Drama', 'Adventure', 'Comedy', 'Horror', 'Sci-Fi', 'Fantasy', 'Thriller'],
+      [
+        'Action',
+        'Drama',
+        'Adventure',
+        'Comedy',
+        'Horror',
+        'Sci-Fi',
+        'Fantasy',
+        'Thriller',
+      ],
       faker.number.int({ min: 1, max: 3 }),
     );
-    const tags =  faker.helpers.arrayElements(
-      ['Mafia', 'UFO', 'Family', 'Legendary', 'Gambling' ,'Motivation', 'Lovers', 'War', 'Nature', 'Cars'],
-           faker.number.int({ min: 1, max: 3 })
-    )
+    const tags = faker.helpers.arrayElements(
+      [
+        'Mafia',
+        'UFO',
+        'Family',
+        'Legendary',
+        'Gambling',
+        'Motivation',
+        'Lovers',
+        'War',
+        'Nature',
+        'Cars',
+      ],
+      faker.number.int({ min: 1, max: 3 }),
+    );
 
     const providers = [
       'Netflix',
@@ -119,18 +138,14 @@ async function main() {
       'Paramount',
     ];
 
- 
-
     const randomProvider = faker.helpers.arrayElement(providers);
     const backdrop = faker.helpers.arrayElement(backDropItems);
     const posterUrl = faker.helpers.arrayElement(posterUrlItems);
-;
     const selected = faker.helpers.arrayElements(
       directors,
       faker.number.int({ min: 0, max: 2 }),
     );
 
-  
     moviePromises.push(
       prisma.movie.create({
         data: {
@@ -140,7 +155,7 @@ async function main() {
           backdropUrl: backdrop,
           posterUrl: posterUrl,
           provider: randomProvider,
-           tags: tags,
+          tags: tags,
           year: faker.number.int({ min: 1900, max: 2026 }),
           category: categories,
           author: {
@@ -157,6 +172,22 @@ async function main() {
   const movies = await Promise.all(moviePromises);
 
   movies.forEach((movie) => {
+    ratingsPromises.push(
+      prisma.rating.create({
+        data: {
+          value: Math.round(Math.random() * 4 + 1),
+          userId: user.id,
+          movieId: movie.id,
+          // value: avgRating,
+          // user: {
+          //   connect: { id: user.id },
+          // },
+          // movie: {
+          //   connect: { id: movie.id },
+          // },
+        },
+      }),
+    );
     for (let j = 0; j < 12; j++) {
       const backDropItems = [
         'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
@@ -191,28 +222,17 @@ async function main() {
           },
         }),
       );
+
+      // for (let j = 0; j < 12; j++) {
+
+      // }
+      // });
     }
   });
 
-  movies.forEach((movie) => {
-    for (let j = 0; j < 12; j++) {
-   ratingsPromises.push(
-      prisma.rating.create({
-        data: {
-          value: avgRating,
- user: {
-      connect: { id: user.id }
-    },
-    movie: {
-      connect: { id: movie.id }
-    }
-        }
-      })
-    )
+  // movies.forEach((movie) => {
 
-    }
-  });
-    const ratings = await Promise.all(ratingsPromises);
+  const ratings = await Promise.all(ratingsPromises);
   const galleries = await Promise.all(galleryPromises);
   const avatars = await Promise.all(avatarPromises);
   movies.forEach((movie) => {
