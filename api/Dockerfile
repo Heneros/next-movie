@@ -22,5 +22,5 @@ EXPOSE 3000
 
 # RUN pnpm prisma generate --schema=libs/prisma/schema.prisma
 
-
+RUN pnpm run build
 CMD ["sh", "-c", "pnpm run start:dev"]

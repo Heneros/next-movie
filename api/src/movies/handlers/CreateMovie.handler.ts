@@ -11,7 +11,7 @@ import crypto from 'crypto';
 export class CreateMovieHandler implements ICommandHandler<CreateMovieCommand> {
   constructor(
     private readonly redisService: RedisService,
-    private readonly avatarRepository: AvatarRepository,
+  //  private readonly avatarRepository: AvatarRepository,
     private readonly movieRepository: MovieRepository,
   ) {}
 
@@ -34,12 +34,12 @@ export class CreateMovieHandler implements ICommandHandler<CreateMovieCommand> {
       createMovieDto,
     );
 
-    await this.avatarRepository.createPreview(
-      'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
-      // rand,
-      crypto.randomBytes(32).toString('hex'),
-      movie.id,
-    );
+    // await this.avatarRepository.createPreview(
+    //   'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+    //   // rand,
+    //   crypto.randomBytes(32).toString('hex'),
+    //   movie.id,
+    // );
     await this.redisService.deleteMoviesCache();
 
     return movie;

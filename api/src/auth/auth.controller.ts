@@ -192,8 +192,7 @@ export class AuthController {
   })
   @ApiOkResponse({ type: AuthEntity })
   async resendEmailValidation(
-    @Body()
-    emailDto: EmailDto,
+    @Body() emailDto: EmailDto,
   ) {
     const result = await this.commandBus.execute(
       new ResendEmailCommand(emailDto.email),

@@ -4,7 +4,8 @@
   "sourceRoot": "src",
   "entryFile": "main",
   "compilerOptions": {
-    "deleteOutDir": false,
+    "deleteOutDir": true,
+    "tsConfigPath": "tsconfig.build.json",
     "assets": [
       {
         "include": "mail/templates/**/*.hbs",
@@ -12,6 +13,6 @@
         "outDir": "dist/src"
       }
     ],
-    "watchAssets": false
+    "watchAssets": true
   }
 }

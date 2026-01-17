@@ -40,6 +40,7 @@ import { FindAllMovieQuery, GetIdMovieQuery } from './queries';
 
 import {
   CreateMovieCommand,
+  RateMovieCommand,
   RemoveMovieCommand,
   UpdateMovieCommand,
 } from './commands';
@@ -60,6 +61,7 @@ import { UpdateMovieDto } from './dto-input/update-movie.dto';
 import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
 import { FilterMovieDto } from './dto-input/filter-movie.dto';
+import { RateMovieDto } from './dto-input/rate-movie.dto';
 
 @Controller(MOVIE_CONTROLLER)
 @ApiTags('Movie')
@@ -344,6 +346,24 @@ export class MoviesController {
     }
   }
 
+  @ApiOperation({ summary: 'Delete preview image movie' })
+  @Patch(MOVIE_ROUTES.RATE_MOVIE)
+    @UseGuards(JwtAuthGuard)
+    async rateMovie(
+            @Param('id', ParseIntPipe, CheckMovieExistPipe) movieId: number,
+
+        @User() user: UseType,
+         @Body() rateMovieDto: RateMovieDto,
+    ){
+        return await this.commandBus.execute(new RateMovieCommand(
+            movieId,user.id, rateMovieDto.rating
+        ))
+    } 
+
+
+
+
+     
   @Patch(MOVIE_ROUTES.POSTER_IMG)
   @UseGuards(JwtAuthGuard)
   @Role('ADMIN', 'EDITOR')
@@ -382,6 +402,8 @@ export class MoviesController {
       throw new Error(err);
     }
   }
+
+
 
   @Delete(MOVIE_ROUTES.POSTER_IMG)
   @UseGuards(JwtAuthGuard)

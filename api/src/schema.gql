@@ -36,6 +36,7 @@ type MovieEntity {
   published: Boolean
   rating: Int
   slug: Int
+  tags: [String!]
   title: String!
   updatedAt: DateTime
   userId: Int

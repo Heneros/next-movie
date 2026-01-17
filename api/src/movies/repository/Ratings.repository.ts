@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { GalleryImage, Movie, PrismaClient, Rating } from '@prisma/client';
+import {  PrismaClient, Rating } from '@prisma/client';
 import { AbstractRepositoryPrisma } from '@/prisma/abstract.repository';
-import { CreateMovieDto } from '../dto-input/create-movie.dto';
 import { PrismaService } from '@/prisma/prisma.service';
-import { PAGINATION_LIMIT } from '@/data/defaultVariables';
+
 
 @Injectable()
 export class RatingRepository extends AbstractRepositoryPrisma<Rating> {

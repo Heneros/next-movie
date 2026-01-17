@@ -1,0 +1,120 @@
+{
+               "extends": "./tsconfig.json",
+               "compilerOptions": {
+                              "outDir": "./dist",
+                              "rootDir": "./",
+                              "baseUrl": "./",
+                              "paths": {
+                                             "@/*": [
+                                                            "src/*"
+                                             ],
+                                             "@/users": [
+                                                            "src/users"
+                                             ],
+                                             "@/users/*": [
+                                                            "src/users/*"
+                                             ],
+                                             "@/analytics": [
+                                                            "src/analytics"
+                                             ],
+                                             "@/analytics/*": [
+                                                            "src/analytics/*"
+                                             ],
+                                             "@/data": [
+                                                            "src/data"
+                                             ],
+                                             "@/data/*": [
+                                                            "src/data/*"
+                                             ],
+                                             "@/cloudinary": [
+                                                            "src/cloudinary"
+                                             ],
+                                             "@/cloudinary/*": [
+                                                            "src/cloudinary/*"
+                                             ],
+                                             "@/auth": [
+                                                            "src/auth"
+                                             ],
+                                             "@/auth/*": [
+                                                            "src/auth/*"
+                                             ],
+                                             "@/prisma": [
+                                                            "src/prisma"
+                                             ],
+                                             "@/prisma/*": [
+                                                            "src/prisma/*"
+                                             ],
+                                             "@/mail": [
+                                                            "src/mail"
+                                             ],
+                                             "@/mail/*": [
+                                                            "src/mail/*"
+                                             ],
+                                             "@/interfaces": [
+                                                            "src/interfaces"
+                                             ],
+                                             "@/interfaces/*": [
+                                                            "src/interfaces/*"
+                                             ],
+                                             "@/decorators": [
+                                                            "src/decorators"
+                                             ],
+                                             "@/decorators/*": [
+                                                            "src/decorators/*"
+                                             ],
+                                             "@/movies": [
+                                                            "src/movies"
+                                             ],
+                                             "@/movies/*": [
+                                                            "src/movies/*"
+                                             ],
+                                             "@/guards": [
+                                                            "src/guards"
+                                             ],
+                                             "@/guards/*": [
+                                                            "src/guards/*"
+                                             ],
+                                             "@/redis": [
+                                                            "src/redis"
+                                             ],
+                                             "@/redis/*": [
+                                                            "src/redis/*"
+                                             ],
+                                             "@/pipe": [
+                                                            "src/pipe"
+                                             ],
+                                             "@/pipe/*": [
+                                                            "src/pipe/*"
+                                             ],
+                                             "@/interceptors": [
+                                                            "src/interceptors"
+                                             ],
+                                             "@/interceptors/*": [
+                                                            "src/interceptors/*"
+                                             ],
+                                             "@/ai-agent": [
+                                                            "src/ai-agent"
+                                             ],
+                                             "@/ai-agent/*": [
+                                                            "src/ai-agent/*"
+                                             ],
+                                             "@/reviews": [
+                                                            "src/reviews"
+                                             ],
+                                             "@/reviews/*": [
+                                                            "src/reviews/*"
+                                             ]
+                              }
+               },
+               "include": [
+                              "src/**/*"
+               ],
+               "exclude": [
+                              "node_modules",
+                              "test",
+                              "dist",
+                              "**/*spec.ts",
+                              "**/*.spec.ts",
+                              "**/__tests__/**"
+               ]
+}

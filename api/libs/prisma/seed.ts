@@ -175,7 +175,7 @@ async function main() {
     ratingsPromises.push(
       prisma.rating.create({
         data: {
-          value: Math.round(Math.random() * 4 + 1),
+          value: avgRating,
           userId: user.id,
           movieId: movie.id,
           // value: avgRating,

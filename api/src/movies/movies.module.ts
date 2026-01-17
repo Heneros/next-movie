@@ -13,6 +13,7 @@ import { RedisService } from '@/redis/redis.service';
 import { RedisModule } from '@/redis/redis.module';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
 import { GalleryRepository } from './repository/Gallery.repository';
+import { RatingRepository } from './repository/Ratings.repository';
 
 @Module({
   imports: [PrismaModule, CqrsModule, RedisModule],
@@ -22,6 +23,7 @@ import { GalleryRepository } from './repository/Gallery.repository';
     MovieRepository,
     AvatarRepository,
     GalleryRepository,
+    RatingRepository,
     CloudinaryService,
     RedisService,
     JwtService,

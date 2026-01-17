@@ -36,4 +36,8 @@ export abstract class AbstractRepositoryPrisma<T> {
   async delete(where: any): Promise<T> {
     return this.model.delete({ where });
   }
+
+  // async $transaction(async (tx)){
+
+  // }
 }
