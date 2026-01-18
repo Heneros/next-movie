@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import {  PrismaClient, Review } from '@prisma/client';
+import { PrismaClient, Review } from '@prisma/client';
 import { AbstractRepositoryPrisma } from '@/prisma/abstract.repository';
 import { PrismaService } from '@/prisma/prisma.service';
-
 
 @Injectable()
 export class ReviewRepository extends AbstractRepositoryPrisma<Review> {
@@ -17,5 +16,4 @@ export class ReviewRepository extends AbstractRepositoryPrisma<Review> {
     this.model = this.prisma.review;
     this.reviewModel = this.prismaService.review;
   }
-
 }

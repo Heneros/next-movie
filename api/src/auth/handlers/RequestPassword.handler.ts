@@ -9,9 +9,7 @@ import { domain, tempRegisterDate } from '@/data';
 import { MailService } from '@/mail/mail.service';
 
 @CommandHandler(ResetPasswordRequestCommand)
-export class ResetPasswordRequestHandler
-  implements ICommandHandler<ResetPasswordRequestCommand>
-{
+export class ResetPasswordRequestHandler implements ICommandHandler<ResetPasswordRequestCommand> {
   constructor(
     private readonly mailService: MailService,
     private readonly authRepository: AuthRepository,

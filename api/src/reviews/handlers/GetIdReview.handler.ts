@@ -16,7 +16,7 @@ export class GetSingleReviewHandler implements IQueryHandler<GetIdReviewQuery> {
       }
       return reviews;
     } catch (err) {
-    //   console.error(err);
+      //   console.error(err);
       if (err instanceof NotFoundException) {
         throw err;
       }

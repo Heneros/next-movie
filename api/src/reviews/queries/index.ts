@@ -1,1 +1,1 @@
-export * from './GetIdReview.query'
+export * from './GetIdReview.query';

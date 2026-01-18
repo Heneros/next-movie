@@ -18,7 +18,6 @@ export class AuthRepository extends AbstractRepositoryPrisma<User> {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-
     return await this.findUnique({ email });
   }
 

@@ -39,12 +39,10 @@ export class AnalyticsRepository extends AbstractRepositoryPrisma<ProfileVisit> 
       ORDER BY year ASC, month ASC
     `) as any;
 
-
     const map = new Map<string, number>();
     for (const r of rows) {
       map.set(`${r.year}-${r.month}`, r.count);
     }
-
 
     const result: Array<{
       year: number;
@@ -57,7 +55,7 @@ export class AnalyticsRepository extends AbstractRepositoryPrisma<ProfileVisit> 
       const year = d.getFullYear();
       const month = d.getMonth() + 1;
       const count = map.get(`${year}-${month}`) ?? 0;
-      const label = d.toLocaleString('en', { month: 'short' }) + ` ${year}`; 
+      const label = d.toLocaleString('en', { month: 'short' }) + ` ${year}`;
       result.push({ year, month, count, label });
     }
 

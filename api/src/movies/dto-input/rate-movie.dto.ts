@@ -1,8 +1,10 @@
-import { IsInt, Max, Min } from 'class-validator';
+import { IsNumber, Max, Min } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class RateMovieDto {
-  @IsInt()
+  @Type(() => Number)
+  @IsNumber({ allowNaN: false })
   @Min(1)
-  @Max(10)
+  @Max(5)
   rating: number;
 }

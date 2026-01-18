@@ -87,7 +87,7 @@ export class RedisRepository {
     const version = await this.getVersion(prefix);
 
     const fullKey = this.generateKey(prefix, key, version);
-    
+
     await this.redis.del(`${fullKey}`);
   }
 

@@ -19,7 +19,6 @@ export class GalleryRepository extends AbstractRepositoryPrisma<GalleryImage> {
     this.galleryModel = this.prismaService.galleryImage;
   }
 
-  
   async count(movieId) {
     return await this.galleryModel.count({
       where: { movieId },

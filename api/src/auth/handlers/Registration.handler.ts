@@ -42,7 +42,7 @@ export class RegisterUserHandler implements ICommandHandler<RegisterUserCommand>
     try {
       const salt = await bcrypt.genSalt(roundsOfHashing);
       const hashedPassword = await bcrypt.hash(registerUserDto.password, salt);
-      
+
       const token = randomBytes(32).toString('hex');
       registerUserDto.password = hashedPassword;
 

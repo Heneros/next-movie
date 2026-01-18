@@ -346,24 +346,21 @@ export class MoviesController {
     }
   }
 
-  @ApiOperation({ summary: 'Delete preview image movie' })
+  @ApiOperation({ summary: 'Rate movie' })
   @Patch(MOVIE_ROUTES.RATE_MOVIE)
-    @UseGuards(JwtAuthGuard)
-    async rateMovie(
-            @Param('id', ParseIntPipe, CheckMovieExistPipe) movieId: number,
+  // @Role('ADMIN', 'USER', 'EDITOR')
+  @UseGuards(JwtAuthGuard)
+  async rateMovie(
+    @Param('movieId', ParseIntPipe, CheckMovieExistPipe) movieId: number,
+    @User() user: UseType,
+    @Body() rateMovieDto: RateMovieDto,
+  ) {
+    console.log('test', movieId, user.id, rateMovieDto.rating);
+    return await this.commandBus.execute(
+      new RateMovieCommand(movieId, user.id, rateMovieDto.rating),
+    );
+  }
 
-        @User() user: UseType,
-         @Body() rateMovieDto: RateMovieDto,
-    ){
-        return await this.commandBus.execute(new RateMovieCommand(
-            movieId,user.id, rateMovieDto.rating
-        ))
-    } 
-
-
-
-
-     
   @Patch(MOVIE_ROUTES.POSTER_IMG)
   @UseGuards(JwtAuthGuard)
   @Role('ADMIN', 'EDITOR')
@@ -402,8 +399,6 @@ export class MoviesController {
       throw new Error(err);
     }
   }
-
-
 
   @Delete(MOVIE_ROUTES.POSTER_IMG)
   @UseGuards(JwtAuthGuard)

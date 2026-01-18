@@ -5,8 +5,6 @@ import {
 } from '@nestjs/common';
 
 import { GqlExecutionContext } from '@nestjs/graphql';
-import * as jwt from 'jsonwebtoken';
-import type { JwtPayload } from 'jsonwebtoken';
 
 export const User = createParamDecorator(
   (data: string | undefined, context: ExecutionContext) => {
@@ -22,7 +20,8 @@ export const User = createParamDecorator(
     if (!request) {
       throw new UnauthorizedException('Request object not found');
     }
-
+    console.log('request.', request);
+    console.log('request.user', request.user);
     if (request.user) {
       return data ? request.user[data] : request.user;
     }

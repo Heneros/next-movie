@@ -68,32 +68,34 @@ export class AiAgentService {
     }
   }
 
-  async sendMessageWelcome(username: string){
-    const userModel = this.defaultModel
-  
+  async sendMessageWelcome(username: string) {
+    const userModel = this.defaultModel;
+
     try {
       const resp = await this.client.chatCompletion({
         model: userModel,
-             max_tokens: 50,
+        max_tokens: 50,
         top_p: 0.6,
         temperature: 0.9,
         messages: [
-          {role: 'system', content: `${Ai_INSTRUCTIONS_MAIL}`},     { 
-          role: 'user', 
-          content: `Username: ${username}. Please write a welcome message for this user.`
-        }]
-      }as any)
+          { role: 'system', content: `${Ai_INSTRUCTIONS_MAIL}` },
+          {
+            role: 'user',
+            content: `Username: ${username}. Please write a welcome message for this user.`,
+          },
+        ],
+      } as any);
 
-            const choices = resp.choices;
-            // console.log(choices)
-       if (choices.length > 0) {
+      const choices = resp.choices;
+      // console.log(choices)
+      if (choices.length > 0) {
         const first = choices[0];
         if (first.message?.content) return first.message.content;
         if (typeof first.text === 'string') return first.text;
       }
       return JSON.stringify(resp);
     } catch (err) {
-        throw err
+      throw err;
     }
   }
 }

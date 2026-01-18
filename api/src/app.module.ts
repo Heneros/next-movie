@@ -55,6 +55,6 @@ import { UsersRepository } from './users/repository/Users.repository';
     FavoriteModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ],
+  providers: [AppService],
 })
 export class AppModule {}

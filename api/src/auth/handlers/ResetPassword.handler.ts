@@ -8,9 +8,7 @@ import { roundsOfHashing } from '@/data';
 import { MailService } from '@/mail/mail.service';
 
 @CommandHandler(ResetPasswordCommand)
-export class ResetPasswordHandler
-  implements ICommandHandler<ResetPasswordCommand>
-{
+export class ResetPasswordHandler implements ICommandHandler<ResetPasswordCommand> {
   constructor(
     private readonly verifyResetTokenRepository: VerifyResetTokenRepository,
     private readonly mailService: MailService,

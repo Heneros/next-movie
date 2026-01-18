@@ -57,15 +57,6 @@ export class JwtAuthGuard implements CanActivate {
 
         request.user = payload;
         return true;
-        // if (!hasRole) {
-        //   return false;
-        // }
-
-        // if (roles.some((role) => payload.roles.includes(role))) {
-        //   request.user = payload;
-        //   return true;
-        // }
-        // return false;
       } catch (error) {
         // if (error instanceof BadRequestException || UnauthorizedException) {
         //   return error;
@@ -73,6 +64,12 @@ export class JwtAuthGuard implements CanActivate {
         console.error('error', error);
         return false;
       }
+    } else if (token) {
+      const payload = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET,
+      });
+      request.user = payload;
+      return true;
     }
 
     return true;

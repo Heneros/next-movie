@@ -9,20 +9,22 @@ describe('UpdateMovieHandler', () => {
   let movieRepository: {
     update: jest.Mock;
   };
-  let redisService : {
-deleteMovieCache: jest.Mock,
-  }
+  let redisService: {
+    deleteMovieCache: jest.Mock;
+  };
 
   beforeEach(() => {
-
     movieRepository = {
       update: jest.fn(),
     };
-  redisService = {
+    redisService = {
       deleteMovieCache: jest.fn(),
     };
 
-    handler = new UpdateMovieHandler(redisService as any, movieRepository as any);
+    handler = new UpdateMovieHandler(
+      redisService as any,
+      movieRepository as any,
+    );
   });
   it('should update a movie successfully', async () => {
     // const createdMovie = { id: 'new-id', ...movieDataTest, createdBy: 1 };

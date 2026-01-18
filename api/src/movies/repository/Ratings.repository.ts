@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import {  PrismaClient, Rating } from '@prisma/client';
+import { PrismaClient, Rating } from '@prisma/client';
 import { AbstractRepositoryPrisma } from '@/prisma/abstract.repository';
 import { PrismaService } from '@/prisma/prisma.service';
-
 
 @Injectable()
 export class RatingRepository extends AbstractRepositoryPrisma<Rating> {
@@ -17,6 +16,4 @@ export class RatingRepository extends AbstractRepositoryPrisma<Rating> {
     this.model = this.prisma.rating;
     this.ratingModel = this.prismaService.rating;
   }
-
-
 }

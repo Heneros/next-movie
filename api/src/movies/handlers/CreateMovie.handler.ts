@@ -11,7 +11,7 @@ import crypto from 'crypto';
 export class CreateMovieHandler implements ICommandHandler<CreateMovieCommand> {
   constructor(
     private readonly redisService: RedisService,
-  //  private readonly avatarRepository: AvatarRepository,
+    //  private readonly avatarRepository: AvatarRepository,
     private readonly movieRepository: MovieRepository,
   ) {}
 

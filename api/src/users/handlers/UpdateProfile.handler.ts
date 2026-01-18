@@ -9,9 +9,7 @@ import { RedisRepository } from '@/redis/redis.repository';
 import { RedisPrefixEnum } from '@/data/redisPrefixEnum';
 
 @CommandHandler(UpdateProfileCommand)
-export class UpdateProfileHandler
-  implements ICommandHandler<UpdateProfileCommand>
-{
+export class UpdateProfileHandler implements ICommandHandler<UpdateProfileCommand> {
   constructor(
     private redisRepository: RedisRepository,
     private usersRepository: UsersRepository,
@@ -38,7 +36,6 @@ export class UpdateProfileHandler
     );
 
     await this.redisRepository.delete(RedisPrefixEnum.USERS_ID, String(id));
-
 
     return updatedUser;
   }

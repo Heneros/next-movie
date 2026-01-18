@@ -5,7 +5,6 @@ You are a summary assistant. Your role:
 - Use only English language.
 `;
 
-
 export const Ai_INSTRUCTIONS_MAIL = `
 You are are should write welcome message to user after registration. Your role:
 - Write only short message (up to 100 words)

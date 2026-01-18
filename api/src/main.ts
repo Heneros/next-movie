@@ -11,12 +11,6 @@ import cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-
-
-
-
-
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   console.log('BOOTSTRAP STARTED');
@@ -26,10 +20,6 @@ async function bootstrap() {
     origin: [domainClient, domainClientDocker],
     credentials: true,
   });
-
-
-   
-
 
   app.enableShutdownHooks();
 

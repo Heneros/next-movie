@@ -19,7 +19,7 @@ export class FindOneMovieHandler implements IQueryHandler<GetIdMovieQuery> {
     const { movieId } = query;
 
     try {
-      const movieKey = `movie:id:${movieId}`
+      const movieKey = `movie:id:${movieId}`;
       const movieCached = await this.redisService.getId(movieKey);
 
       if (movieCached) {
@@ -30,7 +30,7 @@ export class FindOneMovieHandler implements IQueryHandler<GetIdMovieQuery> {
       if (!movieIdResult) {
         throw new NotFoundException(`Movie don\'t exist', ${movieIdResult}`);
       }
-      
+
       await this.redisService.saveMovie(String(movieId), movieIdResult);
       return movieIdResult;
     } catch (error: unknown) {

@@ -26,10 +26,12 @@ describe('FindAllMovies', () => {
 
   it('should find a movie successfully', async () => {
     const foundMovie = { id: 1, ...movieDataTest };
-    const filtersMovie = new FilterMovieDto()
+    const filtersMovie = new FilterMovieDto();
     movieRepository.findAllMovie.mockResolvedValue(foundMovie);
 
-    const result = await handler.execute(new FindAllMovieQuery(1, 1 , 1, filtersMovie));
+    const result = await handler.execute(
+      new FindAllMovieQuery(1, 1, 1, filtersMovie),
+    );
 
     expect(movieRepository.findAllMovie).toHaveBeenCalledTimes(1);
     // expect(movieRepository.findByIdUnique.mock.calls[0][0]).toBe(1);

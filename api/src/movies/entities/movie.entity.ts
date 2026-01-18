@@ -98,7 +98,7 @@ export class MovieEntity implements Movie {
 
   @ApiProperty()
   @Field(() => [String], { nullable: true })
-  tags: string[] ;
+  tags: string[];
 
   constructor(data: Partial<MovieEntity> = {}) {
     Object.assign(this, data);

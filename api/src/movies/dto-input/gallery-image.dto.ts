@@ -1,8 +1,8 @@
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateGalleryImageDto {
-    @IsString()
-    url: string
+  @IsString()
+  url: string;
   @IsString()
   publicId: string;
 
@@ -14,4 +14,3 @@ export class CreateGalleryImageDto {
   @IsNumber()
   order?: number;
 }
-

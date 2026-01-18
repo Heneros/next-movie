@@ -3,9 +3,9 @@ import { Field } from '@nestjs/graphql';
 import { Scalar } from '@nestjs/graphql';
 // import GraphQLUpload from 'graphql-upload';
 
-        // @Scalar('Upload', () => GraphQLUpload)
+// @Scalar('Upload', () => GraphQLUpload)
 export class FileUploadDto {
-    @ApiProperty()
-    @ApiProperty({ type: 'string', format: 'binary' })
-    file: any;
+  @ApiProperty()
+  @ApiProperty({ type: 'string', format: 'binary' })
+  file: any;
 }
