@@ -87,6 +87,7 @@ model User {
 
   visits ProfileVisit[]
   movies          Movie[] 
+  tvShow          TvShow[]
   likes           Like[]
   comments        Comment[]
   orders          Order[]
@@ -133,6 +134,10 @@ model TvShow {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
+  author      User     @relation(fields: [authorId], references: [id], onDelete:  SetNull)
+  authorId      Int 
+
+
   backdropUrl String?
   backdropPublicId String?
 
@@ -143,7 +148,7 @@ model TvShow {
   galleryImages GalleryImage[]
   favorites Favorites[]
   rating       Rating[]
-  
+  directors    Director[] @relation("TvDirectors")
 }
 
 model Movie {
@@ -199,6 +204,7 @@ model Director{
   birthDate DateTime?
 
   movies    Movie[]  @relation("MovieDirectors")
+  tvShows   TvShow[] @relation("TvDirectors")
 }
 
 model Feedback {

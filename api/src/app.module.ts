@@ -23,6 +23,7 @@ import { isDevelopment } from './data';
 import path, { join } from 'path';
 import { FavoriteModule } from './favorites/favorites.module';
 import { UsersRepository } from './users/repository/Users.repository';
+import { TvShowsModule } from './tv-shows/tv-shows.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { UsersRepository } from './users/repository/Users.repository';
     AiAgentModule,
     ReviewsModule,
     FavoriteModule,
+    TvShowsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -17,6 +17,8 @@ async function main() {
     'Quentin Tarantino',
   ];
 
+
+
   const userAdminEmail = 'seed-admin@example.com';
   const userEditorEmail = 'seed-editor@example.com';
   const pass = 'password123';
@@ -76,6 +78,7 @@ async function main() {
   const galleryPromises: any = [];
   const avatarPromises: any = [];
   const moviePromises = [];
+  const tvShowPromises: any = [];
   const ratingsPromises: any = [];
 
   const backDropItems = [
@@ -93,7 +96,10 @@ async function main() {
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
   ];
-  const avgRating = faker.number.float({ min: 1, max: 5, fractionDigits: 2 });
+
+    let avgRating = faker.number.float({ min: 1, max: 10, fractionDigits: 2 });
+
+
   for (let i = 0; i < 12; i++) {
     const title = faker.lorem.words({ min: 2, max: 4 });
     const slug = faker.helpers.slugify(title).toLowerCase();
@@ -146,12 +152,37 @@ async function main() {
       faker.number.int({ min: 0, max: 2 }),
     );
 
+    tvShowPromises.push(
+      prisma.tvShow.create({
+        data:{
+        title: title,
+          description: faker.lorem.sentence(),
+          slug: slug,
+          backdropUrl: backdrop,
+          posterUrl: posterUrl,
+          provider: randomProvider,
+          tags: tags,
+          year: faker.number.int({ min: 1900, max: 2026 }),
+          category: categories,
+          author: {
+            connect: { id: user.id },
+           },
+          directors: {
+            connect: selected.map((d) => ({ id: d.id })),
+          },
+        }
+
+    
+      })
+    )
+
     moviePromises.push(
       prisma.movie.create({
         data: {
           title: title,
           description: faker.lorem.sentence(),
           slug: slug,
+          avgRating: avgRating,
           backdropUrl: backdrop,
           posterUrl: posterUrl,
           provider: randomProvider,
@@ -170,24 +201,91 @@ async function main() {
   }
 
   const movies = await Promise.all(moviePromises);
+ const tvShows = await Promise.all(tvShowPromises);
+
+
+
+for (const movie of movies) {
+
+  await prisma.rating.create({
+    data: {
+      value: faker.number.float({ min: 1, max: 10, fractionDigits: 1 }),
+      userId: user.id,
+      movieId: movie.id,
+    },
+  });
+
+
+  const agg = await prisma.rating.aggregate({
+    where: {
+      movieId: movie.id,
+    },
+    _avg: {
+      value: true,
+    },
+  });
+
+
+  await prisma.movie.update({
+    where: {
+      id: movie.id,
+    },
+    data: {
+      avgRating: agg._avg.value ?? 0,
+    },
+  });
+}
+
+
+for (const tvShow of tvShows) {
+
+  await prisma.rating.create({
+    data: {
+      value: faker.number.float({ min: 1, max: 10, fractionDigits: 1 }),
+      userId: user.id,
+      tvShowId: tvShow.id,
+    },
+  });
+
+
+  const agg = await prisma.rating.aggregate({
+    where: {
+      tvShowId: tvShow.id,
+    },
+    _avg: {
+      value: true,
+    },
+  });
+
+
+  await prisma.tvShow.update({
+    where: {
+      id: tvShow.id,
+    },
+    data: {
+      avgRating: agg._avg.value ?? 0,
+    },
+  });
+}
 
   movies.forEach((movie) => {
-    ratingsPromises.push(
-      prisma.rating.create({
-        data: {
-          value: avgRating,
-          userId: user.id,
-          movieId: movie.id,
-          // value: avgRating,
-          // user: {
-          //   connect: { id: user.id },
-          // },
-          // movie: {
-          //   connect: { id: movie.id },
-          // },
-        },
-      }),
-    );
+    
+    // ratingsPromises.push(
+    //   prisma.rating.create({
+    //     data: {
+    //       value: avgRating,
+    //       userId: user.id,
+    //       movieId: movie.id,
+    //       // value: avgRating,
+    //       // user: {
+    //       //   connect: { id: user.id },
+    //       // },
+    //       // movie: {
+    //       //   connect: { id: movie.id },
+    //       // },
+    //     },
+    //   }),
+    // );
     for (let j = 0; j < 12; j++) {
       const backDropItems = [
         'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
@@ -227,6 +325,44 @@ async function main() {
 
       // }
       // });
+    }
+  });
+  tvShows.forEach((tvShow) => {
+    // ratingsPromises.push(
+    //   prisma.rating.create({
+    //     data: {
+    //  value: faker.number.int({ min: 1, max: 5 }),
+
+    //       userId: user.id,
+    //       tvShowId: tvShow.id,
+      
+    //     },
+    //   }),
+    // );
+    for (let j = 0; j < 12; j++) {
+      const backDropItems = [
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130486/next-movieapp/740549_1763130491249.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
+        'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
+      ];
+
+      const valImg = faker.helpers.arrayElement(backDropItems);
+      galleryPromises.push(
+        prisma.galleryImage.create({
+          data: {
+            url: valImg,
+            publicId: String(faker.number.int({ min: 1, max: 3025 })),
+            // title,
+            tvShow: {
+              connect: { id: tvShow.id },
+            },
+          },
+        }),
+      );
+
+
     }
   });
 

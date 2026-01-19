@@ -348,14 +348,13 @@ export class MoviesController {
 
   @ApiOperation({ summary: 'Rate movie' })
   @Patch(MOVIE_ROUTES.RATE_MOVIE)
-  // @Role('ADMIN', 'USER', 'EDITOR')
   @UseGuards(JwtAuthGuard)
   async rateMovie(
     @Param('movieId', ParseIntPipe, CheckMovieExistPipe) movieId: number,
     @User() user: UseType,
     @Body() rateMovieDto: RateMovieDto,
   ) {
-    console.log('test', movieId, user.id, rateMovieDto.rating);
+
     return await this.commandBus.execute(
       new RateMovieCommand(movieId, user.id, rateMovieDto.rating),
     );
