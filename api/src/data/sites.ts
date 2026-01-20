@@ -40,7 +40,11 @@ export const USERS_ROUTES = {
   // PUBLIC_PROFILE: 'public/:id',
 };
 
+
+
 export const MOVIE_CONTROLLER = 'movie' as const;
+
+export const TV_SHOW_CONTROLLER = 'tvShow' as const;
 
 export const MOVIE_ROUTES = {
   GET_ALL: '',
@@ -66,6 +70,32 @@ export const MOVIE_ROUTES = {
 
   POSTER_IMG: 'posterUrl/:movieId',
 } as const;
+export const TV_SHOW_ROUTES = {
+  GET_ALL: '',
+  EVENTS: 'events',
+  SEARCH: 'search',
+  REVIEWS_ALL: 'reviewsAll',
+  DRAFTS: 'drafts',
+  GET_ID_TV_SHOW: ':tvShowId',
+  CREATE_TV_SHOW: '',
+  UPDATE_TV_SHOW: ':tvShowId',
+  DELETE_TV_SHOW: ':tvShowId',
+  ADD_FAVORITE: ':tvShowId/addFav',
+  REMOVE_FAVORITE: ':userId/removeFav/:tvShowId',
+  ALL_FAVORITE: ':userId/allFavorites',
+  RATE_TV_SHOW: ':tvShowId/rate',
+
+  UPLOAD_IMAGES: 'gallery/:tvShowId',
+  FILTER: 'filter',
+
+  IMAGE_PREVIEW: 'preview/:tvShowId',
+
+  BACKDROP_IMG: 'backdrop/:tvShowId',
+
+  POSTER_IMG: 'posterUrl/:tvShowId',
+} as const;
+
+
 
 export const ANALYTICS_CONTROLLER = 'analytics' as const;
 

@@ -14,9 +14,14 @@ import { RedisModule } from '@/redis/redis.module';
 import { AiAgentService } from '@/ai-agent/ai-agent.service';
 import { GalleryRepository } from './repository/Gallery.repository';
 import { RatingRepository } from './repository/Ratings.repository';
+import { CloudinaryModule } from '@/cloudinary/cloudinary.module';
+
+
+
+
 
 @Module({
-  imports: [PrismaModule, CqrsModule, RedisModule],
+  imports: [PrismaModule, CqrsModule, CloudinaryModule, RedisModule],
   controllers: [MoviesController],
   providers: [
     ...Object.values(Handlers),

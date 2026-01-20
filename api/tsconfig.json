@@ -60,6 +60,9 @@
       "@/movies/*": [
         "./src/movies/*"
       ],
+      "@/tv-shows/*": [
+        "./src/tv-shows/*"
+      ],
       "@/guards/*": [
         "./src/guards/*"
       ],
