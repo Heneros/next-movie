@@ -6,20 +6,20 @@ import {
 } from '@nestjs/cqrs';
 import { CreateTvShowCommand } from '../commands';
 import { TvShowRepository } from '../repositories/TvShow.repository';
-import {  GetByIdTvShowQuery } from '../queries';
+import {  GetIdTvShowQuery } from '../queries';
 import { RedisService } from '@/redis/redis.service';
 import { PAGINATION_LIMIT } from '@/data/defaultVariables';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CACHE_TTL } from '@/data/ttl';
 
-@QueryHandler(GetByIdTvShowQuery)
-export class GetIdTvShowHandler implements IQueryHandler<GetByIdTvShowQuery> {
+@QueryHandler(GetIdTvShowQuery)
+export class GetIdTvShowHandler implements IQueryHandler<GetIdTvShowQuery> {
   constructor(
     private readonly redisService: RedisService,
     private readonly tvShowRepository: TvShowRepository,
   ) {}
 
-  async execute(query: GetByIdTvShowQuery) {
+  async execute(query: GetIdTvShowQuery) {
     const { tvShowId } = query;
 
     try {
@@ -29,7 +29,7 @@ export class GetIdTvShowHandler implements IQueryHandler<GetByIdTvShowQuery> {
         return JSON.parse(tvShowCached);
       }
 
-      const tvShowIdResult = await this.tvShowRepository.findUnique(tvShowId);
+      const tvShowIdResult = await this.tvShowRepository.findUnique({ id: tvShowId});
       if (!tvShowIdResult) {
         throw new NotFoundException(`Tv Show don\'t exist', ${tvShowIdResult}`);
       }
@@ -39,6 +39,7 @@ export class GetIdTvShowHandler implements IQueryHandler<GetByIdTvShowQuery> {
 
 
     } catch (error) {
+      console.error(error)
   if (error instanceof NotFoundException) {
         throw error;
       }

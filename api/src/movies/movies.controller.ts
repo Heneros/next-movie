@@ -184,7 +184,7 @@ export class MoviesController {
   }
 
   @Patch(MOVIE_ROUTES.UPDATE_MOVIE)
-  @Post(MOVIE_ROUTES.CREATE_MOVIE)
+
   @UseGuards(JwtAuthGuard)
   @Role('ADMIN', 'EDITOR')
   @ApiOperation({
