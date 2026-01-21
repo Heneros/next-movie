@@ -354,7 +354,6 @@ export class MoviesController {
     @User() user: UseType,
     @Body() rateMovieDto: RateMovieDto,
   ) {
-
     return await this.commandBus.execute(
       new RateMovieCommand(movieId, user.id, rateMovieDto.rating),
     );

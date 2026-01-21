@@ -34,7 +34,6 @@ type MovieEntity {
   previewId: Int
   provider: String
   published: Boolean
-  rating: Int
   slug: Int
   tags: [String!]
   title: String!

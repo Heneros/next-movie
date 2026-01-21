@@ -7,6 +7,10 @@ export enum RedisPrefixEnum {
   MOVIE_LIST = 'movie:list',
   MOVIE_ID = 'movie:id',
 
+  TV_SHOW = 'tvShow',
+  TV_SHOW_LIST = 'tvShow:list',
+  TV_SHOW_ID = 'tvShow:id',
+
   REVIEWS = 'reviews',
   REVIEWS_LIST = 'reviews:list',
   REVIEWS_ID = 'reviews:id',

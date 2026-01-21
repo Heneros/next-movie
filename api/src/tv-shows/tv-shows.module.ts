@@ -12,9 +12,6 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { CloudinaryModule } from '@/cloudinary/cloudinary.module';
 import { TvShowRepository } from './repositories/TvShow.repository';
 
-
-
-
 @Module({
   imports: [PrismaModule, CqrsModule, RedisModule, CloudinaryModule],
   controllers: [TvShowController],

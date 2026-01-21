@@ -16,10 +16,6 @@ import { GalleryRepository } from './repository/Gallery.repository';
 import { RatingRepository } from './repository/Ratings.repository';
 import { CloudinaryModule } from '@/cloudinary/cloudinary.module';
 
-
-
-
-
 @Module({
   imports: [PrismaModule, CqrsModule, CloudinaryModule, RedisModule],
   controllers: [MoviesController],

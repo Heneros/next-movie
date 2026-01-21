@@ -20,7 +20,7 @@ export class RedisService {
     return `${prefix}:${page}`;
   }
 
-  async getMovies(keyFind: string): Promise<string | null> {
+  async getDataMultiple(keyFind: string): Promise<string | null> {
     // const key = this.makeKey(keyFind);
     const result = await this.redis.get(keyFind);
 
@@ -28,13 +28,11 @@ export class RedisService {
 
     return JSON.parse(result);
   }
-  async saveMovies(
+  async saveItemsMultiple(
     key: string,
     data: any,
     ttl: number = CACHE_TTL.ONE_MINUTE,
   ): Promise<void> {
-    // console.log(data);
-    // const key = this.makeKey(RedisPrefixEnum.MOVIE_LIST, page);
     const value = JSON.stringify(data);
     await this.redis.set(key, value, 'EX', ttl);
     await this.redis.expire(key, ttl);
@@ -67,10 +65,7 @@ export class RedisService {
     return null;
   }
 
-  async saveMovie(key: string, data, ttl: number = CACHE_TTL.FIVE_MINUTE) {
-    // const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
-    // const value = JSON.stringify(data);
-
+  async saveDataItem(key: string, data, ttl: number = CACHE_TTL.FIVE_MINUTE) {
     const result = await this.redis.set(key, data, 'EX', ttl);
     await this.redis.expire(key, ttl);
     if (result) {
@@ -80,8 +75,8 @@ export class RedisService {
     return null;
   }
 
-  async deleteMovieCache(id: number): Promise<void> {
-    const key = this.makeKey(RedisPrefixEnum.MOVIE_ID, String(id));
+  async deleteItemCache(prefix: RedisPrefixEnum, id: number): Promise<void> {
+    const key = this.makeKey(prefix, String(id));
     await this.redis.del(key);
   }
 }

@@ -21,7 +21,7 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
 
     try {
       const cacheKey = `movies:page:${page}:limit:${limit}:offset:${offset}:filters:${JSON.stringify(filters)}`;
-      const movieCached = await this.redisService.getMovies(cacheKey);
+      const movieCached = await this.redisService.getDataMultiple(cacheKey);
       if (movieCached) {
         // console.log(movieCached);
         return movieCached;
@@ -39,7 +39,11 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
       const res = { data, total };
 
       // console.log(res);
-      await this.redisService.saveMovies(cacheKey, res, CACHE_TTL.ONE_MINUTE);
+      await this.redisService.saveItemsMultiple(
+        cacheKey,
+        res,
+        CACHE_TTL.ONE_MINUTE,
+      );
 
       return res;
     } catch (error: unknown) {

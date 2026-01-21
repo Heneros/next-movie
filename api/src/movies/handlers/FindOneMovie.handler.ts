@@ -31,7 +31,7 @@ export class FindOneMovieHandler implements IQueryHandler<GetIdMovieQuery> {
         throw new NotFoundException(`Movie don\'t exist', ${movieIdResult}`);
       }
 
-      await this.redisService.saveMovie(String(movieId), movieIdResult);
+      await this.redisService.saveDataItem(String(movieId), movieIdResult);
       return movieIdResult;
     } catch (error: unknown) {
       if (error instanceof NotFoundException) {

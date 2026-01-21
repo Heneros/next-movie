@@ -4,6 +4,7 @@ import { BadRequestException, Inject } from '@nestjs/common';
 import { MovieRepository } from '../repository/Movie.repository';
 import { Movie } from '@prisma/client';
 import { RedisService } from '@/redis/redis.service';
+import { RedisPrefixEnum } from '@/data/redisPrefixEnum';
 
 @CommandHandler(UpdateMovieCommand)
 export class UpdateMovieHandler implements ICommandHandler<UpdateMovieCommand> {
@@ -20,7 +21,7 @@ export class UpdateMovieHandler implements ICommandHandler<UpdateMovieCommand> {
         { id: movieId },
         updateMovieDto,
       );
-      await this.redisService.deleteMovieCache(movieId);
+      await this.redisService.deleteItemCache(RedisPrefixEnum.TV_SHOW_ID ,movieId);
 
       return movie;
     } catch (err) {

@@ -40,8 +40,6 @@ export const USERS_ROUTES = {
   // PUBLIC_PROFILE: 'public/:id',
 };
 
-
-
 export const MOVIE_CONTROLLER = 'movie' as const;
 
 export const TV_SHOW_CONTROLLER = 'tvShow' as const;
@@ -94,8 +92,6 @@ export const TV_SHOW_ROUTES = {
 
   POSTER_IMG: 'posterUrl/:tvShowId',
 } as const;
-
-
 
 export const ANALYTICS_CONTROLLER = 'analytics' as const;
 

@@ -86,10 +86,6 @@ export class MovieEntity implements Movie {
 
   @ApiProperty()
   @Field(() => Int, { nullable: true })
-  rating: number | null;
-
-  @ApiProperty()
-  @Field(() => Int, { nullable: true })
   posterId: number | null;
 
   @ApiProperty()
