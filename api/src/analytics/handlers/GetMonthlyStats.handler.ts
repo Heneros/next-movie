@@ -8,6 +8,7 @@ export class GetMonthlyStatsHandler implements IQueryHandler<GetMonthlyStatsQuer
 
   async execute(query: GetMonthlyStatsQuery) {
     const { userId } = query;
-    return await this.analyticsRepository.getMonthlyStats(userId);
+    const result = await this.analyticsRepository.getMonthlyStats(userId);
+  return result
   }
 }

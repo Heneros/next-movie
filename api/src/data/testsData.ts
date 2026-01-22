@@ -1,6 +1,11 @@
-export let movieDataTest = {
+
+import {Movie} from '@prisma/client'
+
+export const movieDataTest= {
   title: 'James',
   category: ['Fantastic'],
-  year: 1898,
+  year: 1999,
+    tags: ['Fantastic'],
   slug: '',
+  provider: ''
 };

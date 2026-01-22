@@ -81,6 +81,14 @@ jobs:
                   DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/testdb"
               run: pnpm  prisma migrate deploy --schema=libs/prisma/schema.prisma
 
+            - name: Create build Nest.js
+              working-directory: ./api
+              run: pnpm run build
+
+            - name: Run tests Nest.js
+              working-directory: ./api
+              run: pnpm run test
+
             # - name: Build application
             #   working-directory: ./next
             #   run: npm run build-full

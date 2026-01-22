@@ -40,7 +40,7 @@ export class CreateMovieHandler implements ICommandHandler<CreateMovieCommand> {
     //   crypto.randomBytes(32).toString('hex'),
     //   movie.id,
     // );
-    await this.redisService.deleteMoviesCache();
+    // await this.redisService.deleteMoviesCache();
 
     return movie;
   }

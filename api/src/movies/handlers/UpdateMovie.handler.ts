@@ -25,7 +25,7 @@ export class UpdateMovieHandler implements ICommandHandler<UpdateMovieCommand> {
 
       return movie;
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       throw new BadRequestException('Invalid data format', err);
     }
   }

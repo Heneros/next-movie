@@ -11,14 +11,25 @@ describe('FindOneMovieHandler', () => {
     findByIdUnique: jest.Mock;
   };
 
+  let redisService: {
+    getId: jest.Mock;
+    saveDataItem: jest.Mock;
+  };
+
   beforeEach(() => {
     movieRepository = {
       findByIdUnique: jest.fn(),
     };
+      redisService = {
+      getId: jest.fn(),
+      saveDataItem: jest.fn()
+    };
+
 
     handler = new FindOneMovieHandler(
+            redisService as any,
       movieRepository as any,
-      RedisService as any,
+
     );
   });
 
@@ -34,14 +45,6 @@ describe('FindOneMovieHandler', () => {
     expect(result).toEqual(foundMovie);
   });
 
-  //   it('should throw BadRequestException when repository throws', async () => {
-  //     movieRepository.findByIdUnique.mockRejectedValue(new Error('DB error'));
-  //     await expect(
-  //       handler.execute(new GetIdMovieQuery(5)),
-  //     ).rejects.toBeInstanceOf(BadRequestException);
-
-  //     expect(movieRepository.findByIdUnique).toHaveBeenCalledWith(5);
-  //   });
 
   it('should throw NotFoundException when movie is not found', async () => {
     movieRepository.findByIdUnique.mockResolvedValue(null);

@@ -1,14 +1,11 @@
 module.exports = {
   moduleFileExtensions: ['js', 'json', 'ts'],
-  testRegex: '.*\\.spec\\.ts$',
+  testRegex: '.*\\.spec\\.ts$',  preset: 'ts-jest',
   transform: {
     '^.+\\.(t|j)s$': [
       'ts-jest',
-      {
-        tsconfig: {
-          emitDecoratorMetadata: true,
-          experimentalDecorators: true,
-        },
+     {
+        tsconfig: 'tsconfig.json',
       },
     ],
   },
@@ -25,11 +22,7 @@ module.exports = {
     '^@/redis/(.*)$': '<rootDir>/src/redis/$1',
     '^@/analytics/(.*)$': '<rootDir>/src/analytics/$1',
   },
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.json',
-    },
-  },
+
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
 };

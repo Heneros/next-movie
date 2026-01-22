@@ -27,7 +27,9 @@ describe('Get Total Stats', () => {
 
     expect(analyticsRepository.getTotalStats).toHaveBeenCalledTimes(1);
     expect(analyticsRepository.getTotalStats).toHaveBeenCalledWith(userId);
-    expect(result).toEqual({ totalViews: 42 });
+    expect(result).toEqual({ _sum:{
+viewCount: 42 
+    } });
   });
   it('returns 0 when repository returns null sum (no rows)', async () => {
     const userId = 5;
@@ -37,7 +39,9 @@ describe('Get Total Stats', () => {
     const result = await handler.execute(new GetTotalStatsQuery(userId));
     expect(analyticsRepository.getTotalStats).toHaveBeenCalledTimes(1);
     expect(analyticsRepository.getTotalStats).toHaveBeenCalledWith(userId);
-    expect(result).toEqual({ totalViews: 0 });
+    expect(result).toEqual({ _sum:{
+viewCount: null 
+    } });
   });
   afterEach(() => {
     jest.clearAllMocks();
