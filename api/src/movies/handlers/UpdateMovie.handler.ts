@@ -21,7 +21,10 @@ export class UpdateMovieHandler implements ICommandHandler<UpdateMovieCommand> {
         { id: movieId },
         updateMovieDto,
       );
-      await this.redisService.deleteItemCache(RedisPrefixEnum.TV_SHOW_ID ,movieId);
+      await this.redisService.deleteItemCache(
+        RedisPrefixEnum.TV_SHOW_ID,
+        movieId,
+      );
 
       return movie;
     } catch (err) {

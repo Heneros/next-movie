@@ -11,9 +11,9 @@ describe('CreateMovieHandler', () => {
     findByTitleOrSlug: jest.Mock;
     createMovie: jest.Mock;
   };
-  let redisService : {
+  let redisService: {
     deleteFromCache: jest.Mock;
-  }
+  };
 
   beforeEach(() => {
     movieRepository = {
@@ -21,9 +21,9 @@ describe('CreateMovieHandler', () => {
       createMovie: jest.fn(),
     };
 
-    handler = new CreateMovieHandler(      redisService as any,
+    handler = new CreateMovieHandler(
+      redisService as any,
       movieRepository as any,
-
     );
   });
 
@@ -35,10 +35,10 @@ describe('CreateMovieHandler', () => {
     const result = await handler.execute(
       new CreateMovieCommand(1, movieDataTest),
     );
-expect(movieRepository.findByTitleOrSlug).toHaveBeenCalledWith(
-  movieDataTest.title,
-  movieDataTest.slug,
-);
+    expect(movieRepository.findByTitleOrSlug).toHaveBeenCalledWith(
+      movieDataTest.title,
+      movieDataTest.slug,
+    );
     expect(movieRepository.createMovie).toHaveBeenCalledTimes(1);
 
     expect(result).toEqual(createdMovie);

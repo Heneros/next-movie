@@ -39,6 +39,5 @@ export class RateMovieMovieHandler implements ICommandHandler<RateMovieCommand> 
       return { rating, avg, count };
     });
     return result;
-
   }
 }

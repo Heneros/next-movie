@@ -26,7 +26,7 @@ jobs:
                     --health-retries 5
 
         env:
-            DATABASE_URL: "postgres://postgres:postgres@localhost:5432/testDb"
+            DATABASE_URL: "postgres://postgres:postgres@localhost:5432/testdb"
             JWT_SECRET: "testJWT"
             NODE_ENV: test
             BASE_URL: http://localhost:3001
@@ -84,6 +84,11 @@ jobs:
             - name: Create build Nest.js
               working-directory: ./api
               run: pnpm run build
+
+              
+            - name: Run lint in Nest.js
+              working-directory: ./api
+              run: pnpm run lint
 
             - name: Run tests Nest.js
               working-directory: ./api

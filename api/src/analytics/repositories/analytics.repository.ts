@@ -71,5 +71,4 @@ export class AnalyticsRepository extends AbstractRepositoryPrisma<ProfileVisit> 
       totalViews: total,
     };
   }
-
 }

@@ -20,16 +20,14 @@ describe('FindOneMovieHandler', () => {
     movieRepository = {
       findByIdUnique: jest.fn(),
     };
-      redisService = {
+    redisService = {
       getId: jest.fn(),
-      saveDataItem: jest.fn()
+      saveDataItem: jest.fn(),
     };
 
-
     handler = new FindOneMovieHandler(
-            redisService as any,
+      redisService as any,
       movieRepository as any,
-
     );
   });
 
@@ -44,7 +42,6 @@ describe('FindOneMovieHandler', () => {
 
     expect(result).toEqual(foundMovie);
   });
-
 
   it('should throw NotFoundException when movie is not found', async () => {
     movieRepository.findByIdUnique.mockResolvedValue(null);

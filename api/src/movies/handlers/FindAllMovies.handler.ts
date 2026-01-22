@@ -47,7 +47,7 @@ export class FindAllMoviesHandler implements IQueryHandler<FindAllMovieQuery> {
 
       return res;
     } catch (error: unknown) {
-    //  console.error('FindAllMoviesHandler error q:', error);
+      //  console.error('FindAllMoviesHandler error q:', error);
 
       if (error instanceof Error) {
         throw new BadRequestException(`Database error: ${error.message}`);

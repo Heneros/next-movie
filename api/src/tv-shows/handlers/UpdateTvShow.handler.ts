@@ -7,7 +7,6 @@ import { UpdateTvShowCommand } from '../commands';
 import { TvShowRepository } from '../repositories/TvShow.repository';
 import { RedisPrefixEnum } from '@/data/redisPrefixEnum';
 
-
 @CommandHandler(UpdateTvShowCommand)
 export class UpdateTvShowHandler implements ICommandHandler<UpdateTvShowCommand> {
   constructor(
@@ -23,7 +22,10 @@ export class UpdateTvShowHandler implements ICommandHandler<UpdateTvShowCommand>
         { id: tvShowId },
         updateTvShowDto,
       );
-      await this.redisService.deleteItemCache(RedisPrefixEnum.TV_SHOW_ID ,tvShowId);
+      await this.redisService.deleteItemCache(
+        RedisPrefixEnum.TV_SHOW_ID,
+        tvShowId,
+      );
 
       return tvShow;
     } catch (err) {

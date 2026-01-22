@@ -85,7 +85,6 @@ export class TvShowRepository extends AbstractRepositoryPrisma<TvShow> {
       this.model.count({ where }),
     ]);
 
-    
     return [data, total] as const;
   }
 }
