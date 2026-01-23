@@ -1,0 +1,25 @@
+{
+    "Homepage": {
+        "welcome": "Witamy na naszej stronie filmowej!",
+        "trends": "Trendy",
+        "seeMore": "Zobacz więcej"
+    },
+    "PopularMovies": {
+        "popularmovies": "Popularne filmy",
+        "seeMore": "Zobacz więcej"
+    },
+    "Navbar": {
+        "home": "Strona główna",
+        "contactUs": "Skontaktuj się z nami",
+        "faq": "FAQ",
+        "movies": "Filmy",
+        "profile": "Profil",
+        "admin": "Admin",
+        "logout": "Wyloguj się",
+        "registration": "Rejestracja"
+    },
+    "Series": {
+        "series": "Seria",
+        "seeMore": "Zobacz więcej"
+    }
+}

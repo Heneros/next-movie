@@ -1,29 +1,27 @@
 "use client"
 
-
 import MovieCard from '@/components/global/movieCard/MovieCard';
 import { MovieItem } from '@/interfaces';
-import {  faArrowRight  } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslations } from 'next-intl';
 import Link from 'next/link'
-import React from 'react'
+
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useAppSelector } from '@/redux/hooks';
 
+export default function Series({ tvSeries }: { tvSeries: MovieItem[] }) {
+    const { selectedTvCategories } = useAppSelector((s: any) => s.tvShows)
 
-
-export default function Trends({ movies }: { movies: MovieItem[] }) {
-    const t = useTranslations("Homepage")
-
-    // console.log(movies)
-
+    const t = useTranslations("Series");
+  
     return (
         <section className='w-full '>
             <div className="max-w-[1308px] mx-auto ">
                 {/* Header */}
                 <div className="flex items-end justify-between py-12 px-10 ">
                     <h2 className=" font-semibold text-2xl md:text-5xl dark:text-white text-black">
-                        {t("trends")}
+                        {t("series")}
                     </h2>
                     <div className='flex  items-center  justify-between '>
                         <Link href="/movies" className=' text-lg md:text-2xl 
@@ -36,8 +34,6 @@ export default function Trends({ movies }: { movies: MovieItem[] }) {
             </div>
             {/* Slider */}
             <Swiper
-
-
                 spaceBetween={20}
                 slidesPerView={5}
                 breakpoints={{
@@ -49,8 +45,7 @@ export default function Trends({ movies }: { movies: MovieItem[] }) {
 
                 }}
             >
-                {movies.map((info) => (
-
+                {tvSeries?.map((info) => (
                     <SwiperSlide key={info.id} className="w-auto! ">
                         <MovieCard info={info} />
                     </SwiperSlide>
@@ -58,5 +53,7 @@ export default function Trends({ movies }: { movies: MovieItem[] }) {
             </Swiper>
 
         </section >
+
     )
+
 }

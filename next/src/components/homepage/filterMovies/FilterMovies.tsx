@@ -66,10 +66,10 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                     swiperRef.current = swiper;
                 }}
                 // // spaceBetween={75}
-                //??// slidesPerView={3}
+                // slidesPerView={'auto'}
                 direction='horizontal'
                 breakpoints={{
-                    400: { slidesPerView: 4, spaceBetween: 12 },
+                    400: { slidesPerView: 4, },
                     768: { slidesPerView: 5, },
                     1024: { slidesPerView: 12, },
                 }}
@@ -80,11 +80,11 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                     {allCategories.map((cat) => {
                         const active = selectedCategories.includes(cat)
                         return (
-                            <SwiperSlide key={cat} className="max-w-29 md:mx-3 ">
+                            <SwiperSlide key={cat} className="max-w-29 !mr-0 ">
                                 <button
                                     key={cat}
                                     onClick={() => onToggle(cat)}
-                                    className={`px-4 py-2 rounded-full dark:text-amber-50 text-primary-second border-[#fff]
+                                    className={`px-4 py-2 rounded-full dark:text-amber-50 border-gray-600  text-primary-second dark:border-[#fff]
                                         whitespace-nowrap border ${active ? 'bg-pink-500 text-white' : 'bg-transparent text-gray-300'
                                         }`}
                                 >

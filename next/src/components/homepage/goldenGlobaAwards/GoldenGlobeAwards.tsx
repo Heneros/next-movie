@@ -18,28 +18,20 @@ export default function GoldenGlobeAwards({ moviesGolden }: { moviesGolden: Movi
         <div className="
          mt-15 relative w-full min-h-[50vh] overflow-hidden bg-[#DAA521]">
             <div className="absolute  z-45
-                  bottom-5 left-1/2 w- lg:max-w-[90%] text-center -translate-x-1/2 font-bold border border-[#fff] text-2xl   lg:text-5xl rounded-4xl  px-12 py-8 bg-black/40 text-[#fff]">
+                  bottom-5 left-1/2 w-2/3 lg:w-[72%] text-center -translate-x-1/2 font-bold border border-[#fff] text-4xl   lg:text-5xl rounded-4xl  px-12 py-8 bg-black/40 text-[#fff]">
                 Watching Golden Globe 2024 Movies
             </div>
+
+
             <div className="flex items-center justify-center lg:flex-row flex-col">
                 <div className="w-full  lg:w-1/2 h-full relative overflow-hidden">
-
                     <Image src={GoldenGlobe} sizes="30vw" alt="Globe" className="w-full h-full " />
-
                 </div>
                 <div className="w-full lg:w-1/2 h-full relative overflow-hidden">
-
                     <Image src={GoldenGlobeMovie}
-             
                         sizes="30vw" alt="Globe MOVIE" className="w-full h-full " />
-
                 </div>
-
-
-
-
             </div>
-
         </div>
     )
 }

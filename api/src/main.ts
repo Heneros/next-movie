@@ -78,6 +78,8 @@ async function bootstrap() {
       {
         type: 'http',
         scheme: 'bearer',
+
+        
         bearerFormat: 'JWT',
         in: 'cookie',
       },
@@ -85,7 +87,7 @@ async function bootstrap() {
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);
-
+  
   SwaggerModule.setup('api', app, document, {
     customCssUrl: 'https://unpkg.com/swagger-ui-dist@4/swagger-ui.css',
     customJs: [

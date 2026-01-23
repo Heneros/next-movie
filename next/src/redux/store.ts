@@ -3,6 +3,8 @@ import baseApiSlice from './api/baseApi';
 
 import authReducer from './auth/authSlice';
 import movieReducer from './movie/movieSlice';
+import tvShowReducer from './tvShows/tvShowSlice';
+
 
 import themeReducer, { ThemeMode } from './theme/theme';
 
@@ -34,9 +36,9 @@ const store = configureStore({
         auth: authReducer,
         theme: themeReducer,
         movies: movieReducer,
+        tvShows: tvShowReducer
     },
-    preloadedState,
-
+    preloadedState,   
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(baseApiSlice.middleware),
     // .concat(moviesApi.middleware),

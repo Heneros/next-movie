@@ -40,7 +40,7 @@ const baseApiSlice = createApi({
 
     
 
-    tagTypes: ['User', 'Movie', 'ProfileStats', 'Auth'] as const,
+    tagTypes: ['User', 'Movie', 'ProfileStats', 'TvShow', 'Auth'] as const,
     endpoints: (builder) => ({}),
 });
 

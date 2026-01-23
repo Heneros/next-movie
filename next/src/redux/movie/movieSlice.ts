@@ -48,14 +48,7 @@ const moviesSlice = createSlice({
 
             writeLocalStorageItem('filterMovies', state);
         },
-        // filterCategory: (state, action) => {
-        //     state.selectedCategories = action.payload.selectedCategories;
-
-        //     localStorage.setItem(
-        //         'filterMovies',
-        //         JSON.stringify(action.payload),
-        //     );
-        // },
+    
     },
 });
 export const {

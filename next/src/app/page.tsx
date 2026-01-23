@@ -6,13 +6,12 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import MovieCarousel from "@/components/homepage/movieCarousel/MovieCarousel";
 import Trends from "@/components/homepage/trends/Trends";
 import CookieConsent from "@/components/global/cookieConsent/CookieConsent";
-
 import { Metadata } from "next";
 import PopularMovies from "@/components/homepage/popularMovies/PopularMovies";
-
-import { getMovies } from "@/utils/api";
+import { getMovies, getTvShows } from "@/utils/api";
 import PopularMoviesClient from "@/components/homepage/popularMovies/PopularMoviesClient";
 import GoldenGlobeAwards from "@/components/homepage/goldenGlobaAwards/GoldenGlobeAwards";
+import Series from "@/components/homepage/series/Series";
 
 
 
@@ -30,11 +29,14 @@ export default async function Home() {
     let moviesRespPopular
     let moviesRespTrends
     let moviesRespGolden
+    let tvShowsResp
+
 
     let trends
     let popular
     let slider
     let golden
+    let tvSeries;
 
     let total
     let moviesResp
@@ -76,6 +78,16 @@ export default async function Home() {
         golden = moviesRespGolden.data || [];
         total = moviesResp?.total || 0;
         // console.log(moviesResp)
+
+
+        tvShowsResp = await getTvShows({
+            category: 'Drama',
+            orderBy: 'asc',
+            limit: 3
+        });
+
+        tvSeries = tvShowsResp.data || [];
+
     } catch (err) {
         console.error('getMovies error', err);
         moviesResp = [];
@@ -97,6 +109,9 @@ export default async function Home() {
             </section >
 
 
+            <section className="tv-series ">
+                <Series tvSeries={tvSeries} />
+            </section >
         </>
     )
 }

@@ -29,16 +29,16 @@ export function SwitcherLang() {
         router.refresh()
     }
     return (
-        <div className="flex items-center gap-4">
-            {["en", "de"].map((lang) => (
+        <div className="flex items-center gap-2 px-0">
+            {["en", "pol"].map((lang) => (
                 <button
                     key={lang}
                     onClick={() => changeLocale(lang)}
                     className={`relative px-5 py-2 rounded-xl font-semibold border 
         transition-all duration-300
         ${locale === lang
-                            ? "bg-gradient-to-r bg-def-black text-white shadow-lg shadow-[#228EE5]-500/30 border-transparent"
-                            : "bg-transparent  text-white  dark:text-gray-200 border-gray-400 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+                            ? "bg-gradient-to-r text-white bg-def-black t shadow-lg shadow-[#228EE5]-500/30 "
+                            : "  dark:text-gray-950 text-white   border-gray-400 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
                         }`}
                 >
                     {lang.toUpperCase()}

@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import {
   MOVIE_CONTROLLER,
   PAGINATION_LIMIT,
@@ -46,7 +46,52 @@ export class TvShowController {
 
   @Get(TV_SHOW_ROUTES.GET_ALL)
   @ApiOperation({
-    summary: 'Create tvShow. available only for admin or editor role',
+    summary: 'Get All tvShow.',
+  })  @ApiQuery({
+      name: 'page',
+      required: false,
+      description: 'Page number for pagination',
+      type: Number,
+    })
+    @ApiQuery({
+      name: 'limit',
+      required: false,
+      description: 'Items per page',
+      type: Number,
+    })
+    @ApiQuery({
+      name: 'category',
+      required: false,
+      description: 'Filter by category',
+      type: String,
+    })
+    @ApiQuery({
+      name: 'year',
+      required: false,
+      description: 'Filter by year',
+      type: Number,
+    })
+    @ApiQuery({
+      name: 'minRating',
+      required: false,
+      description: 'Filter by minimum rating',
+      type: Number,
+    })
+    @ApiQuery({
+      name: 'orderBy',
+      required: false,
+      description: 'Field to order by',
+      type: String,
+    })
+    @ApiQuery({
+      name: 'order',
+      required: false,
+      description: 'Order direction (asc/desc)',
+      type: String,
+    })
+      @ApiResponse({
+    status: 200,
+    description: 'TV shows list returned successfully',
   })
   async getAllTvShows(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
@@ -76,6 +121,12 @@ export class TvShowController {
   }
 
   @Get(TV_SHOW_ROUTES.GET_ID_TV_SHOW)
+    @ApiOperation({
+    summary: 'Get tvShow by id',
+  })  
+   @ApiParam({ name: 'tvShowId', type: Number, example: 1 })
+  @ApiResponse({ status: 200, description: 'TV show found' })
+  @ApiNotFoundResponse({ description: 'TV show not found' })
   async getIdTvShow(@Param('tvShowId', ParseIntPipe) tvShowId: number) {
     const tvShow = await this.queryBus.execute(new GetIdTvShowQuery(tvShowId));
 
@@ -83,6 +134,19 @@ export class TvShowController {
   }
 
   @Delete(TV_SHOW_ROUTES.DELETE_TV_SHOW)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')  
+  @ApiOperation({
+    summary: 'Delete tvShow by id',
+  }) 
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update TV show (ADMIN, EDITOR)' })
+  @ApiParam({ name: 'tvShowId', type: Number })
+  @ApiBody({ type: UpdateTvShowDto })
+  @ApiResponse({ status: 200, description: 'TV show updated successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid data' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   async deleteTvShow(@Param('tvShowId', ParseIntPipe) tvShowId: number) {
     const tvShow = await this.commandBus.execute(
       new DeleteTvShowCommand(tvShowId),
@@ -106,6 +170,8 @@ export class TvShowController {
     return tvShow;
     //return new MovieEntity(movie);
   }
+
+
   @Patch(TV_SHOW_ROUTES.UPDATE_TV_SHOW)
   @UseGuards(JwtAuthGuard)
   @Role('ADMIN', 'EDITOR')
