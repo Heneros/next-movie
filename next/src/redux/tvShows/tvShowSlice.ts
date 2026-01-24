@@ -23,7 +23,7 @@ function getInitialState() {
 const initialState = getInitialState();
 
 const tvShowsSlice = createSlice({
-    name: 'tvShow',
+    name: 'tvShows',
     initialState,
     reducers:{
         toggleCatTv:(state, action) =>{

@@ -21,5 +21,9 @@
         "admin": "Admin",
         "logout": "Logout",
         "registration": "Registration"
+    },
+    "Series": {
+        "series": "Series",
+        "seeMore": "See More"
     }
 }

@@ -12,6 +12,7 @@ import { getMovies, getTvShows } from "@/utils/api";
 import PopularMoviesClient from "@/components/homepage/popularMovies/PopularMoviesClient";
 import GoldenGlobeAwards from "@/components/homepage/goldenGlobaAwards/GoldenGlobeAwards";
 import Series from "@/components/homepage/series/Series";
+import Suggestions from "@/components/homepage/suggestions/Suggestions";
 
 
 
@@ -81,9 +82,7 @@ export default async function Home() {
 
 
         tvShowsResp = await getTvShows({
-            category: 'Drama',
-            orderBy: 'asc',
-            limit: 3
+
         });
 
         tvSeries = tvShowsResp.data || [];
@@ -111,6 +110,12 @@ export default async function Home() {
 
             <section className="tv-series ">
                 <Series tvSeries={tvSeries} />
+            </section >
+
+
+
+            <section className="suggestions ">
+                <Suggestions />
             </section >
         </>
     )

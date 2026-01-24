@@ -1,5 +1,5 @@
 "use client"
-
+import React, { useMemo } from "react";
 import MovieCard from '@/components/global/movieCard/MovieCard';
 import { MovieItem } from '@/interfaces';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
@@ -9,12 +9,25 @@ import Link from 'next/link'
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAppSelector } from '@/redux/hooks';
+import { filterItems } from "@/utils/filterMovies";
+import FilterTvShows from "../filterTvShows/filterTvShows";
 
 export default function Series({ tvSeries }: { tvSeries: MovieItem[] }) {
     const { selectedTvCategories } = useAppSelector((s: any) => s.tvShows)
 
     const t = useTranslations("Series");
-  
+
+    const filtered = useMemo(() => {
+        return filterItems(tvSeries, selectedTvCategories)
+    }, [tvSeries, selectedTvCategories])
+
+    const allCategories = useMemo(() => {
+        const set = new Set<string>()
+        tvSeries.forEach(m => m.category.forEach(c => set.add(c)))
+        return Array.from(set)
+    }, [tvSeries])
+
+
     return (
         <section className='w-full '>
             <div className="max-w-[1308px] mx-auto ">
@@ -33,6 +46,7 @@ export default function Series({ tvSeries }: { tvSeries: MovieItem[] }) {
                 </div>
             </div>
             {/* Slider */}
+            <FilterTvShows allCategories={allCategories} />
             <Swiper
                 spaceBetween={20}
                 slidesPerView={5}
@@ -45,7 +59,7 @@ export default function Series({ tvSeries }: { tvSeries: MovieItem[] }) {
 
                 }}
             >
-                {tvSeries?.map((info) => (
+                {filtered?.map((info) => (
                     <SwiperSlide key={info.id} className="w-auto! ">
                         <MovieCard info={info} />
                     </SwiperSlide>

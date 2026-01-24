@@ -1,12 +1,10 @@
 "use client"
 
-import MovieCard from '@/components/global/movieCard/MovieCard'
 import { MovieItem } from '@/interfaces'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+
 import GoldenGlobe from '@/assets/img/home/GoldenGlob.png'
 import GoldenGlobeMovie from '@/assets/img/home/movies.png'
-import GoldenGlobeItem from '../goldenGlobeItem/GoldenGlobeItem'
 import Image from 'next/image'
 
 export default function GoldenGlobeAwards({ moviesGolden }: { moviesGolden: MovieItem[] }) {

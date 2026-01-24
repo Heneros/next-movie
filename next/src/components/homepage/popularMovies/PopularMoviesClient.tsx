@@ -14,13 +14,13 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import FilterMovies from "../filterMovies/FilterMovies";
 import { useAppSelector } from "@/redux/hooks";
-import { filterMovies } from "@/utils/filterMovies";
+import { filterItems } from "@/utils/filterMovies";
 
 export default function PopularMoviesClient({ popularMovies }: { popularMovies: MovieItem[] }) {
     const { selectedCategories } = useAppSelector((s: any) => s.movies);
 
     const filtered = useMemo(() => {
-        return filterMovies(popularMovies, selectedCategories);
+        return filterItems(popularMovies, selectedCategories);
     }, [popularMovies, selectedCategories])
 
 

@@ -1,6 +1,6 @@
 import { MovieItem } from '../interfaces/itemMovie';
 
-export function filterMovies(
+export function filterItems(
     movies: MovieItem[],
     selectedCategories: string[],
 ) {

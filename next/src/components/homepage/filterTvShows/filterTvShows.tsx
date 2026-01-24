@@ -1,28 +1,25 @@
-
-"use client"
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { clearCategories, toggleCategory } from '@/redux/movie/movieSlice';
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useEffect, useRef } from "react";
+import { SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useMemo, useRef } from 'react';
-import "swiper/css/navigation";
-import { Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { toggleCatTv } from "@/redux/tvShows/tvShowSlice";
+import { Navigation } from "swiper/modules";
 
 type Props = {
     allCategories: string[];
 };
-export default function FilterMovies({ allCategories = [] }: Props) {
+export default function FilterTvShows({ allCategories = [] }: Props) {
     const dispatch = useAppDispatch()
-    const { selectedCategories } = useAppSelector((state) => state.movies)
+    const { selectedTvCategories } = useAppSelector((state) => state.tvShows)
 
     const prevButtonRef = useRef<HTMLButtonElement>(null);
     const nextButtonRef = useRef<HTMLButtonElement>(null);
     const swiperRef = useRef<any>(null);
 
     const onToggle = (cat) => {
-        dispatch(toggleCategory(cat))
+        dispatch(toggleCatTv(cat))
     }
 
     useEffect(() => {
@@ -33,6 +30,7 @@ export default function FilterMovies({ allCategories = [] }: Props) {
             swiperRef.current.navigation.update();
         }
     }, [])
+
     return (
         <div className="max-w-[1308px] bottom-5 flex lg:inline  md:py-5  md:my-17  relative">
             <button
@@ -54,6 +52,7 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                 <FontAwesomeIcon icon={faAngleRight} className=" 
                 text-[#000] dark:text-white text-lg" />
             </button>
+
             <Swiper
                 modules={[Navigation]}
                 navigation={{
@@ -66,6 +65,8 @@ export default function FilterMovies({ allCategories = [] }: Props) {
                     swiperRef.current = swiper;
                 }}
                 spaceBetween={12}
+                // slidesPerView={'auto'}
+                // // spaceBetween={75}
                 // slidesPerView={'auto'}
                 direction='horizontal'
                 breakpoints={{
@@ -81,10 +82,11 @@ export default function FilterMovies({ allCategories = [] }: Props) {
 
 
                     {allCategories.map((cat) => {
-                        const active = selectedCategories.includes(cat)
+                        const active = selectedTvCategories.includes(cat)
                         return (
                             <SwiperSlide key={cat} className="!w-auto !flex-shrink-0"
-                                style={{ width: 'auto' }} >                                <button
+                                style={{ width: 'auto' }} >
+                                <button
                                     key={cat}
                                     onClick={() => onToggle(cat)}
                                     className={`px-4 py-2 rounded-full dark:text-amber-50 border-gray-600  text-primary-second dark:border-[#fff]
@@ -101,6 +103,6 @@ export default function FilterMovies({ allCategories = [] }: Props) {
 
             </Swiper>
 
-        </div>
+        </div >
     )
 }

@@ -106,8 +106,12 @@ async function main() {
 
     const categories = faker.helpers.arrayElements(
       [
+        "Animation",
         'Action',
         'Drama',
+        "Romance",
+        "Mystery",
+        "History",
         'Adventure',
         'Comedy',
         'Horror',
@@ -120,6 +124,7 @@ async function main() {
     const tags = faker.helpers.arrayElements(
       [
         'Mafia',
+        "SuperHeroes",
         'UFO',
         'Family',
         'Legendary',
