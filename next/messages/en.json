@@ -25,5 +25,15 @@
     "Series": {
         "series": "Series",
         "seeMore": "See More"
+    },
+    "Prices": {
+        "basic": "Basic", 
+        "suggested": "Suggested",
+        "premium":"Premium",
+        "month": "month", 
+        "continue": "Continue",
+        "cancelAny": "Cancel anytime"
+
     }
+    
 }
