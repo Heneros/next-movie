@@ -13,6 +13,7 @@ import PopularMoviesClient from "@/components/homepage/popularMovies/PopularMovi
 import GoldenGlobeAwards from "@/components/homepage/goldenGlobaAwards/GoldenGlobeAwards";
 import Series from "@/components/homepage/series/Series";
 import Suggestions from "@/components/homepage/suggestions/Suggestions";
+import Collections from "@/components/homepage/collections/Collections";
 
 
 
@@ -117,6 +118,10 @@ export default async function Home() {
             <section className="suggestions ">
                 <Suggestions />
             </section >
+
+            <section>
+                <Collections />
+            </section>
         </>
     )
 }

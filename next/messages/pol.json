@@ -29,5 +29,10 @@
         "month": "miesiąc",
         "continue": "Kontynuuj",
         "cancelAny": "Anuluj w dowolnym momencie"
+    },
+    "Collections": {
+        "collection": "Kolekcja",
+        "series": "Seria",
+        "movies": "Filmy"
     }
 }

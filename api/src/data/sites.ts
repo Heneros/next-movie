@@ -42,8 +42,6 @@ export const USERS_ROUTES = {
 
 export const MOVIE_CONTROLLER = 'movie' as const;
 
-export const TV_SHOW_CONTROLLER = 'tvShow' as const;
-
 export const MOVIE_ROUTES = {
   GET_ALL: '',
   EVENTS: 'events',
@@ -68,6 +66,10 @@ export const MOVIE_ROUTES = {
 
   POSTER_IMG: 'posterUrl/:movieId',
 } as const;
+
+
+export const TV_SHOW_CONTROLLER = 'tvShow' as const;
+
 export const TV_SHOW_ROUTES = {
   GET_ALL: '',
   EVENTS: 'events',

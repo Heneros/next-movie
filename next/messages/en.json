@@ -33,7 +33,11 @@
         "month": "month", 
         "continue": "Continue",
         "cancelAny": "Cancel anytime"
-
+    },
+    "Collections": {
+        "collection": "Collection",
+        "series": "Series",
+        "movies": "Movies"
     }
     
 }

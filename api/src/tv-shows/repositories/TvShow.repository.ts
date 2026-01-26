@@ -12,7 +12,7 @@ export class TvShowRepository extends AbstractRepositoryPrisma<TvShow> {
   constructor(private readonly prismaService: PrismaService) {
     super();
     this.prisma = prismaService;
-    this.model = this.prisma.movie;
+    this.model = this.prisma.tvShow;
   }
 
   async findByTitleOrSlug(title: string, slug: string) {

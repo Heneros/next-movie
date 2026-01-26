@@ -80,6 +80,7 @@ async function main() {
   const moviePromises = [];
   const tvShowPromises: any = [];
   const ratingsPromises: any = [];
+  const collectionsPromises:any = []
 
   const backDropItems = [
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
@@ -97,10 +98,74 @@ async function main() {
     'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
   ];
 
-    let avgRating = faker.number.float({ min: 1, max: 10, fractionDigits: 2 });
+
+
+const collectionsData = [
+  {
+    title: 'Marvel Cinematic Universe',
+    slug: 'marvel',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+  },
+  {
+    title: 'DC Comics',
+    slug: 'dc-comics',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
+  },
+  {
+    title: 'John Wick Collection',
+    slug: 'john-wick',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130486/next-movieapp/740549_1763130491249.jpg',
+  },
+  {
+    title: 'Godzilla Franchise',
+    slug: 'godzilla',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
+  },
+  {
+    title: 'Musical Movies',
+    slug: 'musicals',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
+  },
+  {
+    title: 'Action Classics',
+    slug: 'action-classics',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+  },
+  {
+    title: 'Sci-Fi Masterpieces',
+    slug: 'sci-fi-masterpieces',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
+  },
+  {
+    title: 'Horror Collection',
+    slug: 'horror-collection',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130486/next-movieapp/740549_1763130491249.jpg',
+  },
+  {
+    title: 'Comedy Gold',
+    slug: 'comedy-gold',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1760275248/next-movieapp/2df5d57a964e7b2fb34bdadf9e92529a_1760275248189.jpg',
+  },
+  {
+    title: 'Drama Awards',
+    slug: 'drama-awards',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1763130597/next-movieapp/te0aifojlpl41_1763130602471.jpg',
+  },
+  {
+    title: 'Animated Favorites',
+    slug: 'animated-favorites',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674479/next-movieapp/1vIsdKr5SSzihUaRlGRgjA_1764674480314.jpg',
+  },
+  {
+    title: 'Thriller Zone',
+    slug: 'thriller-zone',
+    posterImage: 'https://res.cloudinary.com/dmk9uxtiu/image/upload/v1764674480/next-movieapp/02U0zl9eiBs_1764674482847.jpg',
+  },
+];
 
 
   for (let i = 0; i < 12; i++) {
+    let avgRating = faker.number.float({ min: 1, max: 10, fractionDigits: 2 });
     const title = faker.lorem.words({ min: 2, max: 4 });
     const slug = faker.helpers.slugify(title).toLowerCase();
 
@@ -121,6 +186,8 @@ async function main() {
       ],
       faker.number.int({ min: 1, max: 3 }),
     );
+
+
     const tags = faker.helpers.arrayElements(
       [
         'Mafia',
@@ -156,6 +223,8 @@ async function main() {
       directors,
       faker.number.int({ min: 0, max: 2 }),
     );
+
+
 
     tvShowPromises.push(
       prisma.tvShow.create({
@@ -371,7 +440,27 @@ for (const tvShow of tvShows) {
     }
   });
 
-  // movies.forEach((movie) => {
+
+for (const collectionData of collectionsData) {
+  const randomMovies = faker.helpers.arrayElements(
+    movies,
+    faker.number.int({ min: 3, max: 8 })
+  );
+
+  collectionsPromises.push(
+    prisma.collections.create({
+      data: {
+        title: collectionData.title,
+        slug: collectionData.slug,
+        posterImage: collectionData.posterImage,
+        movies: {
+          connect: randomMovies.map((movie) => ({ id: movie.id })),
+        },
+      },
+    })
+  );
+}
+const collections = await Promise.all(collectionsPromises);
 
   const ratings = await Promise.all(ratingsPromises);
   const galleries = await Promise.all(galleryPromises);

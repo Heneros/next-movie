@@ -1,0 +1,52 @@
+import { Type } from 'class-transformer';
+import {
+  IsIn,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
+
+export class FilterTvShows {
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1900)
+  public year?: number;
+
+  @IsOptional()
+  @IsString()
+  public category?: string[];
+
+  @IsOptional()
+  @IsString()
+  public director?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Max(10)
+  public minRating?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Max(10)
+  public avgRating?: number;
+
+  @IsOptional()
+  @IsIn(['year', 'rating', 'title'])
+  public orderBy?: string = 'title';
+
+  @IsOptional()
+  @IsIn(['asc', 'desc'])
+  public order?: 'asc' | 'desc';
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  public offset?: number;
+}

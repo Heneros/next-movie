@@ -32,8 +32,6 @@ function Card({
     featured?: boolean
 
 }) {
-
-
     return (<div className={`relative ${featured ? 'z-20 ' : 'z-10'
         }`}
 

@@ -22,6 +22,18 @@ enum Recommended {
   NEGATIVE
 }
 
+ model Collections{
+    id        Int   @id @default(autoincrement())
+    title String
+    slug  String @unique()
+    posterImage  String? 
+     movies      Movie[]  @relation("CollectionMovies")
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+ }
+
+
+
 model VerifyResetToken {
   id        Int   @id @default(autoincrement())
   token     String
@@ -186,7 +198,8 @@ model Movie {
   poster      Avatar[]  
   comments      Comment[]
   likes         Like[]
- 
+  collections    Collections[]  @relation("CollectionMovies")
+
 
   review Review[]
   watchItem WatchListItem[]
