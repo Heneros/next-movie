@@ -120,7 +120,7 @@ export default async function Home() {
             </section >
 
             <section>
-                <Collections />
+                <Collections series={tvSeries} movies={popular}   />
             </section>
         </>
     )
