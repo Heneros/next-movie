@@ -5,55 +5,27 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import { collections } from '@/_data/slider';
-
-
-function StackedCard({
-    title,
-    image,
-    image2,
-    image3
-}: {
-    title: string;
-    image2: string;
-    image3: string;
-    image: string;
-}) {
-    return (
-        <div className='relative h-full  cursor-pointer'>
-            <div className='absolute inset-0 translate-x-8 translate-y-9  scale-[0.96]  z-0    '>
-                <div className='w-full h-full rounded-2xl overflow-hidden'>
-                    <Image src={image3} width={150} height={150} alt="" className="w-full h-full object-cover opacity-35" />
-                </div>
-            </div>
-
-            <div className='absolute inset-0 translate-y-6 translate-x-4 scale-[0.96]   z-10   '>
-                <div className='w-full h-full rounded-2xl overflow-hidden'>
-                    <Image src={image2} width={150} height={150} alt="" className="w-full h-full object-cover opacity-65" />
-                </div>
-            </div>
-            <div className="relative z-20 h-full overflow-hidden translate-y-0 rounded-3xl hover:translate-x-10   hover:translate-y-10  duration-500 hover:z-50 ">
-                <div className='w-full h-full rounded-2xl '>
-                    <Image src={image} width={150} height={150} alt="" className="w-full h-full object-cover opacity-100" />
-                    <div className='absolute bottom-0  m-auto  inset-x-0 w-25 h-45 z-36'>
-                        <h2 className='text-4xl font-extrabold text-white'>
-                            {title}
-                        </h2>
-
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    );
-}
+// import { collections } from '@/_data/slider';
+import StackedCard from './CollectionItem';
 
 
 
 
 export default function Collections({ series, movies }) {
     const [tab, setTab] = useState<"Series" | "Movies">('Movies');
+
+
+    const newAMovies = movies.map(item => ({
+        ...item,
+        type: 'Movies'
+    }))
+
+    const newAMSeries = series.map(item => ({
+        ...item,
+        type: 'Series'
+    }))
+
+    const collections = [...newAMovies, ...newAMSeries]
 
     const filteredCollections = collections.filter(item => item.type === tab)
     return (
@@ -82,8 +54,6 @@ export default function Collections({ series, movies }) {
                             className={`relative z-10 flex-1 text-sm  ${tab === 'Movies' ? 'text-white' : 'text-[#000]'}`}
                             type="button"
                             role="tab">Movies</button>
-
-
                     </div>
                 </div>
             </div>
@@ -95,17 +65,10 @@ export default function Collections({ series, movies }) {
                     autoplay={{ delay: 4500 }}
                     spaceBetween={12}
                     slidesPerView={4}
-                    // breakpoints={{
-                    //     1024: { slidesPerView: 4, spaceBetween: 35 },
-                    // }}
-
-
-
-
+                    breakpoints={{
+                        1024: { slidesPerView: 4, spaceBetween: 35 },
+                    }}
                     direction='horizontal' className="px-6 py-10  h-[375px] " >
-
-
-
                     {filteredCollections.map(item => (
                         <SwiperSlide className=" max-h-80">
                             <StackedCard
@@ -116,9 +79,6 @@ export default function Collections({ series, movies }) {
                             />
                         </SwiperSlide>
                     ))}
-
-
-
                 </Swiper>
             </div>
         </>
