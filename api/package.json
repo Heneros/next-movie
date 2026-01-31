@@ -41,7 +41,7 @@
     "@/reviews/*": "dist/src/reviews/*"
   },
   "scripts": {
-    "build": "rimraf dist && nest build",
+    "build": "tsc -p tsconfig.build.json",
     "build:watch": "tsc -p tsconfig.json --watch",
     "start:watch": "wait-on dist/src/main.js && nodemon -L --watch dist/src --ext js,json --exec \"node -r module-alias/register dist/src/main.js\"",
     "prisma:generate": "pnpm --filter api exec prisma generate",
@@ -68,6 +68,7 @@
     "@nestjs/apollo": "^13.2.1",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
+    "concurrently": "^9.2.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/cqrs": "^11.0.3",
@@ -118,7 +119,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
     "@faker-js/faker": "^9.9.0",
-    "@nestjs/cli": "^11.0.0",
+    "@nestjs/cli": "^11.0.16",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@swc/cli": "^0.6.0",
@@ -136,7 +137,6 @@
     "@types/passport-github2": "^1.2.9",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.2",
-    "concurrently": "^9.2.1",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",

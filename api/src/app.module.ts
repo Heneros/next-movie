@@ -26,6 +26,7 @@ import { UsersRepository } from './users/repository/Users.repository';
 import { TvShowsModule } from './tv-shows/tv-shows.module';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
 import { RedisService } from './redis/redis.service';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { RedisService } from './redis/redis.service';
     RedisModule,
     AnalyticsModule,
     AiAgentModule,
+    PaymentModule,
 
     // RedisService,
     ReviewsModule,

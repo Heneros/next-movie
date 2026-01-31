@@ -7,11 +7,11 @@ import Stripe from 'stripe'
       provide: 'STRIPE',
       useFactory: () => {
         return new Stripe(process.env.STRIPE_SECRET_KEY!, {
-          apiVersion: '2023-10-16',
+          apiVersion: '2025-08-27.basil',
         })
       },
     },
   ],
   exports: ['STRIPE'],
 })
-export class StripeModule {}
+export class PaymentModule {}
