@@ -43,6 +43,7 @@ services:
       - RUN_MIGRATIONS_ON_START=0
     volumes:
       - ./api:/usr/src/app
+      - nest_node_modules:/usr/src/app/node_modules  
     working_dir: /usr/src/app
     tmpfs:
       - /tmp
@@ -169,6 +170,7 @@ volumes:
   mongo-express-data:
   nest_node_modules:
   next_node_modules:
+
 
 networks:
   movie_net:
