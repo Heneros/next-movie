@@ -84,9 +84,9 @@ export class UserEntity implements User {
   @Field(() => String, { nullable: true })
   provider: string;
 
-  @ApiProperty()
-  @Field(() => String, { nullable: true })
-  payment: string;
+  // @ApiProperty()
+  // @Field(() => String, { nullable: true })
+  // payment: string;
 
   @Exclude()
   password: string;

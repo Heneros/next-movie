@@ -24,8 +24,6 @@ import path, { join } from 'path';
 import { FavoriteModule } from './favorites/favorites.module';
 import { UsersRepository } from './users/repository/Users.repository';
 import { TvShowsModule } from './tv-shows/tv-shows.module';
-import { CloudinaryService } from './cloudinary/cloudinary.service';
-import { RedisService } from './redis/redis.service';
 import { PaymentModule } from './payment/payment.module';
 
 @Module({

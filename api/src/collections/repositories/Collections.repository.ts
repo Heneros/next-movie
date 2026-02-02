@@ -4,7 +4,6 @@ import { Injectable } from '@nestjs/common';
 import { Collections, PrismaClient } from '@prisma/client';
 import { CreateTvShowDto } from '../dto-input/CreateTvShow.dto';
 
-
 @Injectable()
 export class CollectionsRepository extends AbstractRepositoryPrisma<Collections> {
   protected readonly prisma: PrismaClient;
@@ -29,6 +28,4 @@ export class CollectionsRepository extends AbstractRepositoryPrisma<Collections>
       authorId,
     });
   }
-
-
 }

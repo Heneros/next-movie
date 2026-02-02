@@ -67,7 +67,6 @@ export const MOVIE_ROUTES = {
   POSTER_IMG: 'posterUrl/:movieId',
 } as const;
 
-
 export const TV_SHOW_CONTROLLER = 'tvShow' as const;
 
 export const TV_SHOW_ROUTES = {
@@ -116,4 +115,10 @@ export const FAVORITES__ROUTES = {
   GET_ALL_FAVORITES: ':userId',
 
   REMOVE_FAVORITE: ':id',
+} as const;
+
+export const PAYMENT_CONTROLLER = 'payment' as const;
+
+export const PAYMENT_ROUTES = {
+  CREATE_INTENT: 'intent',
 } as const;

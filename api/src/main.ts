@@ -15,9 +15,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   console.log('BOOTSTRAP STARTED');
 
-
-
-  
   // console.log(process.env.SECRET_SESSION);
   app.enableCors({
     origin: [domainClient, domainClientDocker],
@@ -82,7 +79,6 @@ async function bootstrap() {
         type: 'http',
         scheme: 'bearer',
 
-        
         bearerFormat: 'JWT',
         in: 'cookie',
       },
@@ -90,7 +86,7 @@ async function bootstrap() {
     )
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  
+
   SwaggerModule.setup('api', app, document, {
     customCssUrl: 'https://unpkg.com/swagger-ui-dist@4/swagger-ui.css',
     customJs: [
