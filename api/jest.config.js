@@ -20,6 +20,7 @@ module.exports = {
     '^@/movies/(.*)$': '<rootDir>/src/movies/$1',
 
     '^@/redis/(.*)$': '<rootDir>/src/redis/$1',
+       '^@/tv-shows/(.*)$': '<rootDir>/src/tv-shows/$1',
     '^@/analytics/(.*)$': '<rootDir>/src/analytics/$1',
   },
 

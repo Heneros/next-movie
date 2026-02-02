@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Payment" ALTER COLUMN "movieId" DROP NOT NULL,
+ALTER COLUMN "tvShowId" DROP NOT NULL;

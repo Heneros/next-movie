@@ -38,12 +38,12 @@ Seed data to database:
 
 ## Functionality in app
 
-- Registration include dto check user and Throttle
+- Registration included dto check user with throttle
 - Oauth2 with Github, Google
 - After user registration to user send email during 15 minutes should validate his email
 - Request and Reset Passwords
-- Resend Email if user missed
-- Cloud saving images: avatar user, poster movie, gallery images to movie
+- Resend Email if user missed him
+- Cloud saving images: avatar user, poster movie, gallery images to movie or tvShows
 - Favorites movie to specific user only for registered users
 - CRUD operations with movie available implemented with functionality RBAC. 
 - Reviews functionality to movie only for registered users
@@ -54,6 +54,7 @@ Seed data to database:
 
 - Reviews
 - Movies
+- TvShows
 - Users
 - Auth
 - Analytics
@@ -78,6 +79,7 @@ Seed data to database:
 - Redis
 - Chart.js
 - HuggingFace
+- Multer with Cloudinary
 
 
 ---

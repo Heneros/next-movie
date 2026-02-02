@@ -12,6 +12,4 @@ export class PaymentsService {
       automatic_payment_methods: { enabled: true },
     });
   }
-
-  
 }

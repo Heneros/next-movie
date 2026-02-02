@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
 import Stripe from 'stripe';
+import * as Handlers from './handlers/index';
+
 import { PaymentsController } from './payment.controller';
 import { PaymentsService } from './payment.service';
 import { PaymentRepository } from './repositories/Payment.repository';
 import { PrismaService } from '@/prisma/prisma.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
+  imports: [],
   providers: [
     {
       provide: 'STRIPE',
@@ -15,9 +19,11 @@ import { PrismaService } from '@/prisma/prisma.service';
         });
       },
     },
-    PaymentsService, 
+    PaymentsService,
     PaymentRepository,
-    PrismaService
+    PrismaService,
+    JwtService,
+    ...Object.values(Handlers),
   ],
   controllers: [PaymentsController],
   exports: ['STRIPE'],

@@ -97,8 +97,8 @@ model Payment {
   providerPaymentId String @unique
 
   userId Int 
-  movieId Int 
-  tvShowId Int 
+  movieId Int? 
+  tvShowId Int? 
 
   user User @relation(fields: [userId], references: [id], onDelete: SetNull)
   movie Movie? @relation(fields: [movieId], references: [id],onDelete: SetNull)

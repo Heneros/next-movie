@@ -8,3 +8,13 @@ export const movieDataTest = {
   slug: '',
   provider: '',
 };
+
+
+export const tvShowDataTest = {
+  title: 'James',
+  category: ['Fantastic'],
+  year: 1999,
+  tags: ['Fantastic'],
+  slug: '',
+  provider: '',
+};
