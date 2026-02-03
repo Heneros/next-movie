@@ -17,6 +17,8 @@ next/node_modules/
 next/.next
 /dist*
 api/dist/*
+.pnpm-linux/*
+
 
 !.env.example
 .env.docker
