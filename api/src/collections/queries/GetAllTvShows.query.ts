@@ -2,7 +2,7 @@ import { IQuery } from '@nestjs/cqrs';
 import { FilterTvShows } from '../dto-input/Filter-tvShows.dto';
 // import { FilterMovieDto } from '../dto-input/filter-movie.dto';
 
-export class GetAllTvShowQuery implements IQuery {
+export class GetAllTvSQuery implements IQuery {
   constructor(
     public readonly offset: number,
     public readonly limit: number,

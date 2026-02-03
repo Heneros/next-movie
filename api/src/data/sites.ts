@@ -122,3 +122,13 @@ export const PAYMENT_CONTROLLER = 'payment' as const;
 export const PAYMENT_ROUTES = {
   CREATE_INTENT: 'intent',
 } as const;
+
+export const COLLECTIONS_CONTROLLER = 'collections' as const;
+
+export const COLLECTIONS_ROUTES = {
+  GET_ALL: '',
+  GET_ID_COLLECTION: ':collectionId',
+  CREATE_COLLECTION: '',
+  UPDATE_COLLECTION: ':collectionId',
+  DELETE_COLLECTION: ':collectionId',
+} as const;

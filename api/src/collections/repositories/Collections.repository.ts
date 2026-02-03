@@ -28,4 +28,25 @@ export class CollectionsRepository extends AbstractRepositoryPrisma<Collections>
       authorId,
     });
   }
+
+  async findAll(){
+    return await this.findMany({
+      include: {
+        movies:{
+          published: true
+        },
+        take: 4,
+        orderBy: {
+          createdAt: 'desc'
+        },
+        select:{
+                  id: true,
+        title: true,
+        slug: true,
+        posterUrl: true,
+        avgRating: true,
+        }
+      }
+    });
+  }
 }

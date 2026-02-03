@@ -55,6 +55,11 @@ export class CollectionsController {
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
+  @Get(TV_SHOW_ROUTES.GET_ALL)
+  async getAllCollections(){
+    
+  }
+
   // @Get(TV_SHOW_ROUTES.GET_ALL)
   // @ApiOperation({
   //   summary: 'Get All tvShow.',
