@@ -25,6 +25,7 @@ import { FavoriteModule } from './favorites/favorites.module';
 import { UsersRepository } from './users/repository/Users.repository';
 import { TvShowsModule } from './tv-shows/tv-shows.module';
 import { PaymentModule } from './payment/payment.module';
+import { CollectionsModule } from './collections/collections.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { PaymentModule } from './payment/payment.module';
     ReviewsModule,
     FavoriteModule,
     TvShowsModule,
+    CollectionsModule
   ],
   controllers: [AppController],
   providers: [AppService],

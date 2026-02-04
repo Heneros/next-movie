@@ -3,7 +3,7 @@ import { RedisModule } from '@/redis/redis.module';
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 
-// import * as Handlers from './handlers/index';
+import * as Handlers from './handlers/index';
 
 import { RedisService } from '@/redis/redis.service';
 import { JwtService } from '@nestjs/jwt';
@@ -16,9 +16,9 @@ import { CollectionsController } from './collections.controller';
   imports: [PrismaModule, CqrsModule, RedisModule, CloudinaryModule],
   controllers: [CollectionsController],
   providers: [
-    // ...Object.values(Handlers),
+    ...Object.values(Handlers),
     CollectionsRepository,
-    // RedisService,
+
     JwtService,
     PrismaService,
   ],

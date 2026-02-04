@@ -28,25 +28,30 @@ export class CollectionsRepository extends AbstractRepositoryPrisma<Collections>
       authorId,
     });
   }
-
-  async findAll(){
-    return await this.findMany({
+async findAllCollections(offset: number, limit: number) {
+  const [data, total] = await Promise.all([
+    this.model.findMany({
+      take: limit,
+      skip: offset,
+      orderBy: { createdAt: 'desc' },
       include: {
-        movies:{
-          published: true
-        },
-        take: 4,
-        orderBy: {
-          createdAt: 'desc'
-        },
-        select:{
-                  id: true,
-        title: true,
-        slug: true,
-        posterUrl: true,
-        avgRating: true,
+        movies: {
+          where: { published: true },        // опционально
+          orderBy: { createdAt: 'desc' },
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            posterUrl: true,
+            avgRating: true,
+          },
+          take: 3, // например, вернуть только 3 фильма в каждой коллекции
         }
       }
-    });
-  }
+    }),
+    this.model.count(), // при необходимости применяй тот же where/фильтр, что и в findMany
+  ]);
+
+  return { data, total };
+}
 }

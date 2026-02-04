@@ -15,6 +15,7 @@ export abstract class AbstractRepositoryPrisma<T> {
   async findMany(params?: {
     where?: any;
     skip?: number;
+    include?: any;
     take?: number;
     orderBy?: any;
   }): Promise<T[]> {

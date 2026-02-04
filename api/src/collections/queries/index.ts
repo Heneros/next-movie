@@ -1,2 +1,1 @@
-export * from './GetAllTvCollections.query';
-export * from './GetIdTvShow.query';
+export * from './GetAllCollections.query';

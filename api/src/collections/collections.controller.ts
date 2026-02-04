@@ -27,26 +27,16 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import {
-  MOVIE_CONTROLLER,
-  PAGINATION_LIMIT,
-  TV_SHOW_CONTROLLER,
-  TV_SHOW_ROUTES,
+  COLLECTIONS_CONTROLLER,
+  COLLECTIONS_ROUTES,
 } from '../data';
 import { Role } from '@/decorators/role.decorator';
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
-import { CreateTvShowDto } from './dto-input/CreateTvShow.dto';
 import { User } from '@/decorators/user.decorator';
-// import {
-//   CreateTvShowCommand,
-//   DeleteTvShowCommand,
-//   UpdateTvShowCommand,
-// } from './commands';
 import type { User as UserType } from '../interfaces';
-import { GetAllTvShowQuery, GetIdTvShowQuery } from './queries';
-import { FilterTvShows } from './dto-input/Filter-tvShows.dto';
-import { UpdateTvShowDto } from './dto-input/UpdateTvShow.dto';
+import { GetAllCollectionsQuery } from './queries';
 
-@Controller(TV_SHOW_CONTROLLER)
+@Controller(COLLECTIONS_CONTROLLER)
 @ApiTags('Collections')
 export class CollectionsController {
   constructor(
@@ -55,11 +45,22 @@ export class CollectionsController {
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  @Get(TV_SHOW_ROUTES.GET_ALL)
-  async getAllCollections(){
-    
+  @Get(COLLECTIONS_ROUTES.GET_ALL)
+    @ApiOperation({
+    summary: 'Get All Collections.',
+  })
+  async getAllCollections(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ){
+    page = Math.max(1, page);
+    limit = Math.max(1, Math.min(limit, 100));
+    const offset = (page - 1) * limit;
+    const collections = await this.queryBus.execute(new GetAllCollectionsQuery(offset, limit, page  ));
+    return collections;
   }
 
+  
   // @Get(TV_SHOW_ROUTES.GET_ALL)
   // @ApiOperation({
   //   summary: 'Get All tvShow.',

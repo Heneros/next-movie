@@ -38,6 +38,8 @@ enum StatusPayment{
   FAILED 
   CANCELED
 }
+
+
  model Collections{
     id        Int   @id @default(autoincrement())
     title String
