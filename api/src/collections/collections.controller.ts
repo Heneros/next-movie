@@ -35,6 +35,7 @@ import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
 import { User } from '@/decorators/user.decorator';
 import type { User as UserType } from '../interfaces';
 import { GetAllCollectionsQuery } from './queries';
+import { CreateCollectionDto } from './dto-input/CreateCollection.dto';
 
 @Controller(COLLECTIONS_CONTROLLER)
 @ApiTags('Collections')
@@ -60,6 +61,16 @@ export class CollectionsController {
     return collections;
   }
 
+  @Post(COLLECTIONS_ROUTES.CREATE_COLLECTION)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')
+  async createCollection(
+    
+    @Body() createCollectionDto: CreateCollectionDto,
+    @Param('movieId', CheckMovieExist) movieId: number
+  ){
+
+  }
   
   // @Get(TV_SHOW_ROUTES.GET_ALL)
   // @ApiOperation({

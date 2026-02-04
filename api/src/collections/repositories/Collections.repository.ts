@@ -2,7 +2,6 @@ import { AbstractRepositoryPrisma } from '@/prisma/abstract.repository';
 import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Collections, PrismaClient } from '@prisma/client';
-import { CreateTvShowDto } from '../dto-input/CreateTvShow.dto';
 
 @Injectable()
 export class CollectionsRepository extends AbstractRepositoryPrisma<Collections> {
@@ -19,15 +18,7 @@ export class CollectionsRepository extends AbstractRepositoryPrisma<Collections>
       OR: [{ title }, { slug }],
     });
   }
-  async createCollections(
-    authorId: number,
-    createTvShowDto: CreateTvShowDto,
-  ): Promise<Collections | null> {
-    return await this.create({
-      ...createTvShowDto,
-      authorId,
-    });
-  }
+
 async findAllCollections(offset: number, limit: number) {
   const [data, total] = await Promise.all([
     this.model.findMany({
@@ -36,7 +27,7 @@ async findAllCollections(offset: number, limit: number) {
       orderBy: { createdAt: 'desc' },
       include: {
         movies: {
-          where: { published: true },        // опционально
+          where: { published: true },      
           orderBy: { createdAt: 'desc' },
           select: {
             id: true,
@@ -45,11 +36,11 @@ async findAllCollections(offset: number, limit: number) {
             posterUrl: true,
             avgRating: true,
           },
-          take: 3, // например, вернуть только 3 фильма в каждой коллекции
+          take: 3,
         }
       }
     }),
-    this.model.count(), // при необходимости применяй тот же where/фильтр, что и в findMany
+    this.model.count(),
   ]);
 
   return { data, total };
