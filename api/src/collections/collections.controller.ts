@@ -36,6 +36,7 @@ import { User } from '@/decorators/user.decorator';
 import type { User as UserType } from '../interfaces';
 import { GetAllCollectionsQuery } from './queries';
 import { CreateCollectionDto } from './dto-input/CreateCollection.dto';
+import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
 
 @Controller(COLLECTIONS_CONTROLLER)
 @ApiTags('Collections')
@@ -67,7 +68,7 @@ export class CollectionsController {
   async createCollection(
     
     @Body() createCollectionDto: CreateCollectionDto,
-    @Param('movieId', CheckMovieExist) movieId: number
+    @Param('movieId', CheckMovieExistPipe) movieId: number
   ){
 
   }

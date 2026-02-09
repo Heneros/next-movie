@@ -27,6 +27,8 @@ import { TvShowsModule } from './tv-shows/tv-shows.module';
 import { PaymentModule } from './payment/payment.module';
 import { CollectionsModule } from './collections/collections.module';
 
+
+
 @Module({
   imports: [
     ConfigModule.forRoot({

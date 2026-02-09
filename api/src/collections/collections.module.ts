@@ -11,6 +11,7 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { CloudinaryModule } from '@/cloudinary/cloudinary.module';
 import { CollectionsRepository } from './repositories/Collections.repository';
 import { CollectionsController } from './collections.controller';
+import { MovieRepository } from '@/movies/repository/Movie.repository';
 
 @Module({
   imports: [PrismaModule, CqrsModule, RedisModule, CloudinaryModule],
@@ -18,7 +19,7 @@ import { CollectionsController } from './collections.controller';
   providers: [
     ...Object.values(Handlers),
     CollectionsRepository,
-
+    MovieRepository,
     JwtService,
     PrismaService,
   ],
