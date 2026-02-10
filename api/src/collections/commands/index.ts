@@ -1,3 +1,4 @@
 export * from './CreateCollection.command';
-export * from './UpdateTvShow.command';
-export * from './DeleteTvShow.command';
+export * from './DeleteCollection.command';
+export * from './UpdateCollection.command';
+export * from './AddMovieCollection.command';

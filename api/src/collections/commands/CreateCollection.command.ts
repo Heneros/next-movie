@@ -1,7 +1,9 @@
 import { ICommand } from '@nestjs/cqrs';
+import { CreateCollectionDto } from '../dto-input/CreateCollection.dto';
 
 export class CreateCollectionCommand implements ICommand {
   constructor(
-    public readonly createCollectionDt: number,
+    public readonly createCollectionDto: CreateCollectionDto,
+    
   ) {}
 }

@@ -1,4 +1,4 @@
- import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateCollectionCommand } from '../commands';
 
 import { BadRequestException } from '@nestjs/common';
@@ -9,22 +9,21 @@ export class CreateCollectionHandler implements ICommandHandler<CreateCollection
   constructor(private readonly collectionsRepository: CollectionsRepository) {}
 
   async execute(command: CreateCollectionCommand) {
-//     const { userId, createTvShowDto } = command;
+    const { createCollectionDto } = command;
 
-//     const tvShowExist = await this.tvShowRepository.findByTitleOrSlug(
-//       createTvShowDto.title,
-//       createTvShowDto.slug,
-//     );
-//     if (tvShowExist) {
-//       throw new BadRequestException(
-//         'TvShow already exists with this title and slug. ',
-//       );
-//     }
-//     const createTv = await this.tvShowRepository.createTvShow(
-//       userId,
-//       createTvShowDto,
-//     );
+    const collectionExist = await this.collectionsRepository.findUnique({
+      slug: createCollectionDto.slug,
+    });
 
-//     return createTv;
+    if (collectionExist) {
+      throw new BadRequestException(
+        'Collection already exists with this title. ',
+      );
+    }
+
+    const createCollection =
+      await this.collectionsRepository.create(createCollectionDto);
+
+    return createCollection;
   }
 }

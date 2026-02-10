@@ -37,6 +37,7 @@ import type { User as UserType } from '../interfaces';
 import { GetAllCollectionsQuery } from './queries';
 import { CreateCollectionDto } from './dto-input/CreateCollection.dto';
 import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
+import { CreateCollectionCommand } from './commands';
 
 @Controller(COLLECTIONS_CONTROLLER)
 @ApiTags('Collections')
@@ -66,11 +67,11 @@ export class CollectionsController {
   @UseGuards(JwtAuthGuard)
   @Role('ADMIN', 'EDITOR')
   async createCollection(
-    
     @Body() createCollectionDto: CreateCollectionDto,
-    @Param('movieId', CheckMovieExistPipe) movieId: number
-  ){
 
+  ){
+               const res = await this.commandBus.execute(new CreateCollectionCommand(createCollectionDto))
+               return res
   }
   
   // @Get(TV_SHOW_ROUTES.GET_ALL)

@@ -32,17 +32,17 @@ function Card({
     featured?: boolean
 
 }) {
-    return (<div className={`relative ${featured ? 'z-20 ' : 'z-10'
+    return (
+    
+    <div className={`relative ${featured ? 'z-20 ' : 'z-10'
         }`}
-
     >
         <Image
             src={image}
             alt={title}
-            //  width={featured ? 300 : 260}
             className="w-100 sm:w-full "
-
-        />      <div className={`absolute inset-0 flex flex-col items-center justify-between py-8 text-center pointer-events-auto ${featured ? "top-1/5" : "lg:top-15 top-5"}`}>
+        />     
+         <div className={`absolute inset-0 flex flex-col items-center justify-between py-8 text-center pointer-events-auto ${featured ? "top-1/5" : "lg:top-15 top-5"}`}>
             <div>
                 <h3 className={`text-4xl font-lato tracking-wide ${featured ? 'text-white' : 'text-primary-second'}`}> {title}  </h3>
 

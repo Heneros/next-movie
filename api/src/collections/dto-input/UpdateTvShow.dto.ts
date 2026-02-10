@@ -1,4 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateCollectionDto } from './CreateCollection.dto';
 
-// import { CreateTvShowDto } from './CreateCollection.dto';
-
-// export class UpdateTvShowDto extends PartialType(CreateTvShowDto) {}
+export class UpdateCollectionDto extends PartialType(CreateCollectionDto) {}

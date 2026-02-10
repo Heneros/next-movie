@@ -8,7 +8,7 @@
       "esnext"
     ],
     "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "",
     "tsBuildInfoFile": "./.tsbuildinfo",
     "allowJs": true,
     "skipLibCheck": true,
