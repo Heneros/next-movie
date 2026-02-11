@@ -16,7 +16,7 @@ export class DeleteCollectionHandler implements ICommandHandler<DeleteCollection
 
     await this.collectionRepository.delete({ id: collectionId });
     await this.redisService.deleteItemCache(
-      RedisPrefixEnum.TV_SHOW_ID,
+      RedisPrefixEnum.COLLECTIONS_ID,
       collectionId,
     );
     return { message: `Collection was deleted`, collectionId };

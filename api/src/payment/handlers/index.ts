@@ -1,2 +1,1 @@
-
-export * from  './CreateIntent.handler';
+export * from './CreateIntent.handler';

@@ -26,10 +26,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import {
-  COLLECTIONS_CONTROLLER,
-  COLLECTIONS_ROUTES,
-} from '../data';
+import { COLLECTIONS_CONTROLLER, COLLECTIONS_ROUTES } from '../data';
 import { Role } from '@/decorators/role.decorator';
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
 import { User } from '@/decorators/user.decorator';
@@ -37,7 +34,11 @@ import type { User as UserType } from '../interfaces';
 import { GetAllCollectionsQuery } from './queries';
 import { CreateCollectionDto } from './dto-input/CreateCollection.dto';
 import { CheckMovieExistPipe } from '@/pipe/CheckMovieExist.pipe';
-import { CreateCollectionCommand } from './commands';
+import {
+  AddMovieCollectionCommand,
+  CreateCollectionCommand,
+  DeleteCollectionCommand,
+} from './commands';
 
 @Controller(COLLECTIONS_CONTROLLER)
 @ApiTags('Collections')
@@ -49,31 +50,70 @@ export class CollectionsController {
   ) {}
 
   @Get(COLLECTIONS_ROUTES.GET_ALL)
-    @ApiOperation({
+  @ApiOperation({
     summary: 'Get All Collections.',
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    description: 'Items per page',
+    type: Number,
   })
   async getAllCollections(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-  ){
+  ) {
     page = Math.max(1, page);
     limit = Math.max(1, Math.min(limit, 100));
     const offset = (page - 1) * limit;
-    const collections = await this.queryBus.execute(new GetAllCollectionsQuery(offset, limit, page  ));
+    const collections = await this.queryBus.execute(
+      new GetAllCollectionsQuery(offset, limit, page),
+    );
     return collections;
   }
 
+  @ApiOperation({
+    summary: 'Create collection.',
+  })
   @Post(COLLECTIONS_ROUTES.CREATE_COLLECTION)
   @UseGuards(JwtAuthGuard)
   @Role('ADMIN', 'EDITOR')
-  async createCollection(
-    @Body() createCollectionDto: CreateCollectionDto,
-
-  ){
-               const res = await this.commandBus.execute(new CreateCollectionCommand(createCollectionDto))
-               return res
+  async createCollection(@Body() createCollectionDto: CreateCollectionDto) {
+    const res = await this.commandBus.execute(
+      new CreateCollectionCommand(createCollectionDto),
+    );
+    return res;
   }
-  
+
+  @ApiOperation({
+    summary: 'Add to collection movie.',
+  })
+  @Patch(COLLECTIONS_ROUTES.ADD_COLLECTION_COLLECTION)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')
+  async addCollectionMovie(
+    @Param('collectionId') collectionId: number,
+    @Body() movieId: number,
+  ) {
+    const res = await this.commandBus.execute(
+      new AddMovieCollectionCommand(collectionId, movieId),
+    );
+    return res;
+  }
+
+  @ApiOperation({
+    summary: 'Delete Collection.',
+  })
+  @Delete(COLLECTIONS_ROUTES.DELETE_COLLECTION)
+  @UseGuards(JwtAuthGuard)
+  @Role('ADMIN', 'EDITOR')
+  async deleteCollection(@Param('collectionId') collectionId: number) {
+    const res = await this.commandBus.execute(
+      new DeleteCollectionCommand(collectionId),
+    );
+    return res;
+  }
+
   // @Get(TV_SHOW_ROUTES.GET_ALL)
   // @ApiOperation({
   //   summary: 'Get All tvShow.',

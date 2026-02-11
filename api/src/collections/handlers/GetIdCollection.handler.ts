@@ -10,6 +10,7 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CACHE_TTL } from '@/data/ttl';
 import { CollectionsRepository } from '../repositories/Collections.repository';
 import { GetIdCollectionQuery } from '../queries';
+import { RedisPrefixEnum } from '@/data/redisPrefixEnum';
 
 @QueryHandler(GetIdCollectionQuery)
 export class GetIdCollectionHandler implements IQueryHandler<GetIdCollectionQuery> {
@@ -22,7 +23,7 @@ export class GetIdCollectionHandler implements IQueryHandler<GetIdCollectionQuer
     const { collectionId } = query;
 
     try {
-      const collectionKey = `collections:id:${collectionId}`;
+      const collectionKey = `${RedisPrefixEnum.COLLECTIONS_ID}:${collectionId}`;
       const collectionCached = await this.redisService.getId(collectionKey);
       if (collectionCached) {
         return JSON.parse(collectionCached);
@@ -32,10 +33,15 @@ export class GetIdCollectionHandler implements IQueryHandler<GetIdCollectionQuer
         id: collectionId,
       });
       if (!collectionIdResult) {
-        throw new NotFoundException(`Collection don\'t exist', ${collectionIdResult}`);
+        throw new NotFoundException(
+          `Collection don\'t exist', ${collectionIdResult}`,
+        );
       }
 
-      await this.redisService.saveDataItem(String(collectionId), collectionIdResult);
+      await this.redisService.saveDataItem(
+        String(collectionId),
+        collectionIdResult,
+      );
       return collectionIdResult;
     } catch (error) {
       console.error(error);

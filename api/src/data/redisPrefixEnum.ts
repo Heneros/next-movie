@@ -14,4 +14,8 @@ export enum RedisPrefixEnum {
   REVIEWS = 'reviews',
   REVIEWS_LIST = 'reviews:list',
   REVIEWS_ID = 'reviews:id',
+
+  COLLECTIONS = 'collections',
+  COLLECTIONS_LIST = 'collections:list',
+  COLLECTIONS_ID = 'collections:id',
 }

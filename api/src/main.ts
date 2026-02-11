@@ -74,6 +74,10 @@ async function bootstrap() {
       'Movie',
       'Only available for authorized user or admin role. Actions: CRUD operation with movie.',
     )
+    .addTag(
+      'Collection',
+      'Only available for authorized  admin and editor role. Actions: CRUD operation with collection. Also, can add to collection.',
+    )
     .addBearerAuth(
       {
         type: 'http',

@@ -14,19 +14,23 @@ import {
 
 @InputType()
 export class CreateCollectionDto {
-  @ApiProperty({ example: 'My Favorite Collection', description: 'Title of the collection' })
+  @ApiProperty({
+    example: 'My Favorite Collection',
+    description: 'Title of the collection',
+  })
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
   @Field()
   title: string;
 
-  @ApiProperty({ example: 'my-favorite-collection', description: 'Slug for the collection' })
+  @ApiProperty({
+    example: 'my-favorite-collection',
+    description: 'Slug for the collection',
+  })
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
   @Field()
   slug: string;
-
-  
 }

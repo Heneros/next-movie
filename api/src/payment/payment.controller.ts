@@ -10,15 +10,19 @@ import type { User as UseType } from '../interfaces';
 
 @Controller(PAYMENT_CONTROLLER)
 export class PaymentsController {
-  constructor(private readonly paymentService: PaymentsService,   private readonly commandBus: CommandBus,
-      private readonly queryBus: QueryBus,) {}
+  constructor(
+    private readonly paymentService: PaymentsService,
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   ///Stripe Payment Intent
-    @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post(PAYMENT_ROUTES.CREATE_INTENT)
   async createIntentStripe(
     @User() user: UseType,
-    @Body() createIntentDto: CreateIntentDto) {
+    @Body() createIntentDto: CreateIntentDto,
+  ) {
     const res = await this.commandBus.execute(
       new CreateIntentCommand(user.id, createIntentDto),
     );

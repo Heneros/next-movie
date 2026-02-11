@@ -9,7 +9,6 @@ export const movieDataTest = {
   provider: '',
 };
 
-
 export const tvShowDataTest = {
   title: 'James',
   category: ['Fantastic'],

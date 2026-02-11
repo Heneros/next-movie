@@ -131,4 +131,5 @@ export const COLLECTIONS_ROUTES = {
   CREATE_COLLECTION: '',
   UPDATE_COLLECTION: ':collectionId',
   DELETE_COLLECTION: ':collectionId',
+  ADD_COLLECTION_COLLECTION: ':collectionId/movie',
 } as const;

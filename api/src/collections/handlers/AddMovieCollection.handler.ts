@@ -1,7 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AddMovieCollectionCommand, CreateCollectionCommand } from '../commands';
+import {
+  AddMovieCollectionCommand,
+  CreateCollectionCommand,
+} from '../commands';
 
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CollectionsRepository } from '../repositories/Collections.repository';
 
 @CommandHandler(AddMovieCollectionCommand)
@@ -9,21 +12,28 @@ export class AddMovieCollectionHandler implements ICommandHandler<AddMovieCollec
   constructor(private readonly collectionsRepository: CollectionsRepository) {}
 
   async execute(command: AddMovieCollectionCommand) {
-//     const { createCollectionDto } = command;
+    const { collectionId, movieId } = command;
+    console.log(movieId, collectionId);
 
-//     const collectionExist = await this.collectionsRepository.findUnique({
-//       slug: createCollectionDto.slug,
-//     });
+    try {
+      const collectionExist =
+        await this.collectionsRepository.findById(collectionId);
 
-//     if (collectionExist) {
-//       throw new BadRequestException(
-//         'Movie already added with this title. ',
-//       );
-//     }
+      if (collectionExist) {
+        throw new NotFoundException('Movie already added with this title. ');
+      }
+      const res = await this.collectionsRepository.update(
+        collectionId,
+        movieId,
+      );
 
-//     const createCollection =
-//       await this.collectionsRepository.create(createCollectionDto);
+      return res;
+    } catch (error) {
+      if (error instanceof BadRequestException || NotFoundException) {
+        throw error;
+      }
+    }
 
-//     return createCollection;
+    //     return createCollection;
   }
 }

@@ -8,9 +8,9 @@ import {
 // import { GetAllTvShowQuery } from '../queries';
 // import { RedisService } from '@/redis/redis.service';
 // import { PAGINATION_LIMIT } from '@/data/defaultVariables';
- import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 // import { CACHE_TTL } from '@/data/ttl';
-import { GetAllCollectionsQuery } from "../queries";
+import { GetAllCollectionsQuery } from '../queries';
 import { CollectionsRepository } from '../repositories/Collections.repository';
 import { RedisService } from '@/redis/redis.service';
 import { CACHE_TTL, PAGINATION_LIMIT } from '@/data/index';
@@ -34,11 +34,8 @@ export class GetAllCollectionsHandler implements IQueryHandler<GetAllCollections
       //   return collectionsCached;
       // }
 
-      const { data, total } = await this.collectionsRepository.findAllCollections(
-        offset,
-        limit,
-
-      );
+      const { data, total } =
+        await this.collectionsRepository.findAllCollections(offset, limit);
 
       if (data.length === 0) {
         throw new NotFoundException('No collections Exist');
@@ -50,7 +47,7 @@ export class GetAllCollectionsHandler implements IQueryHandler<GetAllCollections
       //   CACHE_TTL.ONE_MINUTE,
       // );
 
-       return res;
+      return res;
     } catch (error) {
       if (error instanceof Error) {
         throw new BadRequestException(`Database error: ${error.message}`);
