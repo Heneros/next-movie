@@ -21,7 +21,7 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn',
       'no-console': 'warn',
 
-      'prettier/prettier': 'warn',
+
     },
   },
 ];

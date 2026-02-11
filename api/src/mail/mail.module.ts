@@ -9,7 +9,6 @@ const templateDir = isDevelopment
   ? join(process.cwd(), 'src', 'mail', 'templates')
   : join(process.cwd(), 'templates');
 
-console.log('USE_MAILDEV_DOCKER', process.env.USE_MAILDEV_DOCKER);
 
 @Module({
   imports: [

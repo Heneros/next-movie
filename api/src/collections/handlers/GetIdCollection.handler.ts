@@ -1,13 +1,9 @@
 import {
-  CommandHandler,
-  ICommandHandler,
   IQueryHandler,
   QueryHandler,
 } from '@nestjs/cqrs';
 import { RedisService } from '@/redis/redis.service';
-import { PAGINATION_LIMIT } from '@/data/defaultVariables';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { CACHE_TTL } from '@/data/ttl';
 import { CollectionsRepository } from '../repositories/Collections.repository';
 import { GetIdCollectionQuery } from '../queries';
 import { RedisPrefixEnum } from '@/data/redisPrefixEnum';
@@ -25,13 +21,16 @@ export class GetIdCollectionHandler implements IQueryHandler<GetIdCollectionQuer
     try {
       const collectionKey = `${RedisPrefixEnum.COLLECTIONS_ID}:${collectionId}`;
       const collectionCached = await this.redisService.getId(collectionKey);
-      if (collectionCached) {
-        return JSON.parse(collectionCached);
-      }
+      // if (collectionCached) {
+      //   return JSON.parse(collectionCached);
+      // }
 
-      const collectionIdResult = await this.collectionsRepository.findUnique({
-        id: collectionId,
-      });
+      const collectionIdResult = await this.collectionsRepository.findById(
+
+    collectionId 
+     
+      );
+
       if (!collectionIdResult) {
         throw new NotFoundException(
           `Collection don\'t exist', ${collectionIdResult}`,

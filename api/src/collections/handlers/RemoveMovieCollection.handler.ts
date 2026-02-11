@@ -2,26 +2,26 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   AddMovieCollectionCommand,
   CreateCollectionCommand,
+  RemoveMovieCollectionCommand,
 } from '../commands';
+
 import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
 import { CollectionsRepository } from '../repositories/Collections.repository';
 import { CollectionInterface } from '@/interfaces/model.interface';
 
-@CommandHandler(AddMovieCollectionCommand)
-export class AddMovieCollectionHandler implements ICommandHandler<AddMovieCollectionCommand> {
+@CommandHandler(RemoveMovieCollectionCommand)
+export class RemoveMovieCollectionHandler implements ICommandHandler<RemoveMovieCollectionCommand> {
   constructor(private readonly collectionsRepository: CollectionsRepository) {}
 
-  async execute(command: AddMovieCollectionCommand) {
+  async execute(command: RemoveMovieCollectionCommand) {
     const { collectionId, movieId } = command;
     // console.log(movieId, collectionId);
 
     try {
-    const collectionExist = await this.collectionsRepository.findUnique(
-{
-    where: { id: collectionId },
+    const collectionExist = await this.collectionsRepository.findUnique({
+     where: { id: collectionId },
         include: { movies: true } 
-}
-    ) as CollectionInterface;
+    }) as CollectionInterface;
 
 
       if (!collectionExist) {
@@ -30,14 +30,7 @@ export class AddMovieCollectionHandler implements ICommandHandler<AddMovieCollec
         );
       }
 
-      const alreadyExist = collectionExist?.movies?.some((movie) => movie.id === movieId) ?? false;
-
-          if (alreadyExist) {
-      throw new ConflictException(`Movie ${movieId} is already in collection ${collectionId}`);
-    }
-
-
-      const res = await this.collectionsRepository.addMovieToCollection(
+      const res = await this.collectionsRepository.removeMovieToCollection(
         collectionId,
       movieId
       );

@@ -8,7 +8,7 @@ export abstract class AbstractRepositoryPrisma<T> {
     return this.model.findFirst({ where });
   }
 
-  async findUnique(where: any): Promise<T | null> {
+  async findUnique(where: any, include?: any): Promise<T | null> {
     return this.model.findUnique({ where });
   }
 

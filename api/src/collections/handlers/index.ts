@@ -4,3 +4,4 @@ export * from './DeleteCollection.handler';
 export * from './GetIdCollection.handler';
 export * from './AddMovieCollection.handler';
 export * from './UpdateCollection.handler';
+export * from './RemoveMovieCollection.handler';

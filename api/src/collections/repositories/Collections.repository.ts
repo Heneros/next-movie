@@ -2,6 +2,7 @@ import { AbstractRepositoryPrisma } from '@/prisma/abstract.repository';
 import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Collections, PrismaClient } from '@prisma/client';
+import { AddMovieToCollectionDto } from '../dto-input/MovieId.dto';
 
 @Injectable()
 export class CollectionsRepository extends AbstractRepositoryPrisma<Collections> {
@@ -26,18 +27,19 @@ export class CollectionsRepository extends AbstractRepositoryPrisma<Collections>
         skip: offset,
         orderBy: { createdAt: 'desc' },
         include: {
-          movies: {
-            where: { published: true },
-            orderBy: { createdAt: 'desc' },
-            select: {
-              id: true,
-              title: true,
-              slug: true,
-              posterUrl: true,
-              avgRating: true,
-            },
-            take: 3,
-          },
+          movies: true
+          // movies: {
+            // where: { published: true },
+            // orderBy: { createdAt: 'desc' },
+            // select: {
+            //   id: true,
+            //   title: true,
+            //   slug: true,
+            //   posterUrl: true,
+            //   avgRating: true,
+            // },
+            // take: 3,
+          // },
         },
       }),
       this.model.count(),
@@ -58,18 +60,41 @@ export class CollectionsRepository extends AbstractRepositoryPrisma<Collections>
     return res;
   }
 
-  async addMovieToCollection(collectionId: number, movieId) {
+ async findCollectionWithM() {
+
+ }
+
+  async addMovieToCollection(collectionId: number, movieId: number) {
     const res = await this.model.update({
       where: {
         id: collectionId,
       },
       data: {
         movies: {
-          connect: {
-            id: movieId,
-          },
+          connect: { id: movieId },
         },
       },
+      include: {
+        movies: true,
+      },
     });
+    return res;
+  }
+
+    async removeMovieToCollection(collectionId: number, movieId: number) {
+    const res = await this.model.update({
+      where: {
+        id: collectionId,
+      },
+      data: {
+        movies: {
+          disconnect: { id: movieId },
+        },
+      },
+      include: {
+        movies: true,
+      },
+    });
+    return res;
   }
 }
